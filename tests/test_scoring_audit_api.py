@@ -203,3 +203,14 @@ def test_publication_gate(trained_ws, tmp_path):
     with pytest.raises(PublicationGateError, match="loan-identifier"):
         export_results(emp, [mid], out_root=tmp_path / "bad")
     (bad / "leak.json").unlink()
+
+
+def test_holdout_evaluation_is_audited_separately(trained_ws, tmp_path):
+    from crisk.models.train import evaluate_on_test
+
+    store = AuditStore(tmp_path / "audit_holdout.sqlite")
+    cfg, mid = trained_ws["cfg"], trained_ws["meta"]["model_id"]
+    r = evaluate_on_test(cfg, mid, store, holdout_cfg=cfg)
+    assert r["evaluation_dataset"] == cfg.dataset_id and r["prior_test_evaluations"] == 0
+    assert [e["action"] for e in store.events()] == ["holdout_evaluated"]
+    assert (cfg.reports_dir / mid / f"evaluation_holdout__{cfg.dataset_id}.json").exists()

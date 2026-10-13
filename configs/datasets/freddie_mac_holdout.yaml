@@ -1,0 +1,20 @@
+# EMPIRICAL, EVALUATION-ONLY: fresh locked holdout for the v2 plan (docs/evaluation_plan_v2.md).
+# Provider sample vintages 2023 and 2024 (Release 47), never used for training, calibration or selection.
+# Models are trained on freddie_mac_combined and scored here once each (crisk evaluate-holdout).
+dataset_id: freddie_mac_holdout
+data_origin: EMPIRICAL
+source_id: freddie_mac_sflld_standard_sample
+contract_version: sflld_r47_2026_07
+loan_id_profile: empirical
+raw_dir: data/raw/freddie_mac/sample
+file_globs: {origination: "-", performance: "-"}   # unused: composed dataset
+compose:
+  - dataset: freddie_mac_sample
+    include: ["sample_orig_2023", "sample_perf_2023", "sample_orig_2024", "sample_perf_2024"]
+performance_cutoff: "2026-03"
+max_structural_reject_rate: 0.001
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v1.yaml
+split_config: configs/splits/holdout_2023_2024.yaml
+model_config: configs/models/logistic_v1.yaml

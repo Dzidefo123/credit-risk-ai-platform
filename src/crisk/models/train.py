@@ -151,16 +151,33 @@ def train_model(cfg: DatasetConfig, store: AuditStore, actor: str = "modeller",
     return metadata
 
 
-def evaluate_on_test(cfg: DatasetConfig, model_id: str, store: AuditStore, actor: str = "validator") -> dict:
-    """Locked test evaluation. Every access is written to the audit chain so repeated peeking is visible."""
+def evaluate_on_test(cfg: DatasetConfig, model_id: str, store: AuditStore, actor: str = "validator",
+                     holdout_cfg: DatasetConfig | None = None) -> dict:
+    """Locked test evaluation. Every access is written to the audit chain so repeated peeking is visible.
+
+    With ``holdout_cfg`` the model (trained on ``cfg``) is scored on the ``test`` split of a separate,
+    evaluation-only dataset; the access is audited as ``holdout_evaluated`` in the model's audit store.
+    """
     bundle, meta = load_bundle(cfg, model_id)
-    snap = _load_snapshots(cfg, meta["feature_set_id"])
-    if sha256_file(snapshot_path(cfg, meta["feature_set_id"])) != meta["training_data"]["feature_snapshot_sha256"]:
-        raise RuntimeError("Feature snapshot changed since training; rebuild/retrain before test evaluation")
+    data_cfg = holdout_cfg or cfg
+    snap_file = snapshot_path(data_cfg, meta["feature_set_id"])
+    snap = pd.read_parquet(snap_file)
+    if holdout_cfg is None:
+        if sha256_file(snap_file) != meta["training_data"]["feature_snapshot_sha256"]:
+            raise RuntimeError("Feature snapshot changed since training; rebuild/retrain before test evaluation")
+        action, report_name = "test_set_evaluated", "evaluation_test.json"
+    else:
+        if holdout_cfg.data_origin != cfg.data_origin:
+            raise ValueError("Holdout and training data origins differ")
+        if bundle.macro is not None:
+            built = read_json(split_manifest_path(holdout_cfg, meta["feature_set_id"])).get("macro", {})
+            if built.get("source_sha256") != bundle.macro.source_sha256:
+                raise RuntimeError("Holdout features were built from different market-rate files than the model")
+        action, report_name = "holdout_evaluated", f"evaluation_holdout__{holdout_cfg.dataset_id}.json"
     all_test = snap[snap.split == "test"]
-    label_cols = target_label_columns(cfg)
-    test = _with_label(all_test, meta.get("label_column", "label"))
-    prior = store.events(action="test_set_evaluated", entity_id=model_id)
+    label_cols = target_label_columns(data_cfg)
+    test = _with_label(all_test, label_cols[meta["target_id"]])
+    prior = store.events(action=action, entity_id=model_id)
     y = test.label.to_numpy()
     prevalence_train = meta["training_data"].get("train_prevalence", meta["split_manifest"]["train"]["prevalence"])
     result = {
@@ -169,6 +186,11 @@ def evaluate_on_test(cfg: DatasetConfig, model_id: str, store: AuditStore, actor
         "evidence_note": EVIDENCE_NOTE[meta["data_origin"]],
         "evaluated_at": utc_now(),
         "split": "test",
+        "evaluation_dataset": data_cfg.dataset_id,
+        "evaluation_snapshot_sha256": sha256_file(snap_file),
+        "fpd_range": [str(all_test.first_payment_date.min())[:10], str(all_test.first_payment_date.max())[:10]],
+        "model_family": meta["model_family"],
+        "feature_set_id": meta["feature_set_id"],
         "target_id": meta["target_id"],
         "prior_test_evaluations": len(prior),
         "logistic_calibrated": binary_metrics(y, bundle.predict(test)),
@@ -191,11 +213,11 @@ def evaluate_on_test(cfg: DatasetConfig, model_id: str, store: AuditStore, actor
         m = binary_metrics(other.label.to_numpy(), bundle.predict(other))
         m.pop("reliability", None)
         result["against_other_targets"][t] = m
-    out = cfg.reports_dir / model_id / "evaluation_test.json"
+    out = cfg.reports_dir / model_id / report_name
     write_json(out, result)
-    store.append_event(actor=actor, action="test_set_evaluated", entity_type="model", entity_id=model_id,
+    store.append_event(actor=actor, action=action, entity_type="model", entity_id=model_id,
                        details={"n": len(test), "roc_auc": result["logistic_calibrated"].get("roc_auc"),
-                                "prior_evaluations": len(prior)})
+                                "evaluation_dataset": data_cfg.dataset_id, "prior_evaluations": len(prior)})
     return result
 
 

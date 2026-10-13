@@ -1,0 +1,10 @@
+split_id: holdout_2023_2024
+# Evaluation-only dataset: train and calibration ranges are deliberately empty (no loans exist there);
+# 'test' is the pre-registered fresh holdout window (docs/evaluation_plan_v2.md). Starts after the end of the
+# previously viewed test window (2023-06); all 12-month windows mature by the 2026-03 cutoff.
+date_column: first_payment_date
+min_gap_months: 12
+splits:
+  train:       {start: "2000-01", end: "2000-12"}
+  calibration: {start: "2002-01", end: "2002-12"}
+  test:        {start: "2023-07", end: "2025-03", source_id: freddie_mac_sflld_standard_sample}

@@ -86,6 +86,21 @@ def cmd_evaluate(cfg, a) -> dict:
                                            "log_loss", "calibration_intercept", "calibration_slope")}}
 
 
+def cmd_evaluate_holdout(cfg, a) -> dict:
+    from crisk.models.train import evaluate_on_test
+
+    if not a.holdout_dataset or not a.model_id:
+        raise SystemExit("--model-id and --holdout-dataset are required")
+    r = evaluate_on_test(cfg, a.model_id, AuditStore(cfg.audit_db), holdout_cfg=load_dataset_config(a.holdout_dataset))
+    m = r["logistic_calibrated"]
+    return {"model_id": a.model_id, "evaluation_dataset": r["evaluation_dataset"], "fpd_range": r["fpd_range"],
+            "target_id": r["target_id"], "prior_holdout_evaluations": r["prior_test_evaluations"],
+            "holdout": {k: m.get(k) for k in ("n", "events", "prevalence", "mean_pd", "observed_expected_ratio",
+                                              "roc_auc", "gini", "ks", "pr_auc", "brier", "calibration_intercept",
+                                              "calibration_slope")},
+            "bootstrap_ci": r["bootstrap_ci_logistic_calibrated"]}
+
+
 def cmd_promote(cfg, a) -> dict:
     from crisk.models.registry import promote
 
@@ -166,6 +181,7 @@ def cmd_run_slice(cfg, a) -> dict:
 COMMANDS = {
     "fixtures": cmd_fixtures, "unpack": cmd_unpack, "ingest": cmd_ingest, "build-canonical": cmd_canonical,
     "build-labels": cmd_labels, "build-features": cmd_features, "train": cmd_train, "evaluate-test": cmd_evaluate,
+    "evaluate-holdout": cmd_evaluate_holdout,
     "promote": cmd_promote, "rollback": cmd_rollback, "score-batch": cmd_score_batch, "replay": cmd_replay,
     "verify-audit": cmd_verify_audit, "export-results": cmd_export_results, "serve": cmd_serve,
     "run-slice": cmd_run_slice,
@@ -182,6 +198,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--target-id", help="train: sensitivity target id (default: primary target)")
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
+    ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
     ap.add_argument("--reviewer")
     ap.add_argument("--rationale")
     ap.add_argument("--split", default="test")
