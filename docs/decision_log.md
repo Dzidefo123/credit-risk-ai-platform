@@ -156,3 +156,8 @@ state-level proxy screen against Census demographics is weak (|ρ| ≤ 0.15). Th
 reproductions, each evaluated once on the 2023–25 holdout (AUC 0.815 / 0.826) and validated 13/14 for
 `demonstration_rank_ordering`. Promotion awaits a named reviewer. F-002 is closed; F-007 (credit-score gradient
 drift) is opened.
+
+**D-032 · 2026-10-13 · Policy engine separate from the model; rank-based fictional demo policy; PD rules blocked without pd_level approval.**
+A historical simulation on the 2023–25 holdout showed strong risk separation (approved 0.09% vs declined 1.36% default
+rate). It also exposed decile drift: 47% of recent loans fall in the 2017–19 "decile 10". The remedy is monitoring
+plus a governed decile refresh on recent applicants (no outcomes needed), built in the monitoring step.
