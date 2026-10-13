@@ -5,8 +5,9 @@ the Freddie Mac Single-Family Loan-Level Dataset (SFLLD). It includes auditable,
 
 > **Status:** the pipeline runs end to end on Freddie Mac SFLLD Release 47: about 3.4M distinct loans and 189.2M monthly
 > records from the 2015–2022 samples plus the full 2015 and 2022 vintages. Empirical results:
-> [baseline model card](docs/results/empirical_baseline_v1.md) (test AUC 0.74–0.77; PD level not stable over time)
-> and [v2/challenger comparison](docs/results/model_comparison_v2.md).
+> [baseline model card](docs/results/empirical_baseline_v1.md) (2022–23 test AUC 0.74–0.77),
+> [v2/challenger comparison](docs/results/model_comparison_v2.md), and the
+> [fresh 2023–24 holdout](docs/results/holdout_2023_2024.md) (AUC 0.81–0.82; absolute PD not stable over time).
 > Research prototype only: not production-ready, not a regulatory model, not a validated credit decision system.
 
 ## Evidence classes

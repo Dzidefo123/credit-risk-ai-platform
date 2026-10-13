@@ -135,7 +135,8 @@ def cmd_export_results(cfg, a) -> dict:
 
     if not a.model_id:
         raise SystemExit("--model-id is required (comma-separated for several models)")
-    return export_results(cfg, [m.strip() for m in a.model_id.split(",") if m.strip()])
+    extra = [load_dataset_config(a.holdout_dataset)] if a.holdout_dataset else None
+    return export_results(cfg, [m.strip() for m in a.model_id.split(",") if m.strip()], extra_datasets=extra)
 
 
 def cmd_verify_audit(cfg, a) -> dict:

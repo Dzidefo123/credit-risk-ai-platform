@@ -13,7 +13,7 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | Models: logistic (M1/M2), LightGBM challenger (M3/M4), Platt calibration, TreeSHAP/linear reasons | **implemented and tested**; trained on real data |
 | v1 baseline evaluated once on the locked 2022–23 test | **done**: [results/empirical_baseline_v1.md](results/empirical_baseline_v1.md) |
 | v2 / challenger comparison on out-of-time development data | **done**: [results/model_comparison_v2.md](results/model_comparison_v2.md) |
-| Fresh locked test for selected v2 models (sample 2023–24 vintages) | **blocked**: needs `sample_2023.zip`, `sample_2024.zip` |
+| Fresh locked holdout (sample 2023–24, FPD 2023-07..2025-03) | **done**, once per model: [results/holdout_2023_2024.md](results/holdout_2023_2024.md). AUC 0.81–0.82; observed/expected 1.78 (M4) / 0.62 (M1) / 0.67 (M1 ex-disaster) |
 | Publication gate `crisk export-results` | **implemented and tested**; export in `publish/freddie_mac_combined/` awaiting human review |
 | Scoring, replay, append-only audit, API | implemented and tested; no empirical model promoted (needs a named reviewer) |
 | Segment/proxy/fairness review, validation runner, policy engine, UI, monitoring, Docker, auth | **proposed** |
@@ -47,10 +47,9 @@ Failures and fixes this session:
 
 ## Next actionable tasks
 
-1. **User:** download `sample_2023.zip` and `sample_2024.zip` (Release 47) into `data/raw/freddie_mac/sample/`.
-   Then: ingest, compose them into a fresh test split (FPD 2023-07 – 2025-03), and evaluate the selected models + M1 once.
-2. **User:** review `publish/freddie_mac_combined/<stamp>/` before sharing anything. Optionally email Freddie Mac to confirm
-   that portfolio use is noncommercial.
-3. Pre-register v3: a CI-based selection rule; recalibration on the most recent mature cohorts; segment and proxy review
-   (`property_state`).
-4. Phase D validation runner and Phase F hardening (auth, Docker, analyst UI) once a model is selected on the fresh test.
+1. Push to GitHub (waiting on `gh auth login` approval). The export reviewed by the owner (`20261013T014222`) is
+   committed; the newer export with holdout results still needs review.
+2. Pre-register v3: recalibration on the most recent mature cohorts (rolling Platt or intercept update) evaluated
+   out-of-time; a CI-based selection rule; segment and proxy review (`property_state`).
+3. Promote M1 (logistic) for demonstration scoring with a named reviewer. Phase D validation runner; Phase F hardening
+   (auth, Docker, analyst UI).

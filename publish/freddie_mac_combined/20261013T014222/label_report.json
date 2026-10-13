@@ -1,0 +1,324 @@
+{
+  "built_at": "2026-10-12T23:26:29.114253Z",
+  "by_fpd_year": [
+    {
+      "default_rate_labelled": 0.00111,
+      "defaults": 1350.0,
+      "defaults_with_disaster_or_forbearance": 93.0,
+      "fpd_year": "2015",
+      "immature": 0.0,
+      "labelled": 1215475,
+      "loans": 1256082
+    },
+    {
+      "default_rate_labelled": 0.00162,
+      "defaults": 346.0,
+      "defaults_with_disaster_or_forbearance": 52.0,
+      "fpd_year": "2016",
+      "immature": 0.0,
+      "labelled": 213998,
+      "loans": 217930
+    },
+    {
+      "default_rate_labelled": 0.0042,
+      "defaults": 176.0,
+      "defaults_with_disaster_or_forbearance": 113.0,
+      "fpd_year": "2017",
+      "immature": 0.0,
+      "labelled": 41900,
+      "loans": 42514
+    },
+    {
+      "default_rate_labelled": 0.00205,
+      "defaults": 101.0,
+      "defaults_with_disaster_or_forbearance": 13.0,
+      "fpd_year": "2018",
+      "immature": 0.0,
+      "labelled": 49343,
+      "loans": 49996
+    },
+    {
+      "default_rate_labelled": 0.01797,
+      "defaults": 892.0,
+      "defaults_with_disaster_or_forbearance": 802.0,
+      "fpd_year": "2019",
+      "immature": 0.0,
+      "labelled": 49643,
+      "loans": 49841
+    },
+    {
+      "default_rate_labelled": 0.03643,
+      "defaults": 291.0,
+      "defaults_with_disaster_or_forbearance": 279.0,
+      "fpd_year": "2020",
+      "immature": 0.0,
+      "labelled": 7989,
+      "loans": 8005
+    },
+    {
+      "fpd_year": "2021",
+      "suppressed": "fewer than 1000 loans"
+    },
+    {
+      "default_rate_labelled": 0.00678,
+      "defaults": 9728.0,
+      "defaults_with_disaster_or_forbearance": 5667.0,
+      "fpd_year": "2022",
+      "immature": 0.0,
+      "labelled": 1434543,
+      "loans": 1440439
+    },
+    {
+      "default_rate_labelled": 0.00779,
+      "defaults": 1086.0,
+      "defaults_with_disaster_or_forbearance": 506.0,
+      "fpd_year": "2023",
+      "immature": 0.0,
+      "labelled": 139469,
+      "loans": 140220
+    },
+    {
+      "fpd_year": "2024",
+      "suppressed": "fewer than 1000 loans"
+    },
+    {
+      "fpd_year": "2025",
+      "suppressed": "fewer than 1000 loans"
+    }
+  ],
+  "cohort_flow": {
+    "default": 13971,
+    "excluded_censored_removal": 6310,
+    "excluded_immature": 1,
+    "excluded_incomplete_reporting": 2235,
+    "excluded_late_acquisition": 44126,
+    "non_default": 2971198,
+    "non_default_prepaid": 167288
+  },
+  "data_origin": "EMPIRICAL",
+  "dataset_id": "freddie_mac_combined",
+  "defaults": 13971,
+  "labelled_loans": 3152457,
+  "maturity_by_fpd_quarter": [
+    {
+      "fpd_quarter": "2015-Q1",
+      "last_window_end": "2016-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2015-Q2",
+      "last_window_end": "2016-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2015-Q3",
+      "last_window_end": "2016-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2015-Q4",
+      "last_window_end": "2016-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2016-Q1",
+      "last_window_end": "2017-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2016-Q2",
+      "last_window_end": "2017-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2016-Q3",
+      "last_window_end": "2017-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2016-Q4",
+      "last_window_end": "2017-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2017-Q1",
+      "last_window_end": "2018-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2017-Q2",
+      "last_window_end": "2018-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2017-Q3",
+      "last_window_end": "2018-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2017-Q4",
+      "last_window_end": "2018-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2018-Q1",
+      "last_window_end": "2019-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2018-Q2",
+      "last_window_end": "2019-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2018-Q3",
+      "last_window_end": "2019-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2018-Q4",
+      "last_window_end": "2019-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2019-Q1",
+      "last_window_end": "2020-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2019-Q2",
+      "last_window_end": "2020-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2019-Q3",
+      "last_window_end": "2020-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2019-Q4",
+      "last_window_end": "2020-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2020-Q1",
+      "last_window_end": "2021-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2020-Q2",
+      "last_window_end": "2021-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2020-Q3",
+      "last_window_end": "2021-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2020-Q4",
+      "last_window_end": "2021-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2021-Q1",
+      "last_window_end": "2022-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2021-Q2",
+      "last_window_end": "2022-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2022-Q1",
+      "last_window_end": "2023-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2022-Q2",
+      "last_window_end": "2023-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2022-Q3",
+      "last_window_end": "2023-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2022-Q4",
+      "last_window_end": "2023-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2023-Q1",
+      "last_window_end": "2024-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2023-Q2",
+      "last_window_end": "2024-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2023-Q3",
+      "last_window_end": "2024-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2023-Q4",
+      "last_window_end": "2024-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2024-Q1",
+      "last_window_end": "2025-02-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2024-Q2",
+      "last_window_end": "2025-05-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2024-Q3",
+      "last_window_end": "2025-08-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2024-Q4",
+      "last_window_end": "2025-11-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2025-Q1",
+      "last_window_end": "2026-01-01",
+      "mature": "True"
+    },
+    {
+      "fpd_quarter": "2025-Q2",
+      "last_window_end": "2026-04-01",
+      "mature": "False"
+    }
+  ],
+  "performance_cutoff": "2026-03",
+  "prevalence_labelled": 0.004431781305819556,
+  "sensitivity_targets": {
+    "default_90dpd_12m_exdisaster_v1": {
+      "cohort_flow": {
+        "default": 7664,
+        "excluded_censored_removal": 6310,
+        "excluded_disaster_forbearance": 6307,
+        "excluded_immature": 1,
+        "excluded_incomplete_reporting": 2235,
+        "excluded_late_acquisition": 44126,
+        "non_default": 2971198,
+        "non_default_prepaid": 167288
+      },
+      "defaults": 7664,
+      "labelled_loans": 3146150,
+      "prevalence_labelled": 0.0024359931980356946
+    }
+  },
+  "target_id": "default_90dpd_12m_v1"
+}

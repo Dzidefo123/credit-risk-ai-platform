@@ -1,0 +1,464 @@
+{
+  "artifact_sha256": "0d3849cd37b966585df0af593ff60c370d71b8265f745f46b6783bcad991720b",
+  "calibration": {
+    "a": 0.5161477556710252,
+    "b": 0.965216824580238,
+    "method": "platt"
+  },
+  "code_version": {
+    "git_commit": "119738dcfd974681c16a59d1d542ad9fd927a862",
+    "git_dirty": true
+  },
+  "coefficients": {
+    "cat_channel__channel_B": -0.7072776276394104,
+    "cat_channel__channel_C": -0.8717846190573453,
+    "cat_channel__channel_R": -0.9104930795185213,
+    "cat_first_time_homebuyer_flag__first_time_homebuyer_flag_N": -1.422696118926542,
+    "cat_first_time_homebuyer_flag__first_time_homebuyer_flag_Y": -1.0668592072887317,
+    "cat_loan_purpose__loan_purpose_C": -0.5096353596407339,
+    "cat_loan_purpose__loan_purpose_N": -0.8038441293937338,
+    "cat_loan_purpose__loan_purpose_P": -1.1760758371807878,
+    "cat_occupancy_status__occupancy_status_I": -1.0351258907048357,
+    "cat_occupancy_status__occupancy_status_P": -0.9808365204947158,
+    "cat_occupancy_status__occupancy_status_S": -0.4735929150157298,
+    "cat_property_state__property_state_AL": -0.0034060451412433706,
+    "cat_property_state__property_state_AR": 0.00039785368522094995,
+    "cat_property_state__property_state_AZ": -0.13193919428670847,
+    "cat_property_state__property_state_CA": -0.4547953600056991,
+    "cat_property_state__property_state_CO": -0.17329062492990338,
+    "cat_property_state__property_state_CT": -0.038135837254664,
+    "cat_property_state__property_state_FL": -0.28864370402809125,
+    "cat_property_state__property_state_GA": -0.15696977541484478,
+    "cat_property_state__property_state_IA": -0.029458482005721227,
+    "cat_property_state__property_state_ID": 0.0002756293133556525,
+    "cat_property_state__property_state_IL": -0.053166446896247346,
+    "cat_property_state__property_state_IN": -0.09012238366517497,
+    "cat_property_state__property_state_KS": -0.008896882153303656,
+    "cat_property_state__property_state_KY": -0.013937830419852562,
+    "cat_property_state__property_state_LA": 0.16929378270401588,
+    "cat_property_state__property_state_MA": -0.10143915500181322,
+    "cat_property_state__property_state_MD": 0.021729057647063038,
+    "cat_property_state__property_state_MI": -0.14479525684209982,
+    "cat_property_state__property_state_MN": -0.07309354637581002,
+    "cat_property_state__property_state_MO": -0.046980079573994714,
+    "cat_property_state__property_state_NC": -0.15172941491877986,
+    "cat_property_state__property_state_NE": -0.012580949066593225,
+    "cat_property_state__property_state_NH": -0.023587596273862664,
+    "cat_property_state__property_state_NJ": 0.004053340289000836,
+    "cat_property_state__property_state_NV": -0.022322848279407434,
+    "cat_property_state__property_state_NY": 0.009916990934827691,
+    "cat_property_state__property_state_OH": -0.06718663986107877,
+    "cat_property_state__property_state_OK": 0.046324159733701575,
+    "cat_property_state__property_state_OR": -0.0503852178094621,
+    "cat_property_state__property_state_PA": -0.034603998616008824,
+    "cat_property_state__property_state_SC": -0.02330667124515491,
+    "cat_property_state__property_state_TN": -0.04554637544947503,
+    "cat_property_state__property_state_TX": -0.10320049564767264,
+    "cat_property_state__property_state_UT": -0.07546749324422611,
+    "cat_property_state__property_state_VA": -0.08839717665197723,
+    "cat_property_state__property_state_WA": -0.09143017396885787,
+    "cat_property_state__property_state_WI": -0.05029709149043988,
+    "cat_property_state__property_state_infrequent_sklearn": -0.09243339400430815,
+    "cat_property_type__property_type_CO": -0.8122190707925239,
+    "cat_property_type__property_type_PU": -0.9218192550214438,
+    "cat_property_type__property_type_SF": -0.6600492742052452,
+    "cat_property_type__property_type_infrequent_sklearn": -0.0954677261961194,
+    "num_cltv_minus_ltv__cltv_minus_ltv": 0.00802508509413638,
+    "num_cltv_minus_ltv__missingindicator_cltv_minus_ltv": -0.004872026036409395,
+    "num_credit_score__credit_score": -0.614050082825339,
+    "num_credit_score__missingindicator_credit_score": -0.011041751403621996,
+    "num_log_orig_upb__log_orig_upb": -0.03610001324936313,
+    "num_mi_pct__mi_pct": 0.19015409632877076,
+    "num_multiple_borrowers__multiple_borrowers": -0.5354786416662379,
+    "num_num_units__missingindicator_num_units": -0.004218003974201049,
+    "num_num_units__num_units": -0.02344589187129907,
+    "num_orig_cltv__missingindicator_orig_cltv": -0.004872026036409395,
+    "num_orig_cltv__orig_cltv": 0.07066218885829582,
+    "num_orig_dti__missingindicator_orig_dti": 0.21757053356714293,
+    "num_orig_dti__orig_dti": 0.2921557597009364,
+    "num_orig_loan_term__orig_loan_term": 0.3218934837146435,
+    "num_orig_ltv__missingindicator_orig_ltv": -0.004315299016416995,
+    "num_orig_ltv__orig_ltv": 0.06936442333887774,
+    "num_rate_spread__rate_spread": 0.20139884482310863
+  },
+  "created_at": "2026-10-13T01:31:05.359304Z",
+  "data_origin": "EMPIRICAL",
+  "evidence_note": "Empirical research result on Freddie Mac SFLLD; funded-loan population only.",
+  "feature_columns": [
+    "credit_score",
+    "orig_dti",
+    "orig_ltv",
+    "orig_cltv",
+    "orig_loan_term",
+    "mi_pct",
+    "num_units",
+    "log_orig_upb",
+    "multiple_borrowers",
+    "cltv_minus_ltv",
+    "rate_spread",
+    "occupancy_status",
+    "channel",
+    "property_type",
+    "loan_purpose",
+    "first_time_homebuyer_flag",
+    "property_state"
+  ],
+  "feature_set_id": "origination_v2",
+  "fit_info": {},
+  "horizon_months": 12,
+  "macro": {
+    "last_publication_date": "2026-10-08",
+    "months": 667,
+    "reference_lag_months": 3,
+    "series": [
+      "MORTGAGE30US",
+      "MORTGAGE15US"
+    ],
+    "short_term_max_months": 180,
+    "source": "Freddie Mac PMMS via FRED",
+    "source_sha256": {
+      "MORTGAGE15US": "8d6d0fa4695bfd2037499cbc00913eb61cd7019188e370a5fcbc778b6400c606",
+      "MORTGAGE30US": "93663891f9167cf71dfd50b7cbe54ef60fab42f788371d84bf665fb1c5e6c354"
+    }
+  },
+  "metrics": {
+    "calibration": {
+      "logistic_platt_in_sample": {
+        "brier": 0.0026638239603535147,
+        "calibration_intercept": -1.4190278824290462e-15,
+        "calibration_slope": 1.000000000000006,
+        "events": 232,
+        "gini": 0.5636500655465331,
+        "ks": 0.45573448131803757,
+        "log_loss": 0.01702463945806827,
+        "mean_pd": 0.002685060876811263,
+        "n": 86404,
+        "observed_expected_ratio": 0.9999999999999983,
+        "pr_auc": 0.014902435072379552,
+        "prevalence": 0.0026850608768112585,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": "<10",
+            "mean_pd": 0.00021047327600688196,
+            "n": 8641,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 1,
+            "defaults": "<10",
+            "mean_pd": 0.0004288094886025265,
+            "n": 8640,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 2,
+            "defaults": "<10",
+            "mean_pd": 0.0006624685480128236,
+            "n": 8640,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 3,
+            "defaults": "<10",
+            "mean_pd": 0.000937247123895671,
+            "n": 8641,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 4,
+            "defaults": 11,
+            "mean_pd": 0.0012848313501791794,
+            "n": 8640,
+            "observed_rate": 0.0012731481481481483
+          },
+          {
+            "bin": 5,
+            "defaults": 12,
+            "mean_pd": 0.0017399498986277848,
+            "n": 8640,
+            "observed_rate": 0.001388888888888889
+          },
+          {
+            "bin": 6,
+            "defaults": 17,
+            "mean_pd": 0.002359870875448252,
+            "n": 8641,
+            "observed_rate": 0.001967364888323111
+          },
+          {
+            "bin": 7,
+            "defaults": 30,
+            "mean_pd": 0.0033059545853702495,
+            "n": 8640,
+            "observed_rate": 0.003472222222222222
+          },
+          {
+            "bin": 8,
+            "defaults": 43,
+            "mean_pd": 0.004959275414935449,
+            "n": 8640,
+            "observed_rate": 0.004976851851851852
+          },
+          {
+            "bin": 9,
+            "defaults": 98,
+            "mean_pd": 0.010961296650966786,
+            "n": 8641,
+            "observed_rate": 0.011341279944450874
+          }
+        ],
+        "roc_auc": 0.7818250327732665
+      },
+      "logistic_uncalibrated": {
+        "brier": 0.002668758183863763,
+        "calibration_intercept": 0.7267734670993675,
+        "calibration_slope": 0.965216824580238,
+        "events": 232,
+        "gini": 0.5636500655465331,
+        "ks": 0.45573448131803757,
+        "log_loss": 0.01758763418536011,
+        "mean_pd": 0.0013045607773314882,
+        "n": 86404,
+        "observed_expected_ratio": 2.058210643358156,
+        "pr_auc": 0.014902435072379552,
+        "prevalence": 0.0026850608768112585,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": "<10",
+            "mean_pd": 9.110170601709583e-05,
+            "n": 8641,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 1,
+            "defaults": "<10",
+            "mean_pd": 0.00019008633607994427,
+            "n": 8640,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 2,
+            "defaults": "<10",
+            "mean_pd": 0.00029829210713631823,
+            "n": 8640,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 3,
+            "defaults": "<10",
+            "mean_pd": 0.0004273670260261795,
+            "n": 8641,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 4,
+            "defaults": 11,
+            "mean_pd": 0.0005926639736143583,
+            "n": 8640,
+            "observed_rate": 0.0012731481481481483
+          },
+          {
+            "bin": 5,
+            "defaults": 12,
+            "mean_pd": 0.0008116182720070989,
+            "n": 8640,
+            "observed_rate": 0.001388888888888889
+          },
+          {
+            "bin": 6,
+            "defaults": 17,
+            "mean_pd": 0.0011133436490956977,
+            "n": 8641,
+            "observed_rate": 0.001967364888323111
+          },
+          {
+            "bin": 7,
+            "defaults": 30,
+            "mean_pd": 0.0015796537152791047,
+            "n": 8640,
+            "observed_rate": 0.003472222222222222
+          },
+          {
+            "bin": 8,
+            "defaults": 43,
+            "mean_pd": 0.0024070749799819627,
+            "n": 8640,
+            "observed_rate": 0.004976851851851852
+          },
+          {
+            "bin": 9,
+            "defaults": 98,
+            "mean_pd": 0.0055341805740671815,
+            "n": 8641,
+            "observed_rate": 0.011341279944450874
+          }
+        ],
+        "roc_auc": 0.7818250327732665
+      },
+      "prevalence_baseline": {
+        "brier": 0.002680094901080122,
+        "calibration_intercept": 0.817603470349458,
+        "calibration_slope": 32.37075003143724,
+        "events": 232,
+        "gini": 0.0,
+        "ks": 0.0,
+        "log_loss": 0.019271704494803376,
+        "mean_pd": 0.001187203680331409,
+        "n": 86404,
+        "observed_expected_ratio": 2.261668255662517,
+        "pr_auc": 0.0026850608768112585,
+        "prevalence": 0.0026850608768112585,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": 232,
+            "mean_pd": 0.001187203680331409,
+            "n": 86404,
+            "observed_rate": 0.0026850608768112585
+          }
+        ],
+        "roc_auc": 0.5
+      }
+    },
+    "train": {
+      "logistic_uncalibrated": {
+        "brier": 0.0011820613845872237,
+        "calibration_intercept": -0.027148081701980502,
+        "calibration_slope": 1.0099092500826414,
+        "events": 1696,
+        "gini": 0.6743505643824448,
+        "ks": 0.5243124083403079,
+        "log_loss": 0.008125081088321828,
+        "mean_pd": 0.0012195877570103043,
+        "n": 1428567,
+        "observed_expected_ratio": 0.9734467023854998,
+        "pr_auc": 0.009940751690152603,
+        "prevalence": 0.001187203680331409,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": "<10",
+            "mean_pd": 7.46392448259664e-05,
+            "n": 142857,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 1,
+            "defaults": 15,
+            "mean_pd": 0.00015135259647196071,
+            "n": 142857,
+            "observed_rate": 0.000105000105000105
+          },
+          {
+            "bin": 2,
+            "defaults": 23,
+            "mean_pd": 0.00023380691739204647,
+            "n": 142856,
+            "observed_rate": 0.00016100128801030408
+          },
+          {
+            "bin": 3,
+            "defaults": 38,
+            "mean_pd": 0.0003347798977957835,
+            "n": 142857,
+            "observed_rate": 0.000266000266000266
+          },
+          {
+            "bin": 4,
+            "defaults": 56,
+            "mean_pd": 0.00046528415357727026,
+            "n": 142856,
+            "observed_rate": 0.0003920031360250882
+          },
+          {
+            "bin": 5,
+            "defaults": 75,
+            "mean_pd": 0.0006393019272688369,
+            "n": 142857,
+            "observed_rate": 0.000525000525000525
+          },
+          {
+            "bin": 6,
+            "defaults": 103,
+            "mean_pd": 0.0008882473857702842,
+            "n": 142857,
+            "observed_rate": 0.000721000721000721
+          },
+          {
+            "bin": 7,
+            "defaults": 167,
+            "mean_pd": 0.001277276060409373,
+            "n": 142856,
+            "observed_rate": 0.0011690093520748165
+          },
+          {
+            "bin": 8,
+            "defaults": 314,
+            "mean_pd": 0.002011390965545646,
+            "n": 142857,
+            "observed_rate": 0.002198002198002198
+          },
+          {
+            "bin": 9,
+            "defaults": 899,
+            "mean_pd": 0.006119786644261121,
+            "n": 142857,
+            "observed_rate": 0.006293006293006293
+          }
+        ],
+        "roc_auc": 0.8371752821912224
+      },
+      "prevalence_baseline": {
+        "brier": 0.0011857942277528162,
+        "calibration_intercept": 7.84371607368118e-15,
+        "calibration_slope": 19.131667247088192,
+        "events": 1696,
+        "gini": 0.0,
+        "ks": 0.0,
+        "log_loss": 0.009183686190233848,
+        "mean_pd": 0.001187203680331409,
+        "n": 1428567,
+        "observed_expected_ratio": 1.0,
+        "pr_auc": 0.001187203680331409,
+        "prevalence": 0.001187203680331409,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": 1696,
+            "mean_pd": 0.001187203680331409,
+            "n": 1428567,
+            "observed_rate": 0.001187203680331409
+          }
+        ],
+        "roc_auc": 0.5
+      }
+    }
+  },
+  "model_config": {
+    "calibration": {
+      "method": "platt"
+    },
+    "family": "logistic_regression",
+    "logistic": {
+      "C": 1.0,
+      "class_weight": null,
+      "max_iter": 2000
+    },
+    "model_config_id": "logistic_v1",
+    "preprocessing": {
+      "categorical_min_frequency": 0.005,
+      "numeric_impute": "median"
+    },
+    "reason_codes": {
+      "max_reasons": 4
+    },
+    "seed": 20261012
+  },
+  "model_family": "logistic_regression",
+  "model_id": "pd-logit-origination_v2-20261013T013105-5ce800",
+  "seed": 20261012,
+  "split_id": "freddie_mac_combined_v1",
+  "target_id": "default_90dpd_12m_v1"
+}
