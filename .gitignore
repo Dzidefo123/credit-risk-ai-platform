@@ -10,7 +10,7 @@ reports/**
 !reports/.gitkeep
 
 # Publication exports: review by a human before committing or sharing (crisk export-results)
-publish/
+/publish/
 
 # Python / tooling
 .venv/
