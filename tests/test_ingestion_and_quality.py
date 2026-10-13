@@ -118,3 +118,17 @@ def test_layout_mismatch_refuses_whole_file(tmp_path):
         ingest_dataset(cfg)
     out = cfg.interim_dir / "origination"
     assert not out.exists() or not list(out.glob("*.parquet"))
+
+
+def test_reserved_files_are_never_discovered(tmp_path):
+    import dataclasses
+
+    from crisk.ingestion.raw_files import discover_files
+
+    cfg = load_dataset_config("synthetic_scenarios").with_root(tmp_path, raw_dir=tmp_path / "raw")
+    generate(cfg.raw_dir, n_random=0)
+    assert discover_files(cfg)["origination"]
+    blocked = dataclasses.replace(cfg, exclude_files=("sample_orig_2019.txt", "sample_svcg_2019.txt"))
+    assert discover_files(blocked) == {"origination": [], "performance": []}
+    # the real sample config reserves the 2025 vintage
+    assert "sample_perf_2025.txt" in load_dataset_config("freddie_mac_sample").exclude_files

@@ -113,6 +113,19 @@ def cmd_backtest_recalibration(cfg, a) -> dict:
                                  for t, s in r["results"].items()}}
 
 
+def cmd_backtest_ttc(cfg, a) -> dict:
+    from crisk.models.recalibration import run_ttc_backtest
+
+    if not a.model_id or not a.eval_dataset:
+        raise SystemExit("--model-id (comma-separated, one per target) and --eval-dataset are required")
+    r = run_ttc_backtest(cfg, [m.strip() for m in a.model_id.split(",")], load_dataset_config(a.eval_dataset),
+                         AuditStore(cfg.audit_db))
+    return {"evidence": r["evidence"], "decision": r["decision"],
+            "rmsle_oe": {t: s["rmsle_oe"] for t, s in r["results"].items()},
+            "log_loss": {t: {m: s["overall"][m]["log_loss"] for m in ("L0", "L1", "L2")}
+                         for t, s in r["results"].items()}}
+
+
 def cmd_promote(cfg, a) -> dict:
     from crisk.models.registry import promote
 
@@ -195,6 +208,7 @@ COMMANDS = {
     "fixtures": cmd_fixtures, "unpack": cmd_unpack, "ingest": cmd_ingest, "build-canonical": cmd_canonical,
     "build-labels": cmd_labels, "build-features": cmd_features, "train": cmd_train, "evaluate-test": cmd_evaluate,
     "evaluate-holdout": cmd_evaluate_holdout, "backtest-recalibration": cmd_backtest_recalibration,
+    "backtest-ttc": cmd_backtest_ttc,
     "promote": cmd_promote, "rollback": cmd_rollback, "score-batch": cmd_score_batch, "replay": cmd_replay,
     "verify-audit": cmd_verify_audit, "export-results": cmd_export_results, "serve": cmd_serve,
     "run-slice": cmd_run_slice,

@@ -55,3 +55,27 @@ def test_decision_rule():
     assert decide({"a": s(1.0, 0.9, 0.85, 0.2, 0.6, 0.6), "b": s(1.0, 0.9, 0.88, 0.2, 0.6, 0.6)})["adopted"] == "R2"
     assert decide({"a": s(1.0, 0.9, 0.895, 0.2, 0.6, 0.6), "b": s(1.0, 0.9, 0.85, 0.2, 0.6, 0.6)})["adopted"] == "R1"
     assert decide({"a": s(1.0, 0.9, 0.85, 0.2, 0.2, 0.2), "b": s(1.0, 0.9, 0.85, 0.2, 0.6, 0.6)})["adopted"] == "R0"
+
+
+def test_expanding_window_starts_at_earliest_month():
+    lo, hi = window_for(pd.Period("2020-06", "M"), RecalSpec(window_months=None), pd.Period("2015-01", "M"))
+    assert (str(lo), str(hi)) == ("2015-01", "2018-10")
+    with pytest.raises(ValueError):
+        window_for(pd.Period("2020-06", "M"), RecalSpec(window_months=None))
+
+
+def test_ttc_predictions_and_rule():
+    from crisk.models.recalibration import decide_ttc, ttc_predictions
+
+    months, p0, y = _panel(start="2015-01", end="2021-12", shift=0.4)
+    preds, params = ttc_predictions(months, p0, y, list(pd.period_range("2019-04", "2019-06", freq="M")))
+    np.testing.assert_allclose(preds.L0.to_numpy(), p0[preds.row.to_numpy()])
+    assert params["L1"][0]["window_start"] == "2015-01" and params["L2"][0]["window_start"] == "2012-09"
+
+    def s(r0, r1, r2, ll0=1.0, ll1=1.0, ll2=1.0):
+        return {"rmsle_oe": {"L0": r0, "L1": r1, "L2": r2},
+                "overall": {"L0": {"log_loss": ll0}, "L1": {"log_loss": ll1}, "L2": {"log_loss": ll2}}}
+    assert decide_ttc({"a": s(1.0, 0.5, 0.48), "b": s(1.0, 0.5, 0.48)})["adopted"] == "L1"   # L2 gain < 10% vs L1
+    assert decide_ttc({"a": s(1.0, 0.5, 0.3), "b": s(1.0, 0.5, 0.3)})["adopted"] == "L2"
+    assert decide_ttc({"a": s(1.0, 0.95, 0.95), "b": s(1.0, 0.95, 0.95)})["adopted"] == "L0"  # < 10% vs L0
+    assert decide_ttc({"a": s(1.0, 0.5, 0.6, ll1=1.02), "b": s(1.0, 0.5, 0.6)})["adopted"] == "L0"  # log loss guard

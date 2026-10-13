@@ -46,6 +46,7 @@ class DatasetConfig:
     contract_version: str
     sensitivity_target_configs: tuple[str, ...] = ()
     compose: tuple[dict, ...] = ()  # build interim data from other datasets' validated files
+    exclude_files: tuple[str, ...] = ()  # raw file names never ingested (e.g. data reserved for a future test)
     root: Path = REPO_ROOT
 
     @property
@@ -106,6 +107,7 @@ def load_dataset_config(dataset_id: str, root: Path | None = None) -> DatasetCon
         contract_version=raw["contract_version"],
         sensitivity_target_configs=tuple(raw.get("sensitivity_target_configs", [])),
         compose=tuple(raw.get("compose", [])),
+        exclude_files=tuple(raw.get("exclude_files", [])),
         root=base,
     )
     if cfg.data_origin not in ("SYNTHETIC", "EMPIRICAL"):

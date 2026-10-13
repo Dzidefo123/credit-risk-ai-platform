@@ -211,9 +211,10 @@ def _manifest_path(cfg: DatasetConfig, kind: str, stem: str) -> Path:
 
 
 def discover_files(cfg: DatasetConfig) -> dict[str, list[Path]]:
+    excluded = set(cfg.exclude_files)
     return {
-        "origination": sorted(cfg.raw_dir.glob(cfg.origination_glob)),
-        "performance": sorted(cfg.raw_dir.glob(cfg.performance_glob)),
+        "origination": sorted(p for p in cfg.raw_dir.glob(cfg.origination_glob) if p.name not in excluded),
+        "performance": sorted(p for p in cfg.raw_dir.glob(cfg.performance_glob) if p.name not in excluded),
     }
 
 

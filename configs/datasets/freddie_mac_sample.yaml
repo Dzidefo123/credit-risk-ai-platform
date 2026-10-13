@@ -10,6 +10,9 @@ raw_dir: data/raw/freddie_mac/sample
 file_globs:
   origination: "sample_*/sample_orig_*.txt"
   performance: "sample_*/sample_perf_*.txt"   # R47 sample naming (guide still says sample_svcg)
+# Reserved for the v4 confirmatory test (docs/evaluation_plan_v4.md): the Release 47 edition of the 2025 sample
+# must never be ingested; the Release 48+ edition will be used, once, through a dedicated dataset.
+exclude_files: [sample_orig_2025.txt, sample_perf_2025.txt]
 performance_cutoff: "2026-03"   # Release 47 release notes: performance cutoff 03/31/2026 (verified 2026-10-12)
 max_structural_reject_rate: 0.001
 target_config: configs/target/default_90dpd_12m_v1.yaml
