@@ -82,3 +82,30 @@ reweighting is needed within a split. Calibration cohorts (FPD 2017-07..2019-03)
 forbearance but include the 2017 hurricanes. FPD 2019-04..2021 cohorts (COVID) are not assigned to any split.
 They can serve as a separate stress-period evaluation. Built by composing already-validated interim files
 (`crisk ingest --dataset freddie_mac_combined`), with no re-parsing.
+
+**D-019 · 2026-10-13 · Market-rate spread feature from Freddie Mac PMMS (`origination_v2`).**
+`rate_spread` = note rate − mean of weekly PMMS rates *published* in month FPD−3 (15-year series for terms ≤ 180,
+30-year otherwise). There is no look-ahead: the reference month precedes the note date. ALFRED vintages
+(2017, 2020, 2023) showed 0 revised values, so the current series is used with publication date = observation date.
+The model bundle embeds the monthly table, so scoring and replay are reproducible. Limitation: a fixed 3-month lag
+adds noise when rates move fast.
+
+**D-020 · 2026-10-13 · LightGBM challenger with fixed settings and economically justified monotone constraints.**
+Credit score is decreasing; DTI, LTV, CLTV and the note rate or spread are increasing; categoricals are unconstrained.
+Boosting rounds come from early stopping on the last 6 months of the training window, then the model is refitted
+on all of train. Reason codes use TreeSHAP (log-odds), which, like the logistic reasons, are attributions, not
+causal effects.
+
+**D-021 · 2026-10-13 · v2 model selection applied exactly as pre-registered: M4 (LightGBM, v1 features) for the primary target, M1 for ex-disaster.**
+The rule's flaw was recorded rather than overridden. M4's AUC gain (+0.0101) cleared the 0.01 point threshold,
+but its paired CI includes 0, while M2 and M3 have gains whose CIs exclude 0. The v3 plan will use a CI-based rule.
+The 2022–23 test split is treated as *seen* and is not used to select v2 models.
+
+**D-022 · 2026-10-13 · Publication gate `crisk export-results`.**
+It exports aggregate JSON and docs only and suppresses rows with fewer than 1,000 loans. It masks event counts
+below 10 *together with* any rate from which they could be recomputed (a hole found in review and fixed: 113 rows
+were recoverable before the fix). It aborts if any loan-ID-shaped string appears. `publish/` is git-ignored until a
+human reviews it.
+
+**D-023 · 2026-10-13 · Repo-local git identity set to the account email; LF line endings pinned via `.gitattributes`.**
+JSON/JSONL is now written with LF on every OS, so the byte-compared fixtures match on Linux CI.

@@ -9,6 +9,9 @@ reports/**
 !artifacts/.gitkeep
 !reports/.gitkeep
 
+# Publication exports: review by a human before committing or sharing (crisk export-results)
+publish/
+
 # Python / tooling
 .venv/
 __pycache__/

@@ -115,6 +115,14 @@ def cmd_replay(cfg, a) -> dict:
     return replay(cfg, AuditStore(cfg.audit_db), a.score_id)
 
 
+def cmd_export_results(cfg, a) -> dict:
+    from crisk.publish.export import export_results
+
+    if not a.model_id:
+        raise SystemExit("--model-id is required (comma-separated for several models)")
+    return export_results(cfg, [m.strip() for m in a.model_id.split(",") if m.strip()])
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -159,7 +167,8 @@ COMMANDS = {
     "fixtures": cmd_fixtures, "unpack": cmd_unpack, "ingest": cmd_ingest, "build-canonical": cmd_canonical,
     "build-labels": cmd_labels, "build-features": cmd_features, "train": cmd_train, "evaluate-test": cmd_evaluate,
     "promote": cmd_promote, "rollback": cmd_rollback, "score-batch": cmd_score_batch, "replay": cmd_replay,
-    "verify-audit": cmd_verify_audit, "serve": cmd_serve, "run-slice": cmd_run_slice,
+    "verify-audit": cmd_verify_audit, "export-results": cmd_export_results, "serve": cmd_serve,
+    "run-slice": cmd_run_slice,
 }
 
 

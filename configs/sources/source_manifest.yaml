@@ -74,10 +74,36 @@ sources:
     permitted_use: unrestricted (fictional); must be labelled SYNTHETIC in all outputs
     publication_status: committed under tests/fixtures (scenario set only)
 
-  - source_id: fred_alfred
-    status: PROPOSED_NOT_ACQUIRED    # Phase A3, after the baseline
+  - source_id: freddie_mac_pmms_via_fred
+    status: ACQUIRED   # 2026-10-12; public CSV downloads, no API key
+    role: market reference rate for the rate_spread feature (origination_v2)
+    series: {MORTGAGE30US: "30-Year Fixed Rate Mortgage Average", MORTGAGE15US: "15-Year Fixed Rate Mortgage Average"}
+    urls:
+      - https://fred.stlouisfed.org/graph/fredgraph.csv?id=MORTGAGE30US
+      - https://fred.stlouisfed.org/graph/fredgraph.csv?id=MORTGAGE15US
+      - https://www.freddiemac.com/pmms/docs/historicalweeklydata.xlsx   # provider copy, kept for reference
+    publication: weekly, Thursdays 12:00 ET, covering applications Thursday-Wednesday (freddiemac.com/pmms)
+    methodology_change: 2022-11-17 (application-based data); no historical restatement found
+    vintage_check: >
+      ALFRED vintages as of 2017-01-05, 2020-01-02 and 2023-01-05 equal the current series on all overlapping
+      weeks (0 revised values), so publication date = observation date is used for point-in-time joins.
+    checksums_sha256:
+      fred_MORTGAGE30US_current.csv: 93663891f9167cf71dfd50b7cbe54ef60fab42f788371d84bf665fb1c5e6c354
+      fred_MORTGAGE15US_current.csv: 8d6d0fa4695bfd2037499cbc00913eb61cd7019188e370a5fcbc778b6400c606
+      alfred_MORTGAGE30US_v2017-01-05.csv: bb6cc43a387681b7759c2259119c1bccdd3cd177f175cfb7d08b08e27869b5c4
+      alfred_MORTGAGE30US_v2020-01-02.csv: 165a0250e515dd3bd48856b27139f424b3cb07af42fed3868711dfbda0918749
+      alfred_MORTGAGE30US_v2023-01-05.csv: 65124a051adb28c96d4d245f0028fd891f5a332f31aa73dec58d5a1103e36e12
+      historicalweeklydata.xlsx: 9ab1fd61a6ca280c677df107ce118c0c9048712c5b11ea35a01ad93bda8dbb89
+    coverage: 1971-04 to 2026-10-08 (last publication at retrieval)
+    terms: >
+      Freddie Mac PMMS page: "Information from this document may be used with proper attribution." FRED notice: data
+      provided "as is" by Freddie Mac, citation required. Attribution: "Freddie Mac, Primary Mortgage Market Survey".
+    local_path: data/raw/macro/pmms/ (git-excluded)
+
+  - source_id: fred_alfred_other_series
+    status: PROPOSED_NOT_ACQUIRED
     urls: ["https://fred.stlouisfed.org/docs/api/fred/", "https://alfred.stlouisfed.org/help/downloaddata"]
-    notes: Requires API key (user-held, outside repo). Series selection, vintage availability and terms UNKNOWN.
+    notes: Unemployment / house prices for later phases. Vintage availability and terms to verify per series.
 
   - source_id: home_credit_default_risk
     status: OPTIONAL_NOT_ACQUIRED

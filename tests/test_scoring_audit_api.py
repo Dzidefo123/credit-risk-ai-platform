@@ -172,3 +172,34 @@ def test_api_without_model_reports_not_ready(trained_ws, tmp_path):
     assert client.get("/ready").status_code == 503
     r = client.post("/v1/score", json={"application": APP})
     assert r.status_code == 503 and r.json()["error"]["code"] == "model_unavailable"
+
+
+def test_publication_gate(trained_ws, tmp_path):
+    import dataclasses
+    import json
+
+    from crisk.publish.export import PublicationGateError, export_results
+
+    cfg, mid = trained_ws["cfg"], trained_ws["meta"]["model_id"]
+    with pytest.raises(PublicationGateError, match="EMPIRICAL"):
+        export_results(cfg, [mid], out_root=tmp_path)
+    emp = dataclasses.replace(cfg, data_origin="EMPIRICAL")
+    res = export_results(emp, [mid], out_root=tmp_path / "ok")
+    out = __import__("pathlib").Path(res["out_dir"])
+    assert (out / "export_manifest.json").exists()
+    assert not list(out.rglob("*.parquet")) and not list(out.rglob("*.joblib"))
+    label = json.loads((out / "label_report.json").read_text())
+    assert any("suppressed" in row for row in label["by_fpd_year"])  # small synthetic cohorts suppressed
+    # a masked event count cannot be recovered from a rate shown next to it
+    from crisk.publish.export import _suppress
+
+    row = _suppress({"bin": 0, "n": 8641, "defaults": 2, "observed_rate": 2 / 8641, "mean_pd": 0.0001},
+                    {"suppressed_rows": 0, "masked_event_counts": 0})
+    assert row["defaults"] == "<10" and isinstance(row["observed_rate"], str) and row["mean_pd"] == 0.0001
+    # a loan-identifier-shaped string anywhere aborts the export
+    bad = cfg.reports_dir / mid
+    bad.mkdir(parents=True, exist_ok=True)
+    (bad / "leak.json").write_text(json.dumps({"example": "X19Q10000001"}))
+    with pytest.raises(PublicationGateError, match="loan-identifier"):
+        export_results(emp, [mid], out_root=tmp_path / "bad")
+    (bad / "leak.json").unlink()

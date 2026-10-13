@@ -3,10 +3,11 @@
 A research and engineering prototype for **origination-time mortgage probability of default (PD)**, built on
 the Freddie Mac Single-Family Loan-Level Dataset (SFLLD). It includes auditable, replayable scoring.
 
-> **Status: engineering slice works end to end on SYNTHETIC fixtures. No empirical results exist yet.**
-> Real-data import is blocked until the Freddie Mac files are downloaded under their terms
-> (see [docs/data_acquisition_freddie_mac.md](docs/data_acquisition_freddie_mac.md)).
-> Nothing here is production-ready, a regulatory model, or a validated credit decision system.
+> **Status:** the pipeline runs end to end on Freddie Mac SFLLD Release 47: about 3.4M distinct loans and 189.2M monthly
+> records from the 2015–2022 samples plus the full 2015 and 2022 vintages. Empirical results:
+> [baseline model card](docs/results/empirical_baseline_v1.md) (test AUC 0.74–0.77; PD level not stable over time)
+> and [v2/challenger comparison](docs/results/model_comparison_v2.md).
+> Research prototype only: not production-ready, not a regulatory model, not a validated credit decision system.
 
 ## Evidence classes
 
@@ -50,6 +51,18 @@ uv run crisk score-batch     --dataset synthetic_fixture --split test --limit 20
 uv run crisk replay          --dataset synthetic_fixture --score-id <score_id>
 uv run crisk verify-audit    --dataset synthetic_fixture
 uv run crisk rollback        --dataset synthetic_fixture --reviewer <name> --rationale "<why>"
+```
+
+Real data (after downloading under Freddie Mac's terms; see the acquisition doc):
+
+```bash
+uv run crisk unpack          --dataset freddie_mac_historical   # nested full-volume zips -> extracted/
+uv run crisk ingest          --dataset freddie_mac_historical   # also: freddie_mac_sample
+uv run crisk ingest          --dataset freddie_mac_combined     # composes validated files (train/cal/test sources)
+uv run crisk build-features  --dataset freddie_mac_combined --feature-config configs/features/origination_v2.yaml
+uv run crisk train           --dataset freddie_mac_combined --feature-config configs/features/origination_v2.yaml \
+                             --model-config configs/models/lightgbm_v1.yaml [--target-id default_90dpd_12m_exdisaster_v1]
+uv run crisk export-results  --dataset freddie_mac_combined --model-id <id1,id2,...>   # aggregate-only publication gate
 ```
 
 ## Documentation
