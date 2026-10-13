@@ -109,3 +109,14 @@ human reviews it.
 
 **D-023 · 2026-10-13 · Repo-local git identity set to the account email; LF line endings pinned via `.gitattributes`.**
 JSON/JSONL is now written with LF on every OS, so the byte-compared fixtures match on Linux CI.
+
+**D-024 · 2026-10-13 · v3 walk-forward recalibration: pre-registered rule adopts R0 (no recalibration).**
+With a realistic 20-month information lag, intercept or Platt refits on recent mature cohorts mistime regime shifts.
+They miss the COVID forbearance spike and then over-correct by 3–7× for 2022–23 cohorts. The negative result is
+reported in full (docs/results/recalibration_v3.md). The next step is a level signal available at origination
+(early-performance proxy or macro term), which needs a new pre-registered v4 plan.
+
+**D-025 · 2026-10-13 · `fit_logistic_1d` now uses step-halving Newton (bug found by the v3 backtest).**
+Plain Newton diverged (intercept −1.6e8) when the offset predictions were about 15× below the observed rate. The fix
+changes no earlier result: M1/M4 Platt and calibration metrics were recomputed with a difference of 0.0. A regression
+test was added. The first (invalid) backtest run is kept locally as a recorded deviation.

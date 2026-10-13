@@ -101,6 +101,18 @@ def cmd_evaluate_holdout(cfg, a) -> dict:
             "bootstrap_ci": r["bootstrap_ci_logistic_calibrated"]}
 
 
+def cmd_backtest_recalibration(cfg, a) -> dict:
+    from crisk.models.recalibration import run_backtest
+
+    if not a.model_id or not a.eval_dataset:
+        raise SystemExit("--model-id (comma-separated, one per target) and --eval-dataset are required")
+    r = run_backtest(cfg, [m.strip() for m in a.model_id.split(",")], load_dataset_config(a.eval_dataset),
+                     AuditStore(cfg.audit_db))
+    return {"decision": r["decision"], "in_band_share": {t: s["in_band_share"] for t, s in r["results"].items()},
+            "overall_log_loss": {t: {m: s["overall"][m]["log_loss"] for m in ("R0", "R1", "R2")}
+                                 for t, s in r["results"].items()}}
+
+
 def cmd_promote(cfg, a) -> dict:
     from crisk.models.registry import promote
 
@@ -182,7 +194,7 @@ def cmd_run_slice(cfg, a) -> dict:
 COMMANDS = {
     "fixtures": cmd_fixtures, "unpack": cmd_unpack, "ingest": cmd_ingest, "build-canonical": cmd_canonical,
     "build-labels": cmd_labels, "build-features": cmd_features, "train": cmd_train, "evaluate-test": cmd_evaluate,
-    "evaluate-holdout": cmd_evaluate_holdout,
+    "evaluate-holdout": cmd_evaluate_holdout, "backtest-recalibration": cmd_backtest_recalibration,
     "promote": cmd_promote, "rollback": cmd_rollback, "score-batch": cmd_score_batch, "replay": cmd_replay,
     "verify-audit": cmd_verify_audit, "export-results": cmd_export_results, "serve": cmd_serve,
     "run-slice": cmd_run_slice,
@@ -200,6 +212,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
+    ap.add_argument("--eval-dataset", help="backtest-recalibration: dataset providing the walk-forward cohorts")
     ap.add_argument("--reviewer")
     ap.add_argument("--rationale")
     ap.add_argument("--split", default="test")

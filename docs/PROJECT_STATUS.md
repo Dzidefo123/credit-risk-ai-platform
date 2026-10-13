@@ -14,7 +14,8 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | v1 baseline evaluated once on the locked 2022–23 test | **done**: [results/empirical_baseline_v1.md](results/empirical_baseline_v1.md) |
 | v2 / challenger comparison on out-of-time development data | **done**: [results/model_comparison_v2.md](results/model_comparison_v2.md) |
 | Fresh locked holdout (sample 2023–24, FPD 2023-07..2025-03) | **done**, once per model: [results/holdout_2023_2024.md](results/holdout_2023_2024.md). AUC 0.81–0.82; observed/expected 1.78 (M4) / 0.62 (M1) / 0.67 (M1 ex-disaster) |
-| Publication gate `crisk export-results` | **implemented and tested**; export in `publish/freddie_mac_combined/` awaiting human review |
+| v3 walk-forward recalibration (pre-registered) | **done**: [results/recalibration_v3.md](results/recalibration_v3.md). Negative result: R0 kept. A Newton-divergence bug was found and fixed (D-025) |
+| Publication gate `crisk export-results` | **implemented and tested**; two owner-reviewed exports published |
 | Scoring, replay, append-only audit, API | implemented and tested; no empirical model promoted (needs a named reviewer) |
 | Segment/proxy/fairness review, validation runner, policy engine, UI, monitoring, Docker, auth | **proposed** |
 
@@ -47,9 +48,10 @@ Failures and fixes this session:
 
 ## Next actionable tasks
 
-1. Push to GitHub (waiting on `gh auth login` approval). The export reviewed by the owner (`20261013T014222`) is
-   committed; the newer export with holdout results still needs review.
-2. Pre-register v3: recalibration on the most recent mature cohorts (rolling Platt or intercept update) evaluated
-   out-of-time; a CI-based selection rule; segment and proxy review (`property_state`).
+1. Done: pushed to https://github.com/Dzidefo123/credit-risk-ai-platform (CI green). Both owner-reviewed exports
+   are published. New results (v3) are in `docs/results/` only; export them via the gate after review if wanted.
+2. v4 plan (not yet written): a PD level signal available at origination, either an early-performance proxy (60+ DPD
+   within 6 months) or a point-in-time macro term; a CI-based selection rule; segment and proxy review.
+   Confirmatory test of the status quo (R0) on Release 48+ cohorts (`sample_2025.zip`) when released.
 3. Promote M1 (logistic) for demonstration scoring with a named reviewer. Phase D validation runner; Phase F hardening
    (auth, Docker, analyst UI).

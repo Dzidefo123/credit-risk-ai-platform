@@ -1,0 +1,57 @@
+import numpy as np
+import pandas as pd
+import pytest
+
+from crisk.evaluation.metrics import logit, sigmoid
+from crisk.models.recalibration import RecalSpec, decide, walk_forward, window_for
+
+
+def _panel(n_per_month=4000, start="2015-01", end="2020-12", shift=0.7, seed=0):
+    rng = np.random.default_rng(seed)
+    months = pd.period_range(start, end, freq="M")
+    m = np.repeat(months, n_per_month)
+    p0 = sigmoid(rng.normal(-5.0, 0.8, len(m)))
+    y = (rng.random(len(m)) < sigmoid(logit(p0) + shift)).astype(float)
+    return pd.Series(m), p0, y
+
+
+def test_window_is_lagged_and_twelve_months():
+    lo, hi = window_for(pd.Period("2020-06", "M"), RecalSpec())
+    assert (str(lo), str(hi)) == ("2017-11", "2018-10")
+
+
+def test_intercept_update_recovers_level_shift():
+    months, p0, y = _panel(shift=0.7)
+    preds, params = walk_forward(months, p0, y, [pd.Period("2019-06", "M")])
+    assert params.loc[0, "R1_a"] == pytest.approx(0.7, abs=0.1)
+    assert params.loc[0, "R2_b"] == pytest.approx(1.0, abs=0.15)
+    assert preds.R1.mean() == pytest.approx(preds.y.mean(), rel=0.15)
+
+
+def test_no_look_ahead():
+    """Changing outcomes of cohorts inside the lag (or of cohort T itself) must not change T's parameters."""
+    months, p0, y = _panel()
+    t = pd.Period("2019-06", "M")
+    _, params = walk_forward(months, p0, y, [t])
+    y2 = y.copy()
+    lo, hi = window_for(t, RecalSpec())
+    y2[(months > hi).to_numpy()] = 1.0  # every loan after the window (incl. cohort T) defaults
+    _, params2 = walk_forward(months, p0, y2, [t])
+    pd.testing.assert_frame_equal(params, params2)
+
+
+def test_guard_carries_forward_when_window_is_thin():
+    months, p0, y = _panel(start="2015-01", end="2016-12")
+    ts = [pd.Period("2016-12", "M"), pd.Period("2019-12", "M")]  # second window 2017-05..2018-04: no data
+    _, params = walk_forward(months, p0, y, ts, RecalSpec(min_events=20))
+    assert params.loc[0, "refitted"] and not params.loc[1, "refitted"]
+    assert params.loc[1, "R1_a"] == params.loc[0, "R1_a"]
+
+
+def test_decision_rule():
+    def s(ll0, ll1, ll2, b0, b1, b2):
+        return {"overall": {"R0": {"log_loss": ll0}, "R1": {"log_loss": ll1}, "R2": {"log_loss": ll2}},
+                "in_band_share": {"R0": b0, "R1": b1, "R2": b2}}
+    assert decide({"a": s(1.0, 0.9, 0.85, 0.2, 0.6, 0.6), "b": s(1.0, 0.9, 0.88, 0.2, 0.6, 0.6)})["adopted"] == "R2"
+    assert decide({"a": s(1.0, 0.9, 0.895, 0.2, 0.6, 0.6), "b": s(1.0, 0.9, 0.85, 0.2, 0.6, 0.6)})["adopted"] == "R1"
+    assert decide({"a": s(1.0, 0.9, 0.85, 0.2, 0.2, 0.2), "b": s(1.0, 0.9, 0.85, 0.2, 0.6, 0.6)})["adopted"] == "R0"

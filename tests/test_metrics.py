@@ -31,6 +31,19 @@ def test_metric_values_on_known_case():
     assert m["brier"] == pytest.approx(np.mean((p - y) ** 2))
 
 
+def test_offset_fit_converges_when_far_from_truth():
+    """Regression: plain Newton diverged (intercept -1.6e8) when predictions were ~15x too low."""
+    from crisk.evaluation.metrics import fit_logistic_1d, logit
+
+    rng = np.random.default_rng(3)
+    p0 = np.full(50_000, 0.002)
+    y = (rng.random(len(p0)) < 0.03).astype(float)
+    a, _ = fit_logistic_1d(logit(p0), y, offset=logit(p0), fit_slope=False)
+    assert a == pytest.approx(logit(np.array([y.mean()]))[0] - logit(np.array([0.002]))[0], abs=1e-6)
+    a2, b2 = fit_logistic_1d(logit(p0) + rng.normal(0, 0.5, len(p0)), y)
+    assert np.isfinite(a2) and np.isfinite(b2)
+
+
 def test_single_class_is_reported_not_crashed():
     m = binary_metrics(np.zeros(10), np.full(10, 0.1))
     assert m["roc_auc"] is None and "single class" in m["note"]
