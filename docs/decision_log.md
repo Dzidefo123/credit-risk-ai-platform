@@ -172,3 +172,11 @@ The `init` service runs the synthetic slice, monitoring and demo key issuance. T
 `init` succeeds. Ports are bound to 127.0.0.1, the container runs as a non-root user, and data, artefacts and
 reports are excluded from the image. The demo proves the engineering path without credentials. It is not a
 deployment and not evidence about credit risk.
+
+**D-035 · 2026-10-13 · Champion changed to M1-nostate `…8fd365`, promoted by Dzidefo123 for `demonstration_rank_ordering`.**
+Promoted following the pre-registered fairness review (D-031), through the validation gate
+(`val-…8fd365-20261013T120317`, 13/14; PD-level not approved). The previous champion `…b6249e` is kept as
+`previous_model_id`, so it can be restored with `crisk rollback`. The decile cut-offs were reset to the 2017–19
+calibration reference at promotion, so the score-drift remedy (`crisk refresh-deciles`, RB-02) still awaits a reviewer.
+The API now publishes the model's `input_fields` and the analyst UI sends only those (the no-state model rejects
+`property_state`).

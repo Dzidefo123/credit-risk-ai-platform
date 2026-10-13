@@ -278,7 +278,8 @@ def test_ui_client_against_api(promoted, tmp_path):
         return r.status_code, r.content
 
     analyst = ApiClient("http://testserver", H["analyst"]["Authorization"][7:], transport)
-    assert analyst.model()["caller"]["role"] == "analyst"
+    info = analyst.model()
+    assert info["caller"]["role"] == "analyst" and "credit_score" in info["input_fields"]
     sid = analyst.score(APP)["score_id"]
     assert any(i["score_id"] == sid for i in analyst.scores(limit=500))
     analyst.review(sid, "escalate", "Unusual combination of DTI and LTV; second opinion.")

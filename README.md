@@ -79,7 +79,7 @@ uv run crisk train           --dataset freddie_mac_combined --feature-config con
 uv run crisk export-results  --dataset freddie_mac_combined --model-id <id1,id2,...>   # aggregate-only publication gate
 ```
 
-Serving, review and validation (champion = M1 logistic, approved for **rank-ordering demonstrations only**):
+Serving, review and validation (champion = M1 logistic without `property_state`, approved for **rank-ordering demonstrations only**):
 
 ```bash
 uv run crisk create-api-key --dataset freddie_mac_combined --name alice --role analyst   # key shown once

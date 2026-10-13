@@ -139,6 +139,7 @@ def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore |
             return {"model_id": None, "load_error": state["load_error"], "champion": ch}
         return {"model_id": svc.model_id, "model_family": svc.meta["model_family"],
                 "feature_set_id": svc.meta["feature_set_id"], "target": svc._envelope()["target"],
+                "input_fields": svc.bundle.feature_spec.raw_inputs,
                 "data_origin": svc.meta["data_origin"], "evidence_note": svc._envelope()["evidence_note"],
                 "approved_use": svc.approved_use,
                 "approved_use_text": (ch or {}).get("approved_use_text") if svc.approved_use != "not_promoted" else

@@ -91,11 +91,14 @@ if page == "Score application":
         for i, (f, opts) in enumerate(CODES.items()):
             choice = cols[i % 4].selectbox(f, ["(not available)", *opts], index=opts.index(DEFAULT_APP[f]) + 1)
             app[f] = None if choice == "(not available)" else choice
-        app["property_state"] = cols[1].text_input("property_state", DEFAULT_APP["property_state"]).upper() or None
+        if "property_state" in (model.get("input_fields") or []):
+            app["property_state"] = cols[1].text_input("property_state", DEFAULT_APP["property_state"]).upper() or None
         if "origination_v2" in str(model.get("feature_set_id")):
             app["first_payment_date"] = str(cols[2].date_input("first_payment_date"))
         submitted = st.form_submit_button("Score")
     if submitted:
+        allowed = set(model.get("input_fields") or app)  # send only the fields the served model accepts
+        app = {k: v for k, v in app.items() if k in allowed}
         try:
             show_result(client.score(app, idempotency_key=f"ui-{uuid.uuid4().hex}"))
         except ApiError as e:
