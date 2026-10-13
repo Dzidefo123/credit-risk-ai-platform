@@ -220,6 +220,18 @@ def cmd_validate(cfg, a) -> dict:
         "report": str(cfg.reports_dir / "validation" / a.model_id / "validation_report.md")}
 
 
+def cmd_fairness_review(cfg, a) -> dict:
+    from crisk.fairness.review import run_review
+
+    ids = [m.strip() for m in (a.model_id or "").split(",") if m.strip()]
+    if len(ids) != 2:
+        raise SystemExit("--model-id must be '<with_state_model>,<without_state_model>'")
+    holdout = load_dataset_config(a.holdout_dataset) if a.holdout_dataset else None
+    r = run_review(cfg, ids[0], ids[1], AuditStore(cfg.audit_db), holdout_cfg=holdout)
+    return {"target_id": r["target_id"], "value": r["value_of_property_state"], "proxy_screen": r["proxy_screen"],
+            "decision": r["decision"]}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -277,6 +289,7 @@ COMMANDS = {
     "score-batch": cmd_score_batch,
     "replay": cmd_replay,
     "verify-audit": cmd_verify_audit,
+    "fairness-review": cmd_fairness_review,
     "validate": cmd_validate,
     "create-api-key": cmd_create_api_key,
     "revoke-api-key": cmd_revoke_api_key,
