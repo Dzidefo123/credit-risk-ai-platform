@@ -1,0 +1,39 @@
+{
+  "built_at": "2026-10-12T23:22:37.783496Z",
+  "checks": {
+    "origination_clean_loans": 3205129,
+    "origination_conflicting_loans_quarantined": 0,
+    "origination_exact_duplicates_removed": 0,
+    "origination_input_rows": 3205129,
+    "origination_loan_id_unique": 1,
+    "performance_clean_rows": 175271543,
+    "performance_conflicting_loan_months_quarantined": 0,
+    "performance_exact_duplicates_removed": 0,
+    "performance_input_rows": 175271543,
+    "performance_loan_month_unique": 1,
+    "performance_orphan_rows_quarantined": 0,
+    "warn_cltv_below_ltv": 0,
+    "warn_delinquency_jump_gt_1": 13352,
+    "warn_fpd_far_from_loan_id_quarter": 4088,
+    "warn_loan_term_inconsistent_with_dates": 0,
+    "warn_maturity_before_first_payment": 0,
+    "warn_multiple_zero_balance_records": 0,
+    "warn_origination_without_performance": 0,
+    "warn_period_after_declared_cutoff": 0,
+    "warn_records_after_zero_balance": 0,
+    "warn_upb_above_original_no_mod_or_deferral": 844,
+    "warn_zero_balance_code_without_date": 0
+  },
+  "data_origin": "EMPIRICAL",
+  "dataset_id": "freddie_mac_combined",
+  "declared_performance_cutoff": "2026-03",
+  "first_payment_date_range": [
+    "2015-02-01",
+    "2025-05-01"
+  ],
+  "observed_reporting_period_range": [
+    "2015-01-01",
+    "2026-03-01"
+  ],
+  "uniqueness_ok": true
+}

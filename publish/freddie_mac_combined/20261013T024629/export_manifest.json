@@ -1,0 +1,56 @@
+{
+  "code_version": {
+    "git_commit": "c9a9d6c942ee9ab87df575bd6354fa6b75b4c7ce",
+    "git_dirty": true
+  },
+  "data_origin": "EMPIRICAL",
+  "dataset_id": "freddie_mac_combined",
+  "exported_at": "2026-10-13T02:46:30.018596Z",
+  "files": {
+    "canonical_build_report.json": "6eaa4812ca37309b6be41a1606be5d33032c64ad18eef7cb720f975382c8ca25",
+    "docs/evaluation_plan_v1.md": "eb4dc889dddc32af95ba53b9132ef6e8902773bd3a39323f79aae0d87dab8e16",
+    "docs/evaluation_plan_v2.md": "fdbcc3dbe65dc74d079693506254accb44184248f8bef8535f7d79d9139610e2",
+    "docs/feature_dictionary.md": "fe24d0fb90fd9fcee10f035b3bbe6b7576a41127befd6e1d10a8a169c1f30b4d",
+    "docs/results/empirical_baseline_v1.md": "e9add2f142d6294261782d45ebd30503c67fd1aff4aca6efd04c954cf7ebbe26",
+    "docs/results/holdout_2023_2024.md": "1b0ebe11c09fff03f0794df341886e66f8ba33217c7e32906ff169dcf353a451",
+    "docs/results/model_comparison_v2.md": "4def10b3d8a60d2b6592cce1a64dd2973cf3403db00970be3ada4928cde62ce0",
+    "docs/target_specification.md": "e9d00988a0eb3cf61172294385e2e9a6b577633be27ec09a01dcefe164fd965f",
+    "evaluations/pd-lgbm-origination_v1-20261013T013446-3c58d6__evaluation_holdout__freddie_mac_holdout.json": "9e97529470cb8379fcaa5a3f28a6ae0eda8fd396bfb6d765104135e7f76cb48f",
+    "evaluations/pd-logit-origination_v1-20261012T234214-1ba6d5__evaluation_test.json": "0f43407db239dbdd6ea04f6c8a4988c288fa5ba56710d45988e859f1d87c2d52",
+    "evaluations/pd-logit-origination_v1-20261013T011316-b6249e__evaluation_holdout__freddie_mac_holdout.json": "17002b08296e65c9c0a79accabb61a720fcac29027e3e6449ebccfa3f1bee0e1",
+    "evaluations/pd-logit-origination_v1-sens-20261012T234252-dab3a4__evaluation_test.json": "82eb2c7211d58a57a7ec7d927902cd8113a573588c3972a00d48d707686fec98",
+    "evaluations/pd-logit-origination_v1-sens-20261013T011402-57741f__evaluation_holdout__freddie_mac_holdout.json": "efc3382254c38d34d18ae3303d47e739f3f0e35194fdd37d9e8c1fce1c10bac9",
+    "freddie_mac_holdout/canonical_build_report.json": "f7595f0e9a7898fcf20f5e524abaaf832e1b66fb3cb4e0771346b538a0f93614",
+    "freddie_mac_holdout/label_report.json": "3ebb3c4c742a6d45f37b1b4a2700c03c5b61b2cd4e675741df752f292ac7c164",
+    "freddie_mac_holdout/label_report__default_90dpd_12m_exdisaster_v1.json": "bfb998bfe1bcbaa071c05df0b686a836799a7cb0dae8d5c886eabb4d78d996db",
+    "freddie_mac_holdout/split_manifest__origination_v1.json": "11ee2bde300aaaa79a127a738d66ffef37f3aa76115f0caea565527bda67b9df",
+    "freddie_mac_holdout/split_manifest__origination_v2.json": "72b9a80e79e75ae4439b6144bc181910ed2082367a87be29aa918f71d2db6758",
+    "label_report.json": "ae83871dde8db0c892033679753bee135abd9f0cb6599db85a16066191c46569",
+    "label_report__default_90dpd_12m_exdisaster_v1.json": "59f2dc6702290f1ef8c844b0cd6abfe066bb30f6db61b91b0810c1e733ef5862",
+    "models/pd-lgbm-origination_v1-20261013T013446-3c58d6.json": "62f9990ec8c736b1d94447f037ce47d3f9c6092e6dc239dd6f0934039b98363e",
+    "models/pd-lgbm-origination_v1-20261013T024448-79d584.json": "e041adac8aceace17de2308710efcccc99371132cbd3b33bb6772538b4ac072b",
+    "models/pd-lgbm-origination_v1-sens-20261013T013544-38dff1.json": "bd2805dc348facc3653b1df6179e72de4ccfeba363e47cac489a285940dd5f17",
+    "models/pd-lgbm-origination_v2-20261013T013243-91aaff.json": "5f0dd719fb217ce27b9812fdaf03db8e953e5046b19c67f4c2e0edfa92c84062",
+    "models/pd-lgbm-origination_v2-sens-20261013T013348-3c0b1f.json": "0ca0048dca1e760ac29773c8f31ec2afdcd51f5688541be1474a64fa89fa205c",
+    "models/pd-logit-origination_v1-20261012T234214-1ba6d5.json": "a3c53dcec389f1760637c8edd854914dfa7ce59a4ea7f52b37fe0cc91e68f7d3",
+    "models/pd-logit-origination_v1-20261013T011316-b6249e.json": "d2eb8823afca756018cbffcac5314cd5abc7a111693bf5028194fd16e78cd51d",
+    "models/pd-logit-origination_v1-sens-20261012T234252-dab3a4.json": "92abaf9ca77cacd6911609f524c9f9d932567e7684bddf19fea724cd872ebb01",
+    "models/pd-logit-origination_v1-sens-20261013T011402-57741f.json": "2b7504aebd1e769dbcab9211a3223d43b76cb2b75695d705bf15d0f33f6a2194",
+    "models/pd-logit-origination_v2-20261013T013105-5ce800.json": "73c2a4ecfe9ea189c502e08e962cbdd4f7c6b9275b89c7c94bd2dca581dccaa1",
+    "models/pd-logit-origination_v2-sens-20261013T013145-2e8036.json": "fc4ae95de528c31b2154adc4c6cfc9d98363125b461148f0f4a9569773f1574b",
+    "split_manifest__origination_v1.json": "95c543d80271a200932a8627ba82c00b5cd5062c90b6ede1d0f64f3f78d3baf6",
+    "split_manifest__origination_v2.json": "5b9d6a213a7ff376aa0bc4a1439a336dc8a809380a7e87f8ae6b736a7bc48b66"
+  },
+  "rules": {
+    "copied": "aggregate JSON and docs only",
+    "loan_id_scan": "[FAX][0-9]{2}Q[1-4][0-9]{7}",
+    "min_events_shown": 10,
+    "min_loans_per_row": 1000
+  },
+  "stats": {
+    "masked_event_counts": 137,
+    "masked_rates": 137,
+    "suppressed_rows": 8
+  },
+  "terms_note": "Freddie Mac SFLLD: noncommercial research results only; must not allow the dataset to be recreated; attribute Freddie Mac. Human review required before publication."
+}

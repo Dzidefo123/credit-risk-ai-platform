@@ -1,0 +1,427 @@
+{
+  "artifact_sha256": "e7548d0f5699613a2a33df5d8ad401c24661c9336c35cc488ee0b70bb2edbbcd",
+  "calibration": {
+    "a": 0.2816434217972867,
+    "b": 0.9902526151565247,
+    "method": "platt"
+  },
+  "code_version": {
+    "git_commit": "119738dcfd974681c16a59d1d542ad9fd927a862",
+    "git_dirty": true
+  },
+  "coefficients": {
+    "channel": 274.67039918899536,
+    "cltv_minus_ltv": 975.2917282581329,
+    "credit_score": 24127.671672821045,
+    "first_time_homebuyer_flag": 268.45368933677673,
+    "loan_purpose": 433.73158288002014,
+    "log_orig_upb": 3090.3746662139893,
+    "mi_pct": 671.6188714504242,
+    "multiple_borrowers": 7462.551879167557,
+    "num_units": 70.48191928863525,
+    "occupancy_status": 528.7084906101227,
+    "orig_cltv": 4397.920383453369,
+    "orig_dti": 4293.687515258789,
+    "orig_interest_rate": 4761.516049623489,
+    "orig_loan_term": 689.3272514343262,
+    "orig_ltv": 989.8837802410126,
+    "property_state": 4342.47820687294,
+    "property_type": 505.664630651474
+  },
+  "created_at": "2026-10-13T01:35:44.179721Z",
+  "data_origin": "EMPIRICAL",
+  "evidence_note": "Empirical research result on Freddie Mac SFLLD; funded-loan population only.",
+  "feature_columns": [
+    "credit_score",
+    "orig_dti",
+    "orig_ltv",
+    "orig_cltv",
+    "orig_interest_rate",
+    "orig_loan_term",
+    "mi_pct",
+    "num_units",
+    "log_orig_upb",
+    "multiple_borrowers",
+    "cltv_minus_ltv",
+    "occupancy_status",
+    "channel",
+    "property_type",
+    "loan_purpose",
+    "first_time_homebuyer_flag",
+    "property_state"
+  ],
+  "feature_set_id": "origination_v1",
+  "fit_info": {
+    "best_iteration": 172,
+    "early_stopping_rows": 213047,
+    "monotone_constraints": {
+      "credit_score": -1,
+      "orig_cltv": 1,
+      "orig_dti": 1,
+      "orig_interest_rate": 1,
+      "orig_ltv": 1
+    }
+  },
+  "horizon_months": 12,
+  "macro": null,
+  "metrics": {
+    "calibration": {
+      "logistic_platt_in_sample": {
+        "brier": 0.0020461443895189533,
+        "calibration_intercept": -3.751178368731223e-16,
+        "calibration_slope": 1.0000000000000038,
+        "events": 178,
+        "gini": 0.6189485413807869,
+        "ks": 0.4877730820042695,
+        "log_loss": 0.01327512590279202,
+        "mean_pd": 0.002061378112333527,
+        "n": 86350,
+        "observed_expected_ratio": 0.9999999999999996,
+        "pr_auc": 0.01358032412696407,
+        "prevalence": 0.002061378112333526,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": "<10",
+            "mean_pd": 0.00019880768194677914,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 1,
+            "defaults": "<10",
+            "mean_pd": 0.00032194622695440686,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 2,
+            "defaults": "<10",
+            "mean_pd": 0.00046404153561440406,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 3,
+            "defaults": 12,
+            "mean_pd": 0.0006277561122433602,
+            "n": 8635,
+            "observed_rate": 0.0013896931094383323
+          },
+          {
+            "bin": 4,
+            "defaults": "<10",
+            "mean_pd": 0.0008291038925393686,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 5,
+            "defaults": 10,
+            "mean_pd": 0.0011068944100945076,
+            "n": 8635,
+            "observed_rate": 0.0011580775911986102
+          },
+          {
+            "bin": 6,
+            "defaults": "<10",
+            "mean_pd": 0.0015148578445467677,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 7,
+            "defaults": 17,
+            "mean_pd": 0.0021579104269619214,
+            "n": 8635,
+            "observed_rate": 0.0019687319050376373
+          },
+          {
+            "bin": 8,
+            "defaults": 36,
+            "mean_pd": 0.0034465746647268443,
+            "n": 8635,
+            "observed_rate": 0.004169079328314997
+          },
+          {
+            "bin": 9,
+            "defaults": 85,
+            "mean_pd": 0.00994588832770691,
+            "n": 8635,
+            "observed_rate": 0.009843659525188187
+          }
+        ],
+        "roc_auc": 0.8094742706903935
+      },
+      "logistic_uncalibrated": {
+        "brier": 0.002046719247303362,
+        "calibration_intercept": 0.33797385604397084,
+        "calibration_slope": 0.9902526151565247,
+        "events": 178,
+        "gini": 0.6189485413807869,
+        "ks": 0.4877730820042695,
+        "log_loss": 0.013380006749811888,
+        "mean_pd": 0.0014741431512431788,
+        "n": 86350,
+        "observed_expected_ratio": 1.3983568085603617,
+        "pr_auc": 0.01358032412696407,
+        "prevalence": 0.002061378112333526,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": "<10",
+            "mean_pd": 0.0001375997194356495,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 1,
+            "defaults": "<10",
+            "mean_pd": 0.00022385143650185298,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 2,
+            "defaults": "<10",
+            "mean_pd": 0.00032382302084032566,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 3,
+            "defaults": 12,
+            "mean_pd": 0.0004393897739226184,
+            "n": 8635,
+            "observed_rate": 0.0013896931094383323
+          },
+          {
+            "bin": 4,
+            "defaults": "<10",
+            "mean_pd": 0.0005819466661364585,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 5,
+            "defaults": 10,
+            "mean_pd": 0.0007792113987488347,
+            "n": 8635,
+            "observed_rate": 0.0011580775911986102
+          },
+          {
+            "bin": 6,
+            "defaults": "<10",
+            "mean_pd": 0.001069837078038684,
+            "n": 8635,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 7,
+            "defaults": 17,
+            "mean_pd": 0.0015296227560085015,
+            "n": 8635,
+            "observed_rate": 0.0019687319050376373
+          },
+          {
+            "bin": 8,
+            "defaults": 36,
+            "mean_pd": 0.0024555079082622324,
+            "n": 8635,
+            "observed_rate": 0.004169079328314997
+          },
+          {
+            "bin": 9,
+            "defaults": 85,
+            "mean_pd": 0.007200641754536628,
+            "n": 8635,
+            "observed_rate": 0.009843659525188187
+          }
+        ],
+        "roc_auc": 0.8094742706903935
+      },
+      "prevalence_baseline": {
+        "brier": 0.002058017511947769,
+        "calibration_intercept": 0.6121693390008621,
+        "calibration_slope": 32.61431761467938,
+        "events": 178,
+        "gini": 0.0,
+        "ks": 0.0,
+        "log_loss": 0.015125311879796452,
+        "mean_pd": 0.0011186802093710122,
+        "n": 86350,
+        "observed_expected_ratio": 1.8426875661745676,
+        "pr_auc": 0.002061378112333526,
+        "prevalence": 0.002061378112333526,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": 178,
+            "mean_pd": 0.0011186802093710122,
+            "n": 86350,
+            "observed_rate": 0.002061378112333526
+          }
+        ],
+        "roc_auc": 0.5
+      }
+    },
+    "train": {
+      "logistic_uncalibrated": {
+        "brier": 0.0011065615978200593,
+        "calibration_intercept": -0.003609289098851928,
+        "calibration_slope": 1.0924727697514043,
+        "events": 1598,
+        "gini": 0.748094116251355,
+        "ks": 0.5951691560667416,
+        "log_loss": 0.0073310410199931945,
+        "mean_pd": 0.001122686310990338,
+        "n": 1428469,
+        "observed_expected_ratio": 0.9964316821358655,
+        "pr_auc": 0.021165061520607473,
+        "prevalence": 0.001118680209371012,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": "<10",
+            "mean_pd": 9.389225490404251e-05,
+            "n": 142847,
+            "observed_rate": "masked (small event count)"
+          },
+          {
+            "bin": 1,
+            "defaults": 11,
+            "mean_pd": 0.00014737895866740545,
+            "n": 142847,
+            "observed_rate": 7.700546738818456e-05
+          },
+          {
+            "bin": 2,
+            "defaults": 12,
+            "mean_pd": 0.00020652153343017946,
+            "n": 142847,
+            "observed_rate": 8.400596442347407e-05
+          },
+          {
+            "bin": 3,
+            "defaults": 28,
+            "mean_pd": 0.00027903490694683686,
+            "n": 142847,
+            "observed_rate": 0.00019601391698810614
+          },
+          {
+            "bin": 4,
+            "defaults": 38,
+            "mean_pd": 0.00036904187855208646,
+            "n": 142846,
+            "observed_rate": 0.0002660207496184702
+          },
+          {
+            "bin": 5,
+            "defaults": 46,
+            "mean_pd": 0.0004920501816561565,
+            "n": 142847,
+            "observed_rate": 0.00032202286362331727
+          },
+          {
+            "bin": 6,
+            "defaults": 70,
+            "mean_pd": 0.0006793205084934523,
+            "n": 142847,
+            "observed_rate": 0.0004900347924702654
+          },
+          {
+            "bin": 7,
+            "defaults": 132,
+            "mean_pd": 0.001002597822037683,
+            "n": 142847,
+            "observed_rate": 0.0009240656086582147
+          },
+          {
+            "bin": 8,
+            "defaults": 241,
+            "mean_pd": 0.0016594220429465955,
+            "n": 142847,
+            "observed_rate": 0.0016871197855047708
+          },
+          {
+            "bin": 9,
+            "defaults": 1016,
+            "mean_pd": 0.006297597746383329,
+            "n": 142847,
+            "observed_rate": 0.007112504987854137
+          }
+        ],
+        "roc_auc": 0.8740470581256775
+      },
+      "prevalence_baseline": {
+        "brier": 0.0011174287639601737,
+        "calibration_intercept": -1.1208700457280822e-14,
+        "calibration_slope": 14.927131076736014,
+        "events": 1598,
+        "gini": 0.0,
+        "ks": 0.0,
+        "log_loss": 0.008720163830288551,
+        "mean_pd": 0.001118680209371012,
+        "n": 1428469,
+        "observed_expected_ratio": 1.0,
+        "pr_auc": 0.001118680209371012,
+        "prevalence": 0.001118680209371012,
+        "reliability": [
+          {
+            "bin": 0,
+            "defaults": 1598,
+            "mean_pd": 0.001118680209371012,
+            "n": 1428469,
+            "observed_rate": 0.001118680209371012
+          }
+        ],
+        "roc_auc": 0.5
+      }
+    }
+  },
+  "model_config": {
+    "calibration": {
+      "method": "platt"
+    },
+    "family": "lightgbm",
+    "lightgbm": {
+      "early_stopping_last_months": 6,
+      "early_stopping_rounds": 50,
+      "monotone_constraints": {
+        "credit_score": -1,
+        "orig_cltv": 1,
+        "orig_dti": 1,
+        "orig_interest_rate": 1,
+        "orig_ltv": 1,
+        "rate_spread": 1
+      },
+      "params": {
+        "colsample_bytree": 0.8,
+        "learning_rate": 0.03,
+        "max_cat_to_onehot": 8,
+        "min_child_samples": 500,
+        "min_split_gain": 0.0,
+        "n_estimators": 2000,
+        "n_jobs": 4,
+        "num_leaves": 15,
+        "objective": "binary",
+        "reg_lambda": 1.0,
+        "subsample": 0.8,
+        "subsample_freq": 1
+      }
+    },
+    "model_config_id": "lightgbm_v1",
+    "preprocessing": {
+      "categorical_min_frequency": 0.005
+    },
+    "reason_codes": {
+      "max_reasons": 4
+    },
+    "seed": 20261012
+  },
+  "model_family": "lightgbm",
+  "model_id": "pd-lgbm-origination_v1-sens-20261013T013544-38dff1",
+  "seed": 20261012,
+  "split_id": "freddie_mac_combined_v1",
+  "target_id": "default_90dpd_12m_exdisaster_v1"
+}

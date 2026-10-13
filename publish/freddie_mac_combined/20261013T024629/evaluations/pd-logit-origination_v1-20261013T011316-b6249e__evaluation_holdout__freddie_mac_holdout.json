@@ -1,0 +1,296 @@
+{
+  "against_other_targets": {
+    "default_90dpd_12m_exdisaster_v1": {
+      "brier": 0.004810335695337935,
+      "calibration_intercept": -0.705286634992283,
+      "calibration_slope": 1.2388485805917897,
+      "events": 404,
+      "gini": 0.6428134888538197,
+      "ks": 0.5221830937245748,
+      "log_loss": 0.02869916988675615,
+      "mean_pd": 0.00967922704014009,
+      "n": 83496,
+      "observed_expected_ratio": 0.4998906545223446,
+      "pr_auc": 0.0228683472954271,
+      "prevalence": 0.004838555140366006,
+      "roc_auc": 0.8214067444269099
+    }
+  },
+  "bootstrap_ci_logistic_calibrated": {
+    "brier": {
+      "high": 0.006410947328202974,
+      "low": 0.005504877159667235,
+      "n_boot": 200
+    },
+    "observed_expected_ratio": {
+      "high": 0.6796900255133103,
+      "low": 0.5750011335143269,
+      "n_boot": 200
+    },
+    "roc_auc": {
+      "high": 0.8302275915309836,
+      "low": 0.7925042385111318,
+      "n_boot": 200
+    }
+  },
+  "by_fpd_year": {
+    "2023": {
+      "brier": 0.0055407515325068355,
+      "calibration_intercept": -0.563561488181362,
+      "calibration_slope": 1.2925184347973977,
+      "events": 147,
+      "gini": 0.6425452185640188,
+      "ks": 0.5306770875003857,
+      "log_loss": 0.03178883920374412,
+      "mean_pd": 0.009775102434963271,
+      "n": 26165,
+      "observed_expected_ratio": 0.5747451015397116,
+      "pr_auc": 0.030348580142331088,
+      "prevalence": 0.005618192241544047,
+      "roc_auc": 0.8212726092820094
+    },
+    "2024": {
+      "brier": 0.006403451902750194,
+      "calibration_intercept": -0.4282147344996939,
+      "calibration_slope": 1.131714525875493,
+      "events": 325,
+      "gini": 0.6071875972159668,
+      "ks": 0.4816897972955196,
+      "log_loss": 0.035728759137964694,
+      "mean_pd": 0.009884304547584237,
+      "n": 50026,
+      "observed_expected_ratio": 0.6572664495929886,
+      "pr_auc": 0.027600181160048504,
+      "prevalence": 0.006496621756686523,
+      "roc_auc": 0.8035937986079834
+    },
+    "2025": {
+      "brier": 0.004423743690169223,
+      "calibration_intercept": -0.6110088123677655,
+      "calibration_slope": 1.2583192766666491,
+      "events": 33,
+      "gini": 0.6455124964551251,
+      "ks": 0.549091895490919,
+      "log_loss": 0.026514554551242055,
+      "mean_pd": 0.008138024462749307,
+      "n": 7406,
+      "observed_expected_ratio": 0.5475341873512535,
+      "pr_auc": 0.022068780797678017,
+      "prevalence": 0.004455846610856063,
+      "roc_auc": 0.8227562482275625
+    }
+  },
+  "data_origin": "EMPIRICAL",
+  "evaluated_at": "2026-10-13T02:43:23.606645Z",
+  "evaluation_dataset": "freddie_mac_holdout",
+  "evaluation_snapshot_sha256": "bb3bd5367822d919e2caef6b666b3955a3bc413649f60f2bcb2d8997d6a0aae4",
+  "evidence_note": "Empirical research result on Freddie Mac SFLLD; funded-loan population only.",
+  "feature_set_id": "origination_v1",
+  "fpd_range": [
+    "2023-07-01",
+    "2025-03-01"
+  ],
+  "logistic_calibrated": {
+    "brier": 0.0059580498642824,
+    "calibration_intercept": -0.48209888209012275,
+    "calibration_slope": 1.186089989934317,
+    "events": 505,
+    "gini": 0.6201684593434069,
+    "ks": 0.4919790207490397,
+    "log_loss": 0.03367930276694481,
+    "mean_pd": 0.009695419496864532,
+    "n": 83597,
+    "observed_expected_ratio": 0.6230660402720534,
+    "pr_auc": 0.02713754522383682,
+    "prevalence": 0.006040886634687848,
+    "reliability": [
+      {
+        "bin": 0,
+        "defaults": "<10",
+        "mean_pd": 0.0009235129933487437,
+        "n": 8360,
+        "observed_rate": "masked (small event count)"
+      },
+      {
+        "bin": 1,
+        "defaults": "<10",
+        "mean_pd": 0.001802732689821927,
+        "n": 8360,
+        "observed_rate": "masked (small event count)"
+      },
+      {
+        "bin": 2,
+        "defaults": "<10",
+        "mean_pd": 0.002679616970604148,
+        "n": 8359,
+        "observed_rate": "masked (small event count)"
+      },
+      {
+        "bin": 3,
+        "defaults": 18,
+        "mean_pd": 0.0036921223405312446,
+        "n": 8360,
+        "observed_rate": 0.00215311004784689
+      },
+      {
+        "bin": 4,
+        "defaults": 15,
+        "mean_pd": 0.004941024498928119,
+        "n": 8359,
+        "observed_rate": 0.0017944730230888863
+      },
+      {
+        "bin": 5,
+        "defaults": 26,
+        "mean_pd": 0.00657704887012475,
+        "n": 8360,
+        "observed_rate": 0.003110047846889952
+      },
+      {
+        "bin": 6,
+        "defaults": 35,
+        "mean_pd": 0.00885809140358227,
+        "n": 8360,
+        "observed_rate": 0.004186602870813397
+      },
+      {
+        "bin": 7,
+        "defaults": 69,
+        "mean_pd": 0.012258623848979563,
+        "n": 8359,
+        "observed_rate": 0.008254575906208877
+      },
+      {
+        "bin": 8,
+        "defaults": 95,
+        "mean_pd": 0.01817870360675512,
+        "n": 8360,
+        "observed_rate": 0.011363636363636364
+      },
+      {
+        "bin": 9,
+        "defaults": 231,
+        "mean_pd": 0.03704161643099671,
+        "n": 8360,
+        "observed_rate": 0.02763157894736842
+      }
+    ],
+    "roc_auc": 0.8100842296717035
+  },
+  "logistic_uncalibrated": {
+    "brier": 0.005935983678380849,
+    "calibration_intercept": -0.09825175989273043,
+    "calibration_slope": 1.113143209323316,
+    "events": 505,
+    "gini": 0.6201684593434069,
+    "ks": 0.4919790207490397,
+    "log_loss": 0.03284404116726669,
+    "mean_pd": 0.006653479613944976,
+    "n": 83597,
+    "observed_expected_ratio": 0.9079289312056809,
+    "pr_auc": 0.02713754522383682,
+    "prevalence": 0.006040886634687848,
+    "reliability": [
+      {
+        "bin": 0,
+        "defaults": "<10",
+        "mean_pd": 0.0005228381235113446,
+        "n": 8360,
+        "observed_rate": "masked (small event count)"
+      },
+      {
+        "bin": 1,
+        "defaults": "<10",
+        "mean_pd": 0.0010630807054881107,
+        "n": 8360,
+        "observed_rate": "masked (small event count)"
+      },
+      {
+        "bin": 2,
+        "defaults": "<10",
+        "mean_pd": 0.0016219143550852218,
+        "n": 8359,
+        "observed_rate": "masked (small event count)"
+      },
+      {
+        "bin": 3,
+        "defaults": 18,
+        "mean_pd": 0.0022829483408614696,
+        "n": 8360,
+        "observed_rate": 0.00215311004784689
+      },
+      {
+        "bin": 4,
+        "defaults": 15,
+        "mean_pd": 0.0031155650373660064,
+        "n": 8359,
+        "observed_rate": 0.0017944730230888863
+      },
+      {
+        "bin": 5,
+        "defaults": 26,
+        "mean_pd": 0.0042284006473849636,
+        "n": 8360,
+        "observed_rate": 0.003110047846889952
+      },
+      {
+        "bin": 6,
+        "defaults": 35,
+        "mean_pd": 0.005812265054489325,
+        "n": 8360,
+        "observed_rate": 0.004186602870813397
+      },
+      {
+        "bin": 7,
+        "defaults": 69,
+        "mean_pd": 0.008227428006423973,
+        "n": 8359,
+        "observed_rate": 0.008254575906208877
+      },
+      {
+        "bin": 8,
+        "defaults": 95,
+        "mean_pd": 0.012549499113022196,
+        "n": 8360,
+        "observed_rate": 0.011363636363636364
+      },
+      {
+        "bin": 9,
+        "defaults": 231,
+        "mean_pd": 0.02711001996975939,
+        "n": 8360,
+        "observed_rate": 0.02763157894736842
+      }
+    ],
+    "roc_auc": 0.8100842296717035
+  },
+  "model_family": "logistic_regression",
+  "model_id": "pd-logit-origination_v1-20261013T011316-b6249e",
+  "prevalence_baseline": {
+    "brier": 0.0060279525615761055,
+    "calibration_intercept": 1.6318213992022494,
+    "calibration_slope": -7.363418856683279,
+    "events": 505,
+    "gini": 0.0,
+    "ks": 0.0,
+    "log_loss": 0.041873079146515946,
+    "mean_pd": 0.001187203680331409,
+    "n": 83597,
+    "observed_expected_ratio": 5.088332132698181,
+    "pr_auc": 0.006040886634687848,
+    "prevalence": 0.006040886634687848,
+    "reliability": [
+      {
+        "bin": 0,
+        "defaults": 505,
+        "mean_pd": 0.001187203680331409,
+        "n": 83597,
+        "observed_rate": 0.006040886634687848
+      }
+    ],
+    "roc_auc": 0.5
+  },
+  "prior_test_evaluations": 0,
+  "split": "test",
+  "target_id": "default_90dpd_12m_v1"
+}

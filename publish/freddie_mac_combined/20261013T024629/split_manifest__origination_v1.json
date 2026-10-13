@@ -1,0 +1,115 @@
+{
+  "built_at": "2026-10-12T23:40:15.759527Z",
+  "data_origin": "EMPIRICAL",
+  "dataset_id": "freddie_mac_combined",
+  "date_column": "first_payment_date",
+  "feature_set_id": "origination_v1",
+  "min_gap_months": 12,
+  "missing_rate_by_feature": {
+    "channel": 0.0,
+    "cltv_minus_ltv": 8.564748067935582e-06,
+    "credit_score": 0.00012149253740812325,
+    "first_time_homebuyer_flag": 0.0,
+    "loan_purpose": 0.0,
+    "log_orig_upb": 0.0,
+    "mi_pct": 0.0,
+    "multiple_borrowers": 0.0,
+    "num_units": 3.1721289140502153e-07,
+    "occupancy_status": 0.0,
+    "orig_cltv": 8.564748067935582e-06,
+    "orig_dti": 0.0393045805224306,
+    "orig_interest_rate": 0.0,
+    "orig_loan_term": 0.0,
+    "orig_ltv": 7.930322285125538e-06,
+    "property_state": 0.0,
+    "property_type": 0.0
+  },
+  "ranges": {
+    "calibration": [
+      "2017-07",
+      "2019-03"
+    ],
+    "test": [
+      "2022-01",
+      "2023-06"
+    ],
+    "train": [
+      "2015-01",
+      "2016-06"
+    ]
+  },
+  "snapshot_file_sha256": "cf8dea24d4b2f4e75079a5792575f2f9905a205e9a35274069095f5ab46bdfd9",
+  "split_id": "freddie_mac_combined_v1",
+  "splits": {
+    "calibration": {
+      "defaults": 232,
+      "fpd_max": "2019-03-01 00:00:00",
+      "fpd_min": "2017-07-01 00:00:00",
+      "loan_ids_sha256": "removed",
+      "loans": 86404,
+      "prevalence": 0.0026850608768112585,
+      "sensitivity_targets": {
+        "default_90dpd_12m_exdisaster_v1": {
+          "defaults": 178,
+          "labelled": 86350
+        }
+      },
+      "source_ids": {
+        "freddie_mac_sflld_standard_sample": 86404
+      }
+    },
+    "test": {
+      "defaults": 10814,
+      "fpd_max": "2023-06-01 00:00:00",
+      "fpd_min": "2022-01-01 00:00:00",
+      "loan_ids_sha256": "removed",
+      "loans": 1573718,
+      "prevalence": 0.006871625030659877,
+      "sensitivity_targets": {
+        "default_90dpd_12m_exdisaster_v1": {
+          "defaults": 5744,
+          "labelled": 1568648
+        }
+      },
+      "source_ids": {
+        "freddie_mac_sflld_standard_full": 1573718
+      }
+    },
+    "train": {
+      "defaults": 1696,
+      "fpd_max": "2016-06-01 00:00:00",
+      "fpd_min": "2015-02-01 00:00:00",
+      "loan_ids_sha256": "removed",
+      "loans": 1428567,
+      "prevalence": 0.001187203680331409,
+      "sensitivity_targets": {
+        "default_90dpd_12m_exdisaster_v1": {
+          "defaults": 1598,
+          "labelled": 1428469
+        }
+      },
+      "source_ids": {
+        "freddie_mac_sflld_standard_full": 1428567
+      }
+    },
+    "unassigned": {
+      "defaults": 1229,
+      "fpd_max": "2025-02-01 00:00:00",
+      "fpd_min": "2016-07-01 00:00:00",
+      "loan_ids_sha256": "removed",
+      "loans": 63768,
+      "prevalence": 0.019272989587253795,
+      "sensitivity_targets": {
+        "default_90dpd_12m_exdisaster_v1": {
+          "defaults": 144,
+          "labelled": 62683
+        }
+      },
+      "source_ids": {
+        "freddie_mac_sflld_standard_full": 1536,
+        "freddie_mac_sflld_standard_sample": 62232
+      }
+    }
+  },
+  "target_id": "default_90dpd_12m_v1"
+}
