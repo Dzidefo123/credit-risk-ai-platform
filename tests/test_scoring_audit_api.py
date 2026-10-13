@@ -269,3 +269,28 @@ def test_holdout_evaluation_is_audited_separately(trained_ws, tmp_path):
     assert r["evaluation_dataset"] == cfg.dataset_id and r["prior_test_evaluations"] == 0
     assert [e["action"] for e in store.events()] == ["holdout_evaluated"]
     assert (cfg.reports_dir / mid / f"evaluation_holdout__{cfg.dataset_id}.json").exists()
+
+
+def test_ui_client_against_api(promoted, tmp_path):
+    """The analyst UI's client talks to the real API (in-process transport) and surfaces API errors."""
+    from crisk.ui.client import ApiClient, ApiError
+
+    client, H, _ = _client(promoted["cfg"], tmp_path)
+
+    def transport(method, url, headers, body):
+        path = url.split("http://testserver", 1)[1]
+        r = client.request(method, path, headers=headers, content=body)
+        return r.status_code, r.content
+
+    analyst = ApiClient("http://testserver", H["analyst"]["Authorization"][7:], transport)
+    assert analyst.model()["caller"]["role"] == "analyst"
+    sid = analyst.score(APP)["score_id"]
+    assert any(i["score_id"] == sid for i in analyst.scores(limit=500))
+    analyst.review(sid, "escalate", "Unusual combination of DTI and LTV; second opinion.")
+    assert analyst.score_detail(sid)["review_status"] == "escalate"
+    with pytest.raises(ApiError) as e:
+        analyst.replay(sid)
+    assert e.value.status == 403
+    with pytest.raises(ApiError) as e:
+        ApiClient("http://testserver", "crk_bad_key", transport).model()
+    assert e.value.status == 401
