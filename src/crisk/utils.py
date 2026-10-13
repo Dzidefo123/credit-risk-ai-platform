@@ -40,7 +40,7 @@ def canonical_json(obj: Any) -> str:
 def write_json(path: Path, obj: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(obj, indent=2, sort_keys=True, default=str), encoding="utf-8")
+    tmp.write_text(json.dumps(obj, indent=2, sort_keys=True, default=str), encoding="utf-8", newline="\n")
     os.replace(tmp, path)
 
 
@@ -50,7 +50,7 @@ def read_json(path: Path) -> Any:
 
 def append_jsonl(path: Path, obj: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as fh:
+    with path.open("a", encoding="utf-8", newline="\n") as fh:
         fh.write(canonical_json(obj) + "\n")
 
 
