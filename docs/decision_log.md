@@ -161,3 +161,8 @@ drift) is opened.
 A historical simulation on the 2023–25 holdout showed strong risk separation (approved 0.09% vs declined 1.36% default
 rate). It also exposed decile drift: 47% of recent loans fall in the 2017–19 "decile 10". The remedy is monitoring
 plus a governed decile refresh on recent applicants (no outcomes needed), built in the monitoring step.
+
+**D-033 · 2026-10-13 · Monitoring compares scores with the champion's current rank reference; the drift remedy is a governed decile refresh on applications.**
+The 2023–25 replay raised a high `score_drift` alert in all 21 months (PSI 0.6–2.4). Refreshing deciles on 2023-07..2024-06
+applications, with no outcomes needed, cut out-of-sample referrals from 45% to 14% under policy 1.0.0 and kept risk
+separation. Applying the refresh to the live champion requires a named reviewer.
