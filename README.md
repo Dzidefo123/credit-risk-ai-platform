@@ -28,6 +28,17 @@ Raw pipe files are processed as follows: contract validation → quarantine → 
 logistic baseline + Platt calibration → audited test evaluation → audited promotion → batch/online scoring
 → replay from score ID. Every step writes to an append-only, hash-chained audit store.
 
+## One-command demo (Docker, SYNTHETIC data, no credentials)
+
+```bash
+docker compose up --build        # first run: about 5-10 minutes (pipeline + model + monitoring)
+docker compose logs init         # prints the demo analyst and auditor API keys
+```
+
+Open the analyst UI at http://localhost:8501 (paste the analyst key) and the API docs at http://localhost:8000/docs.
+The demo trains and promotes a model on the deterministic synthetic fixture. Freddie Mac data is never in the image.
+Stop with `docker compose down` (add `-v` to delete the demo volumes).
+
 ## Quickstart
 
 Requires Python 3.12 and [uv](https://docs.astral.sh/uv/).

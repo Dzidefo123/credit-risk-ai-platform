@@ -1,0 +1,30 @@
+# One-command local demo: docker compose up --build
+# SYNTHETIC data only. Ports are bound to localhost; this is a prototype, not a deployment.
+services:
+  init:
+    build: .
+    command: ["sh", "docker/demo-init.sh"]
+    volumes: [demo-data:/app/data, demo-artifacts:/app/artifacts, demo-reports:/app/reports]
+  api:
+    build: .
+    command: ["crisk", "serve", "--dataset", "synthetic_fixture", "--host", "0.0.0.0", "--port", "8000"]
+    ports: ["127.0.0.1:8000:8000"]
+    volumes: [demo-data:/app/data, demo-artifacts:/app/artifacts, demo-reports:/app/reports]
+    depends_on:
+      init: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/ready')"]
+      interval: 10s
+      retries: 6
+  ui:
+    build: .
+    command: ["streamlit", "run", "src/crisk/ui/app.py", "--server.address", "0.0.0.0", "--server.port", "8501",
+              "--server.headless", "true", "--browser.gatherUsageStats", "false"]
+    environment: {CRISK_API_URL: "http://api:8000"}
+    ports: ["127.0.0.1:8501:8501"]
+    depends_on:
+      api: {condition: service_healthy}
+volumes:
+  demo-data: {}
+  demo-artifacts: {}
+  demo-reports: {}

@@ -21,7 +21,11 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | Scoring, replay, append-only audit, API with **authentication (5 roles)** and **human review** | implemented and tested; live-smoke-tested on the champion |
 | Analyst interface (Streamlit, API client only) | implemented; client tested; live smoke test passed |
 | Independent validation workflow + validation-gated promotion | implemented and tested; run on the champion |
-| Segment/proxy/fairness review (F-002), policy engine, monitoring, Docker, identity provider | **proposed** |
+| Fairness and geography review (pre-registered) | **done**: [results/fairness_review_v1.md](results/fairness_review_v1.md). property_state removed; no-state models validated; promotion awaits a reviewer |
+| Policy engine + historical simulation | **done**: [results/policy_simulation_v1.md](results/policy_simulation_v1.md) |
+| Portfolio monitoring + runbooks + governed decile refresh | **done**: [results/monitoring_v1.md](results/monitoring_v1.md), [runbooks.md](runbooks.md) |
+| Docker Compose demo (synthetic) | **implemented** (see README) |
+| Identity provider, TLS, document intelligence (G), copilot (H), LGD/EAD (J) | **proposed** |
 
 ## This session's commands (all succeeded unless noted)
 

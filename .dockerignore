@@ -1,0 +1,12 @@
+.venv
+.git
+data
+artifacts
+reports
+publish
+**/__pycache__
+.pytest_cache
+.ruff_cache
+tests
+notebooks
+*.zip

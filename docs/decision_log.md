@@ -166,3 +166,9 @@ plus a governed decile refresh on recent applicants (no outcomes needed), built 
 The 2023–25 replay raised a high `score_drift` alert in all 21 months (PSI 0.6–2.4). Refreshing deciles on 2023-07..2024-06
 applications, with no outcomes needed, cut out-of-sample referrals from 45% to 14% under policy 1.0.0 and kept risk
 separation. Applying the refresh to the live champion requires a named reviewer.
+
+**D-034 · 2026-10-13 · Docker Compose demo is synthetic-only.**
+The `init` service runs the synthetic slice, monitoring and demo key issuance. The API and UI start only after
+`init` succeeds. Ports are bound to 127.0.0.1, the container runs as a non-root user, and data, artefacts and
+reports are excluded from the image. The demo proves the engineering path without credentials. It is not a
+deployment and not evidence about credit risk.

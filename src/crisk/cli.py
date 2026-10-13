@@ -291,7 +291,7 @@ def cmd_serve(cfg, a) -> dict:
 
     from crisk.scoring.api import create_app
 
-    uvicorn.run(create_app(cfg, a.model_id), host="127.0.0.1", port=a.port)
+    uvicorn.run(create_app(cfg, a.model_id), host=a.host, port=a.port)
     return {}
 
 
@@ -381,6 +381,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--limit", type=int)
     ap.add_argument("--score-id")
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--host", default="127.0.0.1", help="serve: bind address (0.0.0.0 only inside a container)")
     a = ap.parse_args(argv)
     cfg = load_dataset_config(a.dataset)
     _p(COMMANDS[a.command](cfg, a))
