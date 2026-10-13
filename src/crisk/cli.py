@@ -59,14 +59,15 @@ def cmd_labels(cfg, a) -> dict:
 def cmd_features(cfg, a) -> dict:
     from crisk.features.snapshots import build_feature_snapshots
 
-    m = build_feature_snapshots(cfg)
+    m = build_feature_snapshots(cfg, feature_config=a.feature_config)
     return {k: m[k] for k in ("split_id", "feature_set_id", "splits")}
 
 
 def cmd_train(cfg, a) -> dict:
     from crisk.models.train import train_model
 
-    meta = train_model(cfg, AuditStore(cfg.audit_db), target_id=a.target_id)
+    meta = train_model(cfg, AuditStore(cfg.audit_db), target_id=a.target_id, feature_config=a.feature_config,
+                       model_config=a.model_config)
     cal = meta["metrics"]["calibration"]["logistic_uncalibrated"]
     return {"model_id": meta["model_id"], "target_id": meta["target_id"], "data_origin": meta["data_origin"],
             "evidence_note": meta["evidence_note"], "training_data": meta["training_data"],
@@ -170,6 +171,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--seed", type=int, default=20261012)
     ap.add_argument("--model-id")
     ap.add_argument("--target-id", help="train: sensitivity target id (default: primary target)")
+    ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
+    ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--reviewer")
     ap.add_argument("--rationale")
     ap.add_argument("--split", default="test")

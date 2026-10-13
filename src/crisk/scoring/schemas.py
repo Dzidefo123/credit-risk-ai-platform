@@ -9,6 +9,7 @@ input is imputed and flagged.
 
 from __future__ import annotations
 
+import datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, create_model
@@ -23,8 +24,10 @@ ORIGINATION = CONTRACT_SETS[DEFAULT_CONTRACT_VERSION]["origination"]
 def _field_type(name: str) -> tuple[Any, Any]:
     f = ORIGINATION.by_name(name)
     kw: dict[str, Any] = {"default": None, "description": f.formal_name}
-    if f.dtype == "int":
-        typ: Any = int
+    if f.dtype == "yyyymm":
+        typ: Any = datetime.date
+    elif f.dtype == "int":
+        typ = int
     elif f.dtype == "float":
         typ = float
     elif f.allowed:

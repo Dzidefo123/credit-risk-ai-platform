@@ -18,6 +18,7 @@ import pandas as pd
 from crisk.audit.store import AuditStore, IdempotencyConflict
 from crisk.config import DatasetConfig, load_yaml
 from crisk.features.origination import DERIVED_INPUTS, FeatureSpec, build_feature_frame
+from crisk.features.snapshots import snapshot_path
 from crisk.labels.default_horizon import TargetSpec
 from crisk.models.bundle import ModelBundle
 from crisk.models.registry import champion, load_bundle
@@ -62,7 +63,7 @@ def compute_frame(bundle: ModelBundle, records: pd.DataFrame, reason_table: dict
         if c not in records.columns:
             records[c] = None
     req_missing = records[list(REQUIRED_FOR_SCORING)].isna()
-    feats = build_feature_frame(records, spec)
+    feats = build_feature_frame(records, spec, macro=bundle.macro)
     results: list[Computed | None] = [None] * len(records)
 
     ok = ~req_missing.any(axis=1)
@@ -76,6 +77,8 @@ def compute_frame(bundle: ModelBundle, records: pd.DataFrame, reason_table: dict
             flags = [f"missing_imputed:{c}" for c in spec.raw_inputs
                      if c not in REQUIRED_FOR_SCORING and pd.isna(records.at[i, c])]
             flags += [f"unseen_category:{c}={X.at[i, c]}" for c in unseen if str(X.at[i, c]) in unseen[c]]
+            if "rate_spread" in X.columns and pd.isna(X.at[i, "rate_spread"]):
+                flags.append("market_rate_unavailable:rate_spread_imputed")
             row = contrib.loc[i]
             reasons = []
             for feat, val in row[row > 0].sort_values(ascending=False).head(max_reasons).items():
@@ -209,7 +212,8 @@ def batch_score_split(cfg: DatasetConfig, store: AuditStore, split: str, limit: 
     with duckdb.connect() as con:
         df = con.execute(f"""
             SELECT {cols} FROM read_parquet('{(cfg.processed_dir / 'loan_origination.parquet').as_posix()}') o
-            JOIN read_parquet('{(cfg.processed_dir / 'feature_snapshots.parquet').as_posix()}') s USING (loan_id)
+            JOIN read_parquet('{snapshot_path(cfg, svc.bundle.feature_spec.feature_set_id).as_posix()}') s
+                 USING (loan_id)
             WHERE s.split = '{split}' ORDER BY o.loan_id {lim}""").df()
     apps = [{k: _clean(v) for k, v in r.items()} for r in df.to_dict(orient="records")]
     keys = [f"batch:{svc.model_id}:{a['loan_id']}" for a in apps]

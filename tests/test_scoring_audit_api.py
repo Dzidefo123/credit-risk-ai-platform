@@ -52,7 +52,7 @@ def test_offline_online_parity(promoted):
     """Batch predictions from feature snapshots == service predictions from raw application records."""
     cfg = promoted["cfg"]
     bundle, _ = load_bundle(cfg, promoted["meta"]["model_id"])
-    snap = pd.read_parquet(cfg.processed_dir / "feature_snapshots.parquet")
+    snap = pd.read_parquet(cfg.processed_dir / "feature_snapshots__origination_v1.parquet")
     snap = snap[snap.split == "test"].sort_values("loan_id").head(50)
     offline = bundle.predict(snap)
     scored = batch_score_split(cfg, promoted["store"], "test", 50)

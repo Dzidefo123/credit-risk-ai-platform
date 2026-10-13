@@ -1,0 +1,35 @@
+model_config_id: lightgbm_v1
+family: lightgbm
+seed: 20261012
+lightgbm:
+  # Fixed, conservative settings (no search in v1). Rounds chosen by early stopping on the last part of
+  # the TRAINING window (temporal), then refitted on the full training split.
+  early_stopping_last_months: 6
+  early_stopping_rounds: 50
+  params:
+    objective: binary
+    n_estimators: 2000
+    learning_rate: 0.03
+    num_leaves: 15
+    min_child_samples: 500        # events are rare (~0.1%): keep leaves large
+    min_split_gain: 0.0
+    subsample: 0.8
+    subsample_freq: 1
+    colsample_bytree: 0.8
+    reg_lambda: 1.0
+    max_cat_to_onehot: 8
+    n_jobs: 4
+  # Only where economically justified; categorical features are unconstrained.
+  monotone_constraints:
+    credit_score: -1
+    orig_dti: 1
+    orig_ltv: 1
+    orig_cltv: 1
+    rate_spread: 1
+    orig_interest_rate: 1
+preprocessing:
+  categorical_min_frequency: 0.005
+calibration:
+  method: platt
+reason_codes:
+  max_reasons: 4

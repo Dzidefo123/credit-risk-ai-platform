@@ -14,8 +14,21 @@ from crisk.utils import sha256_file, sha256_text, utc_now, write_json
 ID_COLUMNS = ["loan_id", "first_payment_date", "split", "label", "outcome", "data_origin"]
 
 
-def build_feature_snapshots(cfg: DatasetConfig) -> dict:
-    fspec = FeatureSpec.load(cfg.feature_config)
+def snapshot_path(cfg: DatasetConfig, feature_set_id: str):
+    return cfg.processed_dir / f"feature_snapshots__{feature_set_id}.parquet"
+
+
+def split_manifest_path(cfg: DatasetConfig, feature_set_id: str):
+    return cfg.processed_dir / f"split_manifest__{feature_set_id}.json"
+
+
+def build_feature_snapshots(cfg: DatasetConfig, feature_config: str | None = None) -> dict:
+    fspec = FeatureSpec.load(feature_config or cfg.feature_config)
+    macro = None
+    if fspec.needs_macro:
+        from crisk.macro.pmms import MarketRateTable
+
+        macro = MarketRateTable.from_fred_csv()
     tspec = TargetSpec.load(cfg.target_config)
     sspec = SplitSpec.load(cfg.split_config, tspec.horizon_months)
     pdir = cfg.processed_dir
@@ -35,7 +48,7 @@ def build_feature_snapshots(cfg: DatasetConfig) -> dict:
     finally:
         con.close()
 
-    feats = build_feature_frame(df, fspec)
+    feats = build_feature_frame(df, fspec, macro=macro)
     extra = [c for t in sens_ids for c in (f"label__{t}", f"outcome__{t}")]
     snap = pd.concat([df[["loan_id", "first_payment_date", "label", "outcome", "data_origin", "source_id", *extra]],
                       feats], axis=1)
@@ -46,7 +59,7 @@ def build_feature_snapshots(cfg: DatasetConfig) -> dict:
     snap["feature_set_id"] = fspec.feature_set_id
     snap["target_id"] = tspec.target_id
     snap["split_id"] = sspec.split_id
-    out = pdir / "feature_snapshots.parquet"
+    out = snapshot_path(cfg, fspec.feature_set_id)
     snap.to_parquet(out, index=False)
 
     manifest = {
@@ -76,5 +89,7 @@ def build_feature_snapshots(cfg: DatasetConfig) -> dict:
                 for t in sens_ids},
         }
     manifest["missing_rate_by_feature"] = {c: float(feats[c].isna().mean()) for c in fspec.model_columns}
-    write_json(pdir / "split_manifest.json", manifest)
+    if macro is not None:
+        manifest["macro"] = macro.metadata()
+    write_json(split_manifest_path(cfg, fspec.feature_set_id), manifest)
     return manifest

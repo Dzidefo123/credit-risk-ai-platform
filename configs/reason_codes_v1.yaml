@@ -9,6 +9,7 @@ codes:
   cltv_minus_ltv:            {code: RC03, text: "Secondary financing (CLTV above LTV)", missing_text: "CLTV not available"}
   orig_dti:                  {code: RC04, text: "Debt-to-income ratio",                 missing_text: "DTI not available"}
   orig_interest_rate:        {code: RC05, text: "Note interest rate",                   missing_text: "Interest rate not available"}
+  rate_spread:               {code: RC05, text: "Note rate above prevailing market rate", missing_text: "Market rate reference not available"}
   orig_loan_term:            {code: RC06, text: "Loan term",                            missing_text: "Loan term not available"}
   log_orig_upb:              {code: RC07, text: "Loan amount",                          missing_text: "Loan amount not available"}
   mi_pct:                    {code: RC08, text: "Mortgage insurance coverage",          missing_text: "MI coverage not available"}

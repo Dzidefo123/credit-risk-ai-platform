@@ -24,7 +24,11 @@ DERIVED_INPUTS = {
     "log_orig_upb": ("orig_upb",),
     "multiple_borrowers": ("num_borrowers",),
     "cltv_minus_ltv": ("orig_cltv", "orig_ltv"),
+    # note rate minus the PMMS market rate published 3 months before first payment (crisk.macro.pmms)
+    "rate_spread": ("orig_interest_rate", "first_payment_date", "orig_loan_term"),
 }
+# Derived features that need an external, point-in-time reference table.
+MACRO_FEATURES = {"rate_spread"}
 
 
 @dataclass(frozen=True)
@@ -59,6 +63,10 @@ class FeatureSpec:
         return [*self.numeric, *self.derived_numeric]
 
     @property
+    def needs_macro(self) -> bool:
+        return bool(MACRO_FEATURES & set(self.derived_numeric))
+
+    @property
     def raw_inputs(self) -> list[str]:
         """Canonical origination fields the feature set reads."""
         cols = [*self.numeric, *self.categorical]
@@ -85,25 +93,39 @@ class FeatureSpec:
             raise ValueError(f"Derived features without an implementation: {sorted(unknown)}")
 
 
-def build_feature_frame(records: pd.DataFrame, spec: FeatureSpec) -> pd.DataFrame:
-    """Map canonical origination records to model input columns (missing stays missing)."""
+def _num(records: pd.DataFrame, c: str) -> pd.Series:
+    return pd.to_numeric(records[c], errors="coerce").astype("float64")
+
+
+def build_feature_frame(records: pd.DataFrame, spec: FeatureSpec, macro=None) -> pd.DataFrame:
+    """Map canonical origination records to model input columns (missing stays missing).
+
+    ``macro`` is a ``crisk.macro.pmms.MarketRateTable``; required when the spec uses ``rate_spread``.
+    Row-wise: each output row depends only on that loan's record and published reference data.
+    """
     missing = [c for c in spec.raw_inputs if c not in records.columns]
     if missing:
         raise KeyError(f"Missing canonical input columns: {missing}")
+    if spec.needs_macro and macro is None:
+        raise ValueError(f"Feature set {spec.feature_set_id!r} needs a market-rate table (macro=...)")
     out = pd.DataFrame(index=records.index)
     for c in spec.numeric:
-        out[c] = pd.to_numeric(records[c], errors="coerce").astype("float64")
-    upb = pd.to_numeric(records["orig_upb"], errors="coerce").astype("float64")
-    nb = pd.to_numeric(records["num_borrowers"], errors="coerce").astype("float64")
-    cltv = pd.to_numeric(records["orig_cltv"], errors="coerce").astype("float64")
-    ltv = pd.to_numeric(records["orig_ltv"], errors="coerce").astype("float64")
-    derived = {
-        "log_orig_upb": np.log(upb.where(upb > 0)),
-        "multiple_borrowers": np.where(nb.isna(), np.nan, (nb >= 2).astype("float64")),
-        "cltv_minus_ltv": cltv - ltv,
-    }
+        out[c] = _num(records, c)
     for d in spec.derived_numeric:
-        out[d] = pd.Series(derived[d], index=records.index, dtype="float64")
+        if d == "log_orig_upb":
+            upb = _num(records, "orig_upb")
+            v = np.log(upb.where(upb > 0))
+        elif d == "multiple_borrowers":
+            nb = _num(records, "num_borrowers")
+            v = np.where(nb.isna(), np.nan, (nb >= 2).astype("float64"))
+        elif d == "cltv_minus_ltv":
+            v = _num(records, "orig_cltv") - _num(records, "orig_ltv")
+        elif d == "rate_spread":
+            v = _num(records, "orig_interest_rate") - macro.reference_rate(records["first_payment_date"],
+                                                                          records["orig_loan_term"])
+        else:  # pragma: no cover - guarded by check_availability
+            raise KeyError(d)
+        out[d] = pd.Series(v, index=records.index, dtype="float64")
     for c in spec.categorical:
         s = records[c].astype("object")
         present = s.notna() & (s.astype(str).str.strip() != "")

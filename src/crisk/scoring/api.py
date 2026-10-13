@@ -34,13 +34,6 @@ def _error(status: int, code: str, message: str, cid: str | None) -> JSONRespons
 
 def create_app(cfg: DatasetConfig, model_id: str | None = None) -> FastAPI:
     store = AuditStore(cfg.audit_db)
-    spec = FeatureSpec.load(cfg.feature_config)
-    Application = application_model(spec)
-
-    # Built with create_model: a locally defined class annotation would be a forward reference here.
-    ScoreRequest = create_model("ScoreRequest", __config__=ConfigDict(extra="forbid"),
-                                application=(Application, ...), idempotency_key=(str | None, None))
-
     app = FastAPI(title="Credit risk PD scoring (prototype)", version="0.1.0")
     state: dict = {"service": None, "load_error": None}
     try:
@@ -48,6 +41,13 @@ def create_app(cfg: DatasetConfig, model_id: str | None = None) -> FastAPI:
     except Exception as e:  # service still starts so /health and /ready report the failure
         state["load_error"] = f"{type(e).__name__}: {e}"
         log.error("model load failed: %s", state["load_error"])
+
+    # Request schema follows the served model's feature set (falls back to the dataset default).
+    # Built with create_model: a locally defined class annotation would be a forward reference here.
+    spec = state["service"].bundle.feature_spec if state["service"] else FeatureSpec.load(cfg.feature_config)
+    Application = application_model(spec)
+    ScoreRequest = create_model("ScoreRequest", __config__=ConfigDict(extra="forbid"),
+                                application=(Application, ...), idempotency_key=(str | None, None))
 
     @app.middleware("http")
     async def correlation(request: Request, call_next):
