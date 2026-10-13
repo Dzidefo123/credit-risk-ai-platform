@@ -11,12 +11,15 @@ findings:
       Holdout observed/expected 0.62 (M1); lagged recalibration and TTC anchors rejected. Restricts use to
       rank-ordering until a level methodology passes a confirmatory test.
   - id: F-002
-    title: property_state proxy / fair-lending review not performed
+    title: property_state proxy / fair-lending review
     severity: medium
-    status: open
+    status: closed
     owner: validator
-    evidence: configs/features/origination_v1.yaml (review_notes)
-    detail: Geography can proxy protected characteristics; segment-level error and proxy analysis outstanding.
+    evidence: docs/results/fairness_review_v1.md
+    detail: >
+      Reviewed 2026-10-13 (pre-registered). property_state reduces out-of-time AUC (delta -0.012, CI excludes 0) and
+      shows a weak state-level proxy screen (|rho| <= 0.15). Decision: remove it (M1-nostate). No protected attributes
+      exist in the data, so individual-level disparate impact remains untestable (see F-003-style limitation).
   - id: F-003
     title: Funded-loan selection; no reject inference
     severity: medium
@@ -45,3 +48,10 @@ findings:
     owner: validator
     evidence: artifacts audit chain (model_promoted 2026-10-13)
     detail: Closed when a validation report approving the champion's use is recorded.
+  - id: F-007
+    title: Credit-score gradient too steep for 2023-25 cohorts
+    severity: medium
+    status: open
+    owner: modeller
+    evidence: docs/results/fairness_review_v1.md (holdout segments)
+    detail: Holdout O/E by credit-score band ranges from 1.09 (<660) to 0.26 (780+); relative risk across bands has shifted.

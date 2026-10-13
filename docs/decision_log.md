@@ -149,3 +149,10 @@ API). This is decision support only: there is no automated approve/decline, beca
 **D-030 · 2026-10-13 · Independent validation workflow with release criteria fixed before its first run; EMPIRICAL promotions require it.**
 `crisk validate` runs 14 checks against `release_criteria_v1` and merges the findings register. Promoting an EMPIRICAL
 model through the CLI is refused unless the latest validation report approves the requested use.
+
+**D-031 · 2026-10-13 · Fairness and geography review: remove `property_state` (pre-registered rule).**
+`property_state` reduces out-of-time AUC (−0.012 primary, −0.005 ex-disaster; both CIs exclude 0), and its
+state-level proxy screen against Census demographics is weak (|ρ| ≤ 0.15). The no-state models are clean-commit
+reproductions, each evaluated once on the 2023–25 holdout (AUC 0.815 / 0.826) and validated 13/14 for
+`demonstration_rank_ordering`. Promotion awaits a named reviewer. F-002 is closed; F-007 (credit-score gradient
+drift) is opened.
