@@ -83,3 +83,6 @@ class ScoreResponse(BaseModel):
     dq_flags: list[str] = []
     reason_codes: list[ReasonCode] = []
     idempotent_replay: bool = False
+    approved_use: str = "not_promoted"
+    risk_decile: int | None = None
+    requested_by: str | None = None

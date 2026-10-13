@@ -127,9 +127,23 @@ def cmd_backtest_ttc(cfg, a) -> dict:
 
 
 def cmd_promote(cfg, a) -> dict:
-    from crisk.models.registry import promote
+    import pandas as pd
 
-    return promote(cfg, a.model_id, a.reviewer, a.rationale, AuditStore(cfg.audit_db))
+    from crisk.features.snapshots import snapshot_path
+    from crisk.models.registry import load_bundle, promote, reference_deciles
+
+    if not a.model_id or not a.reviewer or not a.rationale:
+        raise SystemExit("--model-id, --reviewer and --rationale are required")
+    bundle, meta = load_bundle(cfg, a.model_id)
+    extra = {}
+    snap_file = snapshot_path(cfg, meta["feature_set_id"])
+    if snap_file.exists():  # risk-decile cut-offs on the out-of-time calibration population
+        ref = pd.read_parquet(snap_file).query("split == 'calibration'")
+        if len(ref):
+            extra = {"risk_decile_cutoffs": reference_deciles(bundle, ref),
+                     "risk_decile_reference": f"{cfg.dataset_id} calibration split ({len(ref)} loans)"}
+    return promote(cfg, a.model_id, a.reviewer, a.rationale, AuditStore(cfg.audit_db),
+                   approved_use=a.approved_use, extra=extra)
 
 
 def cmd_rollback(cfg, a) -> dict:
@@ -226,6 +240,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
+    ap.add_argument("--approved-use", default="demonstration_rank_ordering",
+                    help="promote: demonstration_rank_ordering (default) or pd_level")
     ap.add_argument("--eval-dataset", help="backtest-recalibration: dataset providing the walk-forward cohorts")
     ap.add_argument("--reviewer")
     ap.add_argument("--rationale")

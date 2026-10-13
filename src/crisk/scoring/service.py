@@ -19,10 +19,9 @@ from crisk.audit.store import AuditStore, IdempotencyConflict
 from crisk.config import DatasetConfig, load_yaml
 from crisk.features.origination import DERIVED_INPUTS, FeatureSpec, build_feature_frame
 from crisk.features.snapshots import snapshot_path
-from crisk.labels.default_horizon import TargetSpec
 from crisk.models.bundle import ModelBundle
 from crisk.models.registry import champion, load_bundle
-from crisk.models.train import EVIDENCE_NOTE
+from crisk.models.train import EVIDENCE_NOTE, resolve_target
 from crisk.scoring.schemas import REQUIRED_FOR_SCORING
 from crisk.utils import canonical_json, code_version, sha256_text, utc_now
 
@@ -103,14 +102,18 @@ class ScoringService:
     def __init__(self, cfg: DatasetConfig, store: AuditStore, model_id: str | None = None):
         self.cfg = cfg
         self.store = store
+        ch = champion(cfg)
         if model_id is None:
-            ch = champion(cfg)
             if ch is None:
                 raise ModelUnavailableError("No champion model promoted; pass model_id explicitly or promote one")
             model_id = ch["model_id"]
         self.bundle, self.meta = load_bundle(cfg, model_id)
         self.model_id = model_id
-        self.tspec = TargetSpec.load(cfg.target_config)
+        # the model's own target (a sensitivity-target model must not be labelled with the primary target)
+        self.tspec, _ = resolve_target(cfg, self.meta.get("target_id"))
+        is_champion = ch is not None and ch["model_id"] == model_id
+        self.approved_use = ch.get("approved_use", "demonstration_rank_ordering") if is_champion else "not_promoted"
+        self.decile_cutoffs = (ch or {}).get("risk_decile_cutoffs") if is_champion else None
         rc = load_yaml(REASON_CODES_CONFIG)
         self.reason_table = rc["codes"]
         self.max_reasons = int(self.meta["model_config"]["reason_codes"]["max_reasons"])
@@ -126,18 +129,25 @@ class ScoringService:
             "model": {"model_id": self.model_id, "artifact_sha256": self.meta["artifact_sha256"],
                       "calibrated": bool(self.bundle.calibrated),
                       "feature_set_id": self.bundle.feature_spec.feature_set_id},
+            "approved_use": self.approved_use,
         }
+
+    def risk_decile(self, pd_value: float | None) -> int | None:
+        """1 = lowest-risk tenth of the reference population, 10 = highest (champion only)."""
+        if pd_value is None or not self.decile_cutoffs:
+            return None
+        return int(np.searchsorted(np.asarray(self.decile_cutoffs), pd_value, side="right")) + 1
 
     def compute(self, applications: list[dict]) -> list[Computed]:
         return compute_frame(self.bundle, pd.DataFrame(applications), self.reason_table, self.max_reasons)
 
     # ---- online / batch --------------------------------------------------------------------------
     def score(self, application: dict, idempotency_key: str | None = None,
-              correlation_id: str | None = None) -> dict:
-        return self.score_many([application], [idempotency_key], correlation_id)[0]
+              correlation_id: str | None = None, requested_by: str | None = None) -> dict:
+        return self.score_many([application], [idempotency_key], correlation_id, requested_by)[0]
 
     def score_many(self, applications: list[dict], idempotency_keys: list[str | None] | None = None,
-                   correlation_id: str | None = None) -> list[dict]:
+                   correlation_id: str | None = None, requested_by: str | None = None) -> list[dict]:
         keys = idempotency_keys or [None] * len(applications)
         out: list[dict | None] = [None] * len(applications)
         todo = []
@@ -157,7 +167,8 @@ class ScoringService:
             for (i, app, key, rh), c in zip(todo, computed, strict=True):
                 resp = {"score_id": uuid.uuid4().hex, "status": c.status, "scored_at": utc_now(),
                         "correlation_id": correlation_id, **env, "pd": c.pd, "pd_uncalibrated": c.pd_uncalibrated,
-                        "dq_flags": c.dq_flags, "reason_codes": c.reason_codes, "idempotent_replay": False}
+                        "dq_flags": c.dq_flags, "reason_codes": c.reason_codes, "idempotent_replay": False,
+                        "risk_decile": self.risk_decile(c.pd), "requested_by": requested_by}
                 self.store.insert_score({
                     "score_id": resp["score_id"], "idempotency_key": key, "request_hash": rh,
                     "correlation_id": correlation_id, "scored_at": resp["scored_at"], "status": c.status,

@@ -61,16 +61,34 @@ def champion(cfg: DatasetConfig) -> dict | None:
     return read_json(p) if p.exists() else None
 
 
+APPROVED_USES = {
+    "demonstration_rank_ordering": "Demonstration only: use risk deciles / relative ranking; absolute PD is not "
+                                   "validated for pricing, expected loss or PD thresholds.",
+    "pd_level": "Absolute PD approved for use (requires passing the PD-level validation criteria).",
+}
+
+
+def reference_deciles(bundle: ModelBundle, X) -> list[float]:
+    """Nine cut-offs of the calibrated PD on a reference population; decile 10 = highest risk."""
+    import numpy as np
+
+    return [float(v) for v in np.quantile(bundle.predict(X), np.linspace(0.1, 0.9, 9))]
+
+
 def promote(cfg: DatasetConfig, model_id: str, reviewer: str, rationale: str, store: AuditStore,
-            action: str = "model_promoted") -> dict:
+            action: str = "model_promoted", approved_use: str = "demonstration_rank_ordering",
+            extra: dict | None = None) -> dict:
     if not reviewer.strip() or not rationale.strip():
         raise ValueError("Promotion requires a named reviewer and a rationale")
+    if approved_use not in APPROVED_USES:
+        raise ValueError(f"approved_use must be one of {sorted(APPROVED_USES)}")
     load_bundle(cfg, model_id)  # integrity check before promotion
     meta = load_metadata(cfg, model_id)
     previous = champion(cfg)
     pointer = {"model_id": model_id, "artifact_sha256": meta["artifact_sha256"], "promoted_at": utc_now(),
                "reviewer": reviewer, "rationale": rationale, "data_origin": meta["data_origin"],
-               "previous_model_id": previous["model_id"] if previous else None}
+               "approved_use": approved_use, "approved_use_text": APPROVED_USES[approved_use],
+               "previous_model_id": previous["model_id"] if previous else None, **(extra or {})}
     event = store.append_event(actor=reviewer, action=action, entity_type="model", entity_id=model_id,
                                details=pointer)
     pointer["audit_event_id"] = event["event_id"]
@@ -82,4 +100,5 @@ def rollback(cfg: DatasetConfig, reviewer: str, rationale: str, store: AuditStor
     cur = champion(cfg)
     if not cur or not cur.get("previous_model_id"):
         raise ValueError("No previous champion to roll back to")
-    return promote(cfg, cur["previous_model_id"], reviewer, rationale, store, action="model_rolled_back")
+    return promote(cfg, cur["previous_model_id"], reviewer, rationale, store, action="model_rolled_back",
+                   approved_use=cur.get("approved_use", "demonstration_rank_ordering"))
