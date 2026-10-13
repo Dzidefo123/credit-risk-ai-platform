@@ -26,7 +26,9 @@ This is a design baseline for a local research prototype. It is **not** a compli
 | Promotion and rollback need a named reviewer and rationale, and are audited | implemented, tested |
 | Locked test-set access is audited | implemented, tested |
 | Payload-free error logging in the API | implemented |
-| Authentication and authorisation (roles: modeller, validator, analyst, administrator, auditor) | **not implemented**: do not expose the API beyond localhost |
+| Authentication and authorisation (roles: modeller, validator, analyst, administrator, auditor) | **implemented (prototype)**: hashed API keys, per-endpoint permissions, audited key lifecycle. Still localhost-only: no TLS, identity provider or rate limiting |
+| Human review actions (agree/override/escalate + rationale) | implemented, append-only, audited |
+| Independent validation before promotion (EMPIRICAL) | implemented (`crisk validate`, release_criteria_v1) |
 | Encryption at rest, retention and deletion schedule, WORM audit storage | **design only** (production) |
 | Threat model | to be written in Phase F/D |
 

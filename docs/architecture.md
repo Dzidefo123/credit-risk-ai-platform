@@ -55,6 +55,11 @@ flowchart LR
 | `crisk.models` | Model bundle, training, locked test evaluation, registry, promotion/rollback | C/D |
 | `crisk.scoring` | Contract-derived schemas, service, replay, batch, API | F |
 | `crisk.audit` | Append-only store and hash chain | F |
+| `crisk.macro` | PMMS market-rate table, point-in-time join | A3 |
+| `crisk.security` | API keys, roles, permissions | F |
+| `crisk.ui` | Analyst interface (Streamlit) and its stdlib API client | F |
+| `crisk.validation` | Independent validation runner, release criteria, findings | D |
+| `crisk.publish` | Publication gate for aggregate results | — |
 | *(planned)* `crisk.policies`, `crisk.monitoring`, `crisk.documents`, `crisk.copilot` | | E, I, G, H |
 
 ## Data locations (all git-excluded)

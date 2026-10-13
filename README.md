@@ -68,6 +68,18 @@ uv run crisk train           --dataset freddie_mac_combined --feature-config con
 uv run crisk export-results  --dataset freddie_mac_combined --model-id <id1,id2,...>   # aggregate-only publication gate
 ```
 
+Serving, review and validation (champion = M1 logistic, approved for **rank-ordering demonstrations only**):
+
+```bash
+uv run crisk create-api-key --dataset freddie_mac_combined --name alice --role analyst   # key shown once
+uv run crisk serve          --dataset freddie_mac_combined                              # http://127.0.0.1:8000/docs
+CRISK_API_URL=http://127.0.0.1:8000 uv run --group ui streamlit run src/crisk/ui/app.py  # analyst interface
+uv run crisk validate       --dataset freddie_mac_combined --model-id <id> --validator <name>
+```
+
+Roles: `analyst` (score, read, review), `auditor` (read, replay), `validator` (read, replay), `modeller` (score),
+`administrator` (all API actions). No role can promote models or approve loans through the API.
+
 ## Documentation
 
 - [Project status](docs/PROJECT_STATUS.md): what is implemented, tested, blocked or proposed

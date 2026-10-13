@@ -127,3 +127,25 @@ raised log loss. Together with v3, the conclusion is that the absolute PD level 
 be set reliably from lagged outcomes. Recommendation: use model output for ranking; govern the absolute level as an
 explicit documented overlay. The 2025 sample (Release 47 edition) is excluded from ingestion and reserved for the
 confirmatory test on Release 48+ data.
+
+**D-027 · 2026-10-13 · Champion: M1 logistic (`…b6249e`), promoted by Dzidefo123 for `demonstration_rank_ordering` only.**
+The promotion record carries the approved use and risk-decile cut-offs from the 86,404-loan calibration population.
+Responses show `approved_use` and `risk_decile`; the analyst UI leads with the decile and labels the PD as not
+validated. Validated afterwards (`val-…-20261013T113241`): 13/14 checks pass, and V07 PD-level calibration fails
+(O/E 0.62), so PD-level use is not approved. Segregation of duties is **not met**: the same person promoted and
+validated. This is recorded rather than hidden.
+
+**D-028 · 2026-10-13 · API authentication: hashed API keys with five roles and per-endpoint permissions; human review is append-only.**
+Keys use the format `crk_<id>_<secret>`. Only SHA-256 hashes are stored (`artifacts/<ds>/api_keys.json`,
+git-excluded), and comparison is constant-time. Creating and revoking keys is audited. No API role can promote models,
+change policy or approve loans. Reviews (agree / override / escalate, with rationale) go to `review_events`, which has
+the same append-only triggers. An identity provider, TLS and rate limiting are production gaps.
+
+**D-029 · 2026-10-13 · Analyst UI is a pure API client (Streamlit, optional `ui` group).**
+The UI never reads model files or the audit store directly, so permissions and audit logging live in one place (the
+API). This is decision support only: there is no automated approve/decline, because no policy engine exists yet
+(Phase E).
+
+**D-030 · 2026-10-13 · Independent validation workflow with release criteria fixed before its first run; EMPIRICAL promotions require it.**
+`crisk validate` runs 14 checks against `release_criteria_v1` and merges the findings register. Promoting an EMPIRICAL
+model through the CLI is refused unless the latest validation report approves the requested use.

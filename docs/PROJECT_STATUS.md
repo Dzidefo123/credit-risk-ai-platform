@@ -17,8 +17,11 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | v3 walk-forward recalibration (pre-registered) | **done**: [results/recalibration_v3.md](results/recalibration_v3.md). Negative result: R0 kept. A Newton-divergence bug was found and fixed (D-025) |
 | v4 through-the-cycle level (pre-registered; exploratory) | **done**: [results/ttc_level_v4.md](results/ttc_level_v4.md). Negative result: L0 kept. 2025 vintage reserved for the Release 48+ confirmatory test |
 | Publication gate `crisk export-results` | **implemented and tested**; two owner-reviewed exports published |
-| Scoring, replay, append-only audit, API | implemented and tested; no empirical model promoted (needs a named reviewer) |
-| Segment/proxy/fairness review, validation runner, policy engine, UI, monitoring, Docker, auth | **proposed** |
+| Champion | **M1 logistic `…b6249e`** promoted by Dzidefo123 for `demonstration_rank_ordering`; validated 13/14 (V07 PD-level fails, as expected). Segregation of duties not met (same person) |
+| Scoring, replay, append-only audit, API with **authentication (5 roles)** and **human review** | implemented and tested; live-smoke-tested on the champion |
+| Analyst interface (Streamlit, API client only) | implemented; client tested; live smoke test passed |
+| Independent validation workflow + validation-gated promotion | implemented and tested; run on the champion |
+| Segment/proxy/fairness review (F-002), policy engine, monitoring, Docker, identity provider | **proposed** |
 
 ## This session's commands (all succeeded unless noted)
 
@@ -55,5 +58,4 @@ Failures and fixes this session:
    confirmatory test of L0 (once). The Release 47 edition on disk is excluded from ingestion.
 3. Optional future round (needs its own pre-registration and unseen data): crisis-excluded TTC anchor, macro-conditional
    level, or early-performance proxy. Segment and proxy review (`property_state`).
-4. Promote M1 (logistic) for demonstration scoring with a named reviewer. Phase D validation runner; Phase F hardening
-   (auth, Docker, analyst UI).
+4. Next build options: segment/proxy review (closes F-002), policy engine (Phase E), monitoring (Phase I), Docker Compose demo.
