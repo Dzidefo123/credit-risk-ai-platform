@@ -46,3 +46,13 @@ def trained_ws(tmp_path_factory):
     store = AuditStore(cfg.audit_db)
     meta = train_model(cfg, store)
     return {"cfg": cfg, "key": key, "store": store, "meta": meta}
+
+
+@pytest.fixture(scope="session")
+def promoted(trained_ws):
+    """trained_ws with its model promoted as champion (demonstration use)."""
+    from crisk.models.registry import promote
+
+    cfg, store, meta = trained_ws["cfg"], trained_ws["store"], trained_ws["meta"]
+    promote(cfg, meta["model_id"], "test-reviewer", "unit test", store)
+    return trained_ws

@@ -69,3 +69,6 @@ class ApiClient:
 
     def replay(self, score_id: str) -> dict:
         return self._call("POST", f"/v1/scores/{score_id}/replay")
+
+    def monitoring(self) -> dict:
+        return self._call("GET", "/v1/monitoring")

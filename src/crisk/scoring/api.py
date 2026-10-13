@@ -12,6 +12,7 @@ Endpoints (auth = ``Authorization: Bearer <key>`` or ``X-API-Key``; see crisk.se
   POST /v1/scores/{score_id}/replay        score:replay
   POST /v1/scores/{score_id}/reviews       review:create human review: agree | override | escalate
   POST /v1/scores/{score_id}/decision      decision:create policy recommendation (versioned policy engine)
+  GET  /v1/monitoring                      monitoring:read latest monitoring report (drift, outcomes, alerts)
 Errors use one JSON shape: {"error": {"code", "message", "correlation_id"}}.
 Still a prototype: no TLS termination, rate limiting or identity provider. Keep it on localhost.
 """
@@ -210,6 +211,13 @@ def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore |
                            entity_id=score_id, details={"review_id": review["review_id"],
                                                         "override_decision": body.override_decision})
         return review
+
+    @app.get("/v1/monitoring")
+    def monitoring(request: Request, p: Principal = Depends(needs("monitoring:read"))):  # noqa: B008
+        latest = cfg.reports_dir / "monitoring" / "latest.json"
+        if not latest.exists():
+            return _error(404, "not_found", "No monitoring report yet (run `crisk monitor`)", request.state.cid)
+        return json.loads(latest.read_text(encoding="utf-8"))
 
     @app.post("/v1/scores/{score_id}/decision", status_code=201)
     def decide(score_id: str, request: Request, p: Principal = Depends(needs("decision:create"))):  # noqa: B008

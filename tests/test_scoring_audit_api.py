@@ -18,11 +18,6 @@ APP = dict(credit_score=700, orig_dti=40, orig_ltv=90, orig_cltv=90, orig_intere
            property_type="SF", loan_purpose="C", first_time_homebuyer_flag=None, property_state="TX")
 
 
-@pytest.fixture(scope="module")
-def promoted(trained_ws):
-    cfg, store, meta = trained_ws["cfg"], trained_ws["store"], trained_ws["meta"]
-    promote(cfg, meta["model_id"], "test-reviewer", "unit test", store)
-    return trained_ws
 
 
 def test_model_metadata_records_lineage(trained_ws):

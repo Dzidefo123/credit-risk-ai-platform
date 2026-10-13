@@ -68,7 +68,11 @@ def simulate(frame: pd.DataFrame, policies: list[Policy], approved_use: str, ass
 
 
 def run_simulation(model_cfg, model_id: str, eval_cfg, policy_paths: list[str],
-                   assumptions_path: str = "configs/policies/simulation_assumptions_v1.yaml") -> dict:
+                   assumptions_path: str = "configs/policies/simulation_assumptions_v1.yaml",
+                   fpd_from: str | None = None, decile_reference: tuple[str, str] | None = None) -> dict:
+    """Scenario options: ``fpd_from`` restricts evaluated cohorts; ``decile_reference=(from, to)`` recomputes decile
+    cut-offs on the evaluation dataset's applications in that FPD window (scores only, no outcomes) instead of using
+    the champion's, without changing the champion."""
     import duckdb
 
     from crisk.features.snapshots import snapshot_path
@@ -85,7 +89,16 @@ def run_simulation(model_cfg, model_id: str, eval_cfg, policy_paths: list[str],
         cutoffs, approved_use = reference_deciles(bundle, ref), "demonstration_rank_ordering"
     snap = pd.read_parquet(snapshot_path(eval_cfg, meta["feature_set_id"]))
     col = target_label_columns(eval_cfg)[meta["target_id"]]
-    snap = snap[(snap.split == "test") & snap[col].notna()].copy()
+    ym = pd.to_datetime(snap["first_payment_date"]).dt.strftime("%Y-%m")
+    scenario = {}
+    if decile_reference:
+        refm = (snap.split == "test") & (ym >= decile_reference[0]) & (ym <= decile_reference[1])
+        cutoffs = reference_deciles(bundle, snap[refm])
+        lo, hi = decile_reference
+        scenario["decile_reference"] = f"{eval_cfg.dataset_id} applications FPD {lo}..{hi}"
+    snap = snap[(snap.split == "test") & snap[col].notna() & ((ym >= fpd_from) if fpd_from else True)].copy()
+    if fpd_from:
+        scenario["fpd_from"] = fpd_from
     snap["label"] = snap[col].astype(int)
     snap["pd"] = bundle.predict(snap)
     snap["risk_decile"] = np.searchsorted(np.asarray(cutoffs), snap["pd"].to_numpy(), side="right") + 1
@@ -102,12 +115,15 @@ def run_simulation(model_cfg, model_id: str, eval_cfg, policy_paths: list[str],
               "eval_dataset": eval_cfg.dataset_id, "population": "funded, Freddie Mac-acquired loans with mature "
               "12-month outcomes (test split of the evaluation dataset)", "n_loans": len(frame),
               "fpd_range": [str(frame.first_payment_date.min())[:10], str(frame.first_payment_date.max())[:10]],
-              "approved_use": approved_use, "decile_cutoffs": cutoffs, "assumptions": assumptions,
+              "approved_use": approved_use, "decile_cutoffs": cutoffs, "scenario": scenario or None,
+              "assumptions": assumptions,
               "results": results,
               "caveats": ["Observational: declined loans' outcomes are observed only because these loans were funded "
                           "historically; a real policy change alters who applies and is funded.",
                           "Economics are scenario arithmetic (constant LGD, EAD = original UPB, assumed margin and "
                           "costs), not fitted LGD/EAD models or accounting ECL.",
                           "FICTIONAL demonstration policies."]}
-    write_json(model_cfg.reports_dir / "policy_v1" / f"simulation__{eval_cfg.dataset_id}__{model_id}.json", report)
+    tag = "" if not scenario else "__scenario_" + "_".join(str(v).split(" ")[-1] for v in scenario.values())
+    write_json(model_cfg.reports_dir / "policy_v1" / f"simulation__{eval_cfg.dataset_id}__{model_id}{tag}.json",
+               report)
     return report

@@ -240,12 +240,45 @@ def cmd_policy_simulate(cfg, a) -> dict:
     pols = a.policies.split(",") if a.policies else ["configs/policies/demo_policy_v1.yaml",
                                                      "configs/policies/demo_policy_v1_tight.yaml",
                                                      "configs/policies/demo_policy_v1_loose.yaml"]
-    r = run_simulation(cfg, a.model_id, load_dataset_config(a.eval_dataset), pols)
+    ref = (a.decile_from, a.decile_to) if a.decile_from and a.decile_to else None
+    r = run_simulation(cfg, a.model_id, load_dataset_config(a.eval_dataset), pols, fpd_from=a.fpd_from,
+                       decile_reference=ref)
     return {"n_loans": r["n_loans"], "approved_use": r["approved_use"],
             "results": {v: {k: x[k] for k in ("approve_rate", "refer_rate", "decline_rate", "default_rate_approved",
                                                "default_rate_declined")} | {
                 "contribution_usd": x["economics_base_referred_declined"]["contribution_usd"]}
                 for v, x in r["results"].items()}}
+
+
+def cmd_monitor(cfg, a) -> dict:
+    from crisk.monitoring.monitor import run_monitoring
+
+    if not a.eval_dataset:
+        raise SystemExit("--eval-dataset is required (the stream to monitor)")
+    r = run_monitoring(cfg, load_dataset_config(a.eval_dataset), a.model_id)
+    return {"model_id": r["model_id"], "months": len(r["months"]), "quarters": len(r["quarters"]),
+            "score_psi_by_month": {m["month"]: round(m["score_psi"], 3) for m in r["months"]},
+            "alerts": [{k: x[k] for k in ("alert_id", "severity", "first_period", "last_period", "periods", "owner")}
+                       for x in r["alerts"]]}
+
+
+def cmd_refresh_deciles(cfg, a) -> dict:
+    import pandas as pd
+
+    from crisk.features.snapshots import snapshot_path
+    from crisk.models.registry import champion, load_bundle, reference_deciles, refresh_deciles
+
+    if not (a.eval_dataset and a.fpd_from and a.fpd_to and a.reviewer and a.rationale):
+        raise SystemExit("--eval-dataset, --fpd-from, --fpd-to, --reviewer and --rationale are required")
+    ch = champion(cfg)
+    bundle, meta = load_bundle(cfg, ch["model_id"])
+    ev = load_dataset_config(a.eval_dataset)
+    snap = pd.read_parquet(snapshot_path(ev, meta["feature_set_id"]))
+    ym = pd.to_datetime(snap["first_payment_date"]).dt.strftime("%Y-%m")
+    ref = snap[(ym >= a.fpd_from) & (ym <= a.fpd_to)]  # applications only: outcomes are not used
+    cut = reference_deciles(bundle, ref)
+    return refresh_deciles(cfg, cut, f"{ev.dataset_id} applications FPD {a.fpd_from}..{a.fpd_to} ({len(ref)} loans)",
+                           a.reviewer, a.rationale, AuditStore(cfg.audit_db))
 
 
 def cmd_verify_audit(cfg, a) -> dict:
@@ -305,6 +338,8 @@ COMMANDS = {
     "score-batch": cmd_score_batch,
     "replay": cmd_replay,
     "verify-audit": cmd_verify_audit,
+    "monitor": cmd_monitor,
+    "refresh-deciles": cmd_refresh_deciles,
     "policy-simulate": cmd_policy_simulate,
     "fairness-review": cmd_fairness_review,
     "validate": cmd_validate,
@@ -328,6 +363,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
+    ap.add_argument("--fpd-from", help="policy-simulate/refresh-deciles: first FPD month (YYYY-MM)")
+    ap.add_argument("--fpd-to", help="refresh-deciles: last FPD month of the reference applications")
+    ap.add_argument("--decile-from", help="policy-simulate scenario: decile reference window start")
+    ap.add_argument("--decile-to", help="policy-simulate scenario: decile reference window end")
     ap.add_argument("--policies", help="policy-simulate: comma-separated policy YAML paths")
     ap.add_argument("--validator", help="validate: name of the person performing validation")
     ap.add_argument("--name", help="create-api-key: key holder name")

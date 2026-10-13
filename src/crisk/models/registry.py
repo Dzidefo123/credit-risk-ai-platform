@@ -102,3 +102,31 @@ def rollback(cfg: DatasetConfig, reviewer: str, rationale: str, store: AuditStor
         raise ValueError("No previous champion to roll back to")
     return promote(cfg, cur["previous_model_id"], reviewer, rationale, store, action="model_rolled_back",
                    approved_use=cur.get("approved_use", "demonstration_rank_ordering"))
+
+
+def refresh_deciles(cfg: DatasetConfig, cutoffs: list[float], reference: str, reviewer: str, rationale: str,
+                    store: AuditStore) -> dict:
+    """Replace the champion's risk-decile cut-offs (rank reference only; model and calibration unchanged).
+
+    Ranking against the current applicant population needs no outcomes, so it can track drift without the
+    information lag that defeats PD recalibration. A named reviewer is required and the change is audited; earlier
+    cut-offs are kept in ``decile_history``.
+    """
+    if not reviewer.strip() or not rationale.strip():
+        raise ValueError("A decile refresh requires a named reviewer and a rationale")
+    if len(cutoffs) != 9 or any(b <= a for a, b in zip(cutoffs, cutoffs[1:], strict=False)):
+        raise ValueError("Expected 9 strictly increasing cut-offs")
+    cur = champion(cfg)
+    if cur is None:
+        raise ValueError("No champion to update")
+    history = [*cur.get("decile_history", []), {"cutoffs": cur.get("risk_decile_cutoffs"),
+                                                 "reference": cur.get("risk_decile_reference"),
+                                                 "replaced_at": utc_now()}]
+    event = store.append_event(actor=reviewer, action="decile_cutoffs_refreshed", entity_type="model",
+                               entity_id=cur["model_id"], details={"reference": reference, "cutoffs": cutoffs,
+                                                                   "rationale": rationale})
+    pointer = {**cur, "risk_decile_cutoffs": [float(c) for c in cutoffs], "risk_decile_reference": reference,
+               "decile_refreshed_at": utc_now(), "decile_refresh_reviewer": reviewer,
+               "decile_refresh_audit_event_id": event["event_id"], "decile_history": history}
+    write_json(cfg.models_dir / "champion.json", pointer)
+    return pointer

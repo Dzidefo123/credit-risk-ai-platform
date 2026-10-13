@@ -1,0 +1,8 @@
+# Monitoring thresholds v1 (fixed 2026-10-13 before the first monitoring run).
+# PSI conventions widely used in credit-risk monitoring: < 0.10 stable, 0.10-0.25 watch, >= 0.25 alert.
+psi_watch: 0.10
+psi_alert: 0.25
+missing_rate_shift_alert: 0.05     # absolute change in a feature's missing rate vs reference
+min_monthly_volume: 500            # scoring volume floor (monthly cohorts in the replay)
+auc_drop_alert: 0.05               # quarterly ROC-AUC below reference AUC minus this
+observed_expected_band: [0.8, 1.25]

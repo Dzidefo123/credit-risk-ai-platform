@@ -22,7 +22,7 @@ st.set_page_config(page_title="Credit risk analyst", layout="wide")
 st.sidebar.header("Connection")
 api_url = st.sidebar.text_input("API URL", os.environ.get("CRISK_API_URL", "http://127.0.0.1:8000"))
 api_key = st.sidebar.text_input("API key", os.environ.get("CRISK_API_KEY", ""), type="password")
-page = st.sidebar.radio("Page", ["Score application", "Review queue", "Model & governance"])
+page = st.sidebar.radio("Page", ["Score application", "Review queue", "Monitoring", "Model & governance"])
 
 if not api_key:
     st.info("Enter your API key in the sidebar. Keys are issued with `crisk create-api-key --role analyst`.")
@@ -142,6 +142,38 @@ elif page == "Review queue":
                 st.json(client.replay(sid))
             except ApiError as e:
                 st.error(str(e))
+
+elif page == "Monitoring":
+    st.header("Portfolio monitoring")
+    try:
+        mon = client.monitoring()
+    except ApiError as e:
+        st.error(str(e))
+        st.stop()
+    st.caption(f"Stream: {mon['stream']} · rank reference: {mon['reference'].get('rank_reference')} · "
+               f"generated {mon['generated_at']}")
+    al = pd.DataFrame(mon["alerts"])
+    st.subheader("Alerts (de-duplicated)")
+    if al.empty:
+        st.success("No alerts.")
+    else:
+        st.dataframe(al[["severity", "alert_id", "first_period", "last_period", "periods", "peak_value", "owner",
+                         "action", "message"]], use_container_width=True, hide_index=True)
+    months = pd.DataFrame(mon["months"]).set_index("month")
+    th = mon["thresholds"]
+    st.subheader(f"Score drift (PSI vs rank reference; watch ≥ {th['psi_watch']}, alert ≥ {th['psi_alert']})")
+    st.line_chart(months[["score_psi"]])
+    st.subheader("Share of applications above the reference top-decile cut-off (expected 10%)")
+    st.line_chart(months[["share_top_reference_decile"]])
+    st.subheader("Monthly volume")
+    st.bar_chart(months[["volume"]])
+    q = pd.DataFrame(mon["quarters"])
+    if not q.empty:
+        st.subheader("Matured outcomes by quarter")
+        st.dataframe(q, use_container_width=True, hide_index=True)
+    fp = pd.DataFrame({m: r["feature_psi"] for m, r in zip(months.index, mon["months"], strict=True)}).T
+    st.subheader("Input drift (feature PSI by month)")
+    st.dataframe(fp.round(3), use_container_width=True)
 
 else:
     st.header("Model & governance")
