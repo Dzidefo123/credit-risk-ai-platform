@@ -120,3 +120,10 @@ reported in full (docs/results/recalibration_v3.md). The next step is a level si
 Plain Newton diverged (intercept −1.6e8) when the offset predictions were about 15× below the observed rate. The fix
 changes no earlier result: M1/M4 Platt and calibration metrics were recomputed with a difference of 0.0. A regression
 test was added. The first (invalid) backtest run is kept locally as a recorded deviation.
+
+**D-026 · 2026-10-13 · v4 through-the-cycle level: pre-registered rule keeps L0.**
+Expanding and 60-month intercept anchors both made the level less stable (mean RMS ln(O/E) 1.19 / 1.26 vs 1.05) and
+raised log loss. Together with v3, the conclusion is that the absolute PD level in 2015–2025 is shock-driven and cannot
+be set reliably from lagged outcomes. Recommendation: use model output for ranking; govern the absolute level as an
+explicit documented overlay. The 2025 sample (Release 47 edition) is excluded from ingestion and reserved for the
+confirmatory test on Release 48+ data.

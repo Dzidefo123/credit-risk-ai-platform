@@ -15,6 +15,7 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | v2 / challenger comparison on out-of-time development data | **done**: [results/model_comparison_v2.md](results/model_comparison_v2.md) |
 | Fresh locked holdout (sample 2023–24, FPD 2023-07..2025-03) | **done**, once per model: [results/holdout_2023_2024.md](results/holdout_2023_2024.md). AUC 0.81–0.82; observed/expected 1.78 (M4) / 0.62 (M1) / 0.67 (M1 ex-disaster) |
 | v3 walk-forward recalibration (pre-registered) | **done**: [results/recalibration_v3.md](results/recalibration_v3.md). Negative result: R0 kept. A Newton-divergence bug was found and fixed (D-025) |
+| v4 through-the-cycle level (pre-registered; exploratory) | **done**: [results/ttc_level_v4.md](results/ttc_level_v4.md). Negative result: L0 kept. 2025 vintage reserved for the Release 48+ confirmatory test |
 | Publication gate `crisk export-results` | **implemented and tested**; two owner-reviewed exports published |
 | Scoring, replay, append-only audit, API | implemented and tested; no empirical model promoted (needs a named reviewer) |
 | Segment/proxy/fairness review, validation runner, policy engine, UI, monitoring, Docker, auth | **proposed** |
@@ -50,8 +51,9 @@ Failures and fixes this session:
 
 1. Done: pushed to https://github.com/Dzidefo123/credit-risk-ai-platform (CI green). Both owner-reviewed exports
    are published. New results (v3) are in `docs/results/` only; export them via the gate after review if wanted.
-2. v4 plan (not yet written): a PD level signal available at origination, either an early-performance proxy (60+ DPD
-   within 6 months) or a point-in-time macro term; a CI-based selection rule; segment and proxy review.
-   Confirmatory test of the status quo (R0) on Release 48+ cohorts (`sample_2025.zip`) when released.
-3. Promote M1 (logistic) for demonstration scoring with a named reviewer. Phase D validation runner; Phase F hardening
+2. When Freddie Mac publishes Release 48+, download its edition of `sample_2025.zip` and run the pre-registered
+   confirmatory test of L0 (once). The Release 47 edition on disk is excluded from ingestion.
+3. Optional future round (needs its own pre-registration and unseen data): crisis-excluded TTC anchor, macro-conditional
+   level, or early-performance proxy. Segment and proxy review (`property_state`).
+4. Promote M1 (logistic) for demonstration scoring with a named reviewer. Phase D validation runner; Phase F hardening
    (auth, Docker, analyst UI).
