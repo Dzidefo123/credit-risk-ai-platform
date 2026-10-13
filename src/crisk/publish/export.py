@@ -85,8 +85,10 @@ def export_results(cfg: DatasetConfig, model_ids: list[str], out_root: Path | No
         if extra.data_origin != "EMPIRICAL":
             raise PublicationGateError("Only EMPIRICAL datasets are exported")
         xd = extra.processed_dir
-        for f in ["canonical_build_report.json", "label_report.json", *[q.name for q in xd.glob("label_report__*.json")],
-                  *[q.name for q in xd.glob("split_manifest__*.json")]]:
+        names = ["canonical_build_report.json", "label_report.json",
+                 *[q.name for q in xd.glob("label_report__*.json")],
+                 *[q.name for q in xd.glob("split_manifest__*.json")]]
+        for f in names:
             sources.append((f"{extra.dataset_id}/{f}", xd / f))
     for mid in model_ids:
         meta_path = cfg.models_dir / mid / "metadata.json"
