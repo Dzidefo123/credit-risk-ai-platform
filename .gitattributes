@@ -1,0 +1,5 @@
+# Keep LF everywhere; fixture files are compared byte-for-byte by tests.
+* text=auto eol=lf
+tests/fixtures/** -text
+*.parquet binary
+*.joblib binary
