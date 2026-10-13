@@ -294,3 +294,23 @@ def test_ui_client_against_api(promoted, tmp_path):
     with pytest.raises(ApiError) as e:
         ApiClient("http://testserver", "crk_bad_key", transport).model()
     assert e.value.status == 401
+
+
+def test_policy_decision_endpoint(promoted, tmp_path):
+    client, H, _ = _client(promoted["cfg"], tmp_path)
+    sid = client.post("/v1/score", json={"application": {**APP, "credit_score": 610}}, headers=H["analyst"]).json()[
+        "score_id"]
+    assert client.post(f"/v1/scores/{sid}/decision", headers=H["auditor"]).status_code == 403
+    d = client.post(f"/v1/scores/{sid}/decision", headers=H["analyst"])
+    assert d.status_code == 201
+    body = d.json()
+    assert body["decision"] == "decline" and body["decisive_rules"][0]["rule_id"] == "E01"
+    assert body["policy_version"] == "1.0.0"
+    detail = client.get(f"/v1/scores/{sid}", headers=H["auditor"]).json()
+    assert detail["policy_decisions"][0]["decision"] == "decline"
+    import sqlite3
+
+    con = sqlite3.connect(promoted["cfg"].audit_db)
+    with pytest.raises(sqlite3.DatabaseError, match="append-only"):
+        con.execute("DELETE FROM policy_decisions")
+    con.close()

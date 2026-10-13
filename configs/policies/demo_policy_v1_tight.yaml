@@ -1,0 +1,18 @@
+# FICTIONAL scenario variant of demo_policy 1.0.0: tighter risk appetite (simulation only).
+policy_id: demo_policy
+version: "1.0.0-tight"
+effective_from: "2026-10-13"
+owner: credit-policy (fictional)
+rules:
+  - {id: E01, when: "credit_score < 640", outcome: decline, reason: "Credit score below programme minimum (640)"}
+  - {id: E02, when: "orig_dti > 45", outcome: decline, reason: "Debt-to-income above programme maximum (45%)"}
+  - {id: E03, when: "orig_ltv > 95", outcome: decline, reason: "Loan-to-value above programme maximum (95%)"}
+  - {id: E04, when: "occupancy_status == 'I' and orig_ltv > 80", outcome: decline,
+     reason: "Investment property LTV above 80%"}
+  - {id: X01, when: "orig_upb > 800000", outcome: refer, reason: "Exposure above single-loan cap ($800k): senior approval"}
+  - {id: D01, when: "score_status != 'scored'", outcome: refer, reason: "Model could not score the application"}
+  - {id: D02, when: "credit_score is None or orig_dti is None", outcome: refer,
+     reason: "Key underwriting data missing (credit score or DTI)"}
+  - {id: R01, when: "risk_decile >= 9 and orig_dti > 40", outcome: decline,
+     reason: "Model risk decile 9-10 combined with DTI above 40%"}
+  - {id: R02, when: "risk_decile >= 8", outcome: refer, reason: "Model risk decile 8-10: manual review"}

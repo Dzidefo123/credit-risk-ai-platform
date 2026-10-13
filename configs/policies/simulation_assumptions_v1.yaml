@@ -1,0 +1,10 @@
+# Scenario assumptions for historical policy simulation (ILLUSTRATIVE; not fitted, not accounting ECL).
+assumptions_id: sim_assumptions_v1
+ead: "original UPB (USD); single-period illustration"
+lgd_base: 0.25                     # loss given default, scenario assumption (no LGD model exists)
+lgd_sensitivity: [0.15, 0.25, 0.40]
+net_margin_base: 0.010             # annual net interest + fee margin on approved UPB after funding cost (assumed)
+net_margin_sensitivity: [0.005, 0.010, 0.015]
+operating_cost_per_loan_usd: 1500  # origination/servicing cost proxy (assumed)
+manual_review_cost_per_loan_usd: 250
+horizon_months: 12                 # matches the default target; contribution = 12m margin - losses - costs

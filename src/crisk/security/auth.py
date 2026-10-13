@@ -30,6 +30,7 @@ PERMISSIONS: dict[str, set[str]] = {
     "score:read": {"analyst", "auditor", "validator", "administrator"},
     "score:replay": {"auditor", "validator", "administrator"},
     "review:create": {"analyst", "administrator"},
+    "decision:create": {"analyst", "administrator"},
     "model:read": set(ROLES),
 }
 

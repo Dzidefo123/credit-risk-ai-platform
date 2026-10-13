@@ -67,9 +67,20 @@ CREATE TABLE IF NOT EXISTS review_events (
     override_decision TEXT,            -- approve | decline | refer (override only)
     rationale TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS policy_decisions (
+    decision_id TEXT PRIMARY KEY,
+    score_id TEXT NOT NULL,
+    decided_at TEXT NOT NULL,
+    requested_by TEXT NOT NULL,
+    policy_id TEXT NOT NULL,
+    policy_version TEXT NOT NULL,
+    policy_sha256 TEXT NOT NULL,
+    decision TEXT NOT NULL,            -- approve | refer | decline (policy recommendation; humans review)
+    detail TEXT NOT NULL               -- JSON: triggered rules, model reasons, risk decile
+);
 """
 
-_TABLES = ("scoring_events", "audit_events", "review_events")
+_TABLES = ("scoring_events", "audit_events", "review_events", "policy_decisions")
 
 
 def _triggers() -> str:
@@ -204,3 +215,16 @@ class AuditStore:
             args.append(score_id)
         with closing(self._connect()) as con:
             return [dict(r) for r in con.execute(sql + " ORDER BY reviewed_at", args).fetchall()]
+
+    # ---- policy decisions (append-only) ------------------------------------------------------------------------
+    def add_decision(self, rec: dict) -> None:
+        cols = ", ".join(rec)
+        ph = ", ".join(f":{k}" for k in rec)
+        with closing(self._connect()) as con:
+            con.execute(f"INSERT INTO policy_decisions ({cols}) VALUES ({ph})", rec)
+
+    def decisions(self, score_id: str) -> list[dict]:
+        with closing(self._connect()) as con:
+            rows = con.execute("SELECT * FROM policy_decisions WHERE score_id = ? ORDER BY decided_at",
+                               (score_id,)).fetchall()
+        return [{**dict(r), "detail": json.loads(r["detail"])} for r in rows]

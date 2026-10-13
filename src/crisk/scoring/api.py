@@ -11,6 +11,7 @@ Endpoints (auth = ``Authorization: Bearer <key>`` or ``X-API-Key``; see crisk.se
   GET  /v1/scores/{score_id}               score:read    full record incl. input snapshot and reviews
   POST /v1/scores/{score_id}/replay        score:replay
   POST /v1/scores/{score_id}/reviews       review:create human review: agree | override | escalate
+  POST /v1/scores/{score_id}/decision      decision:create policy recommendation (versioned policy engine)
 Errors use one JSON shape: {"error": {"code", "message", "correlation_id"}}.
 Still a prototype: no TLS termination, rate limiting or identity provider. Keep it on localhost.
 """
@@ -29,6 +30,7 @@ from crisk.audit.store import AuditStore, IdempotencyConflict
 from crisk.config import DatasetConfig
 from crisk.features.origination import FeatureSpec
 from crisk.models.registry import champion
+from crisk.policies.engine import Policy, PolicyError
 from crisk.scoring.schemas import ScoreResponse, application_model
 from crisk.scoring.service import ModelUnavailableError, ScoringService, replay
 from crisk.security.auth import AuthError, KeyStore, Principal, authorise, key_store_path
@@ -66,7 +68,11 @@ def _summary(rec: dict, latest_review: dict | None) -> dict:
             "override_decision": latest_review.get("override_decision") if latest_review else None}
 
 
-def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore | None = None) -> FastAPI:
+DEFAULT_POLICY = "configs/policies/demo_policy_v1.yaml"
+
+
+def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore | None = None,
+               policy_path: str = DEFAULT_POLICY) -> FastAPI:
     store = AuditStore(cfg.audit_db)
     keys = keys or KeyStore(key_store_path(cfg))
     app = FastAPI(title="Credit risk PD scoring (prototype)", version="0.2.0")
@@ -179,7 +185,7 @@ def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore |
                 "input_snapshot": json.loads(rec["input_snapshot"]), "feature_vector": json.loads(rec["feature_vector"]
                                                                                               or "{}"),
                 "model_sha256": rec["model_sha256"], "code_version": json.loads(rec["code_version"]),
-                "reviews": reviews}
+                "reviews": reviews, "policy_decisions": store.decisions(score_id)}
 
     @app.post("/v1/scores/{score_id}/replay")
     def replay_score(score_id: str, request: Request, p: Principal = Depends(needs("score:replay"))):  # noqa: B008
@@ -204,5 +210,27 @@ def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore |
                            entity_id=score_id, details={"review_id": review["review_id"],
                                                         "override_decision": body.override_decision})
         return review
+
+    @app.post("/v1/scores/{score_id}/decision", status_code=201)
+    def decide(score_id: str, request: Request, p: Principal = Depends(needs("decision:create"))):  # noqa: B008
+        rec = store.get_score(score_id)
+        if rec is None:
+            return _error(404, "not_found", "Unknown score_id", request.state.cid)
+        try:
+            policy = Policy.load(policy_path)
+            resp = json.loads(rec["response"])
+            out = policy.evaluate(json.loads(rec["input_snapshot"]), resp, resp.get("approved_use", "not_promoted"))
+        except PolicyError as e:
+            return _error(409, "policy_not_applicable", str(e), request.state.cid)
+        row = {"decision_id": uuid.uuid4().hex, "score_id": score_id, "decided_at": utc_now(),
+               "requested_by": f"{p.name} ({p.role})", "policy_id": out["policy_id"],
+               "policy_version": out["policy_version"], "policy_sha256": out["policy_sha256"],
+               "decision": out["decision"], "detail": json.dumps(out, default=str)}
+        store.add_decision(row)
+        store.append_event(actor=row["requested_by"], action="policy_decision", entity_type="score",
+                           entity_id=score_id, details={"decision_id": row["decision_id"], "decision": out["decision"],
+                                                        "policy_version": out["policy_version"]})
+        return {**out, "decision_id": row["decision_id"], "decided_at": row["decided_at"],
+                "note": "Policy recommendation for human review; FICTIONAL demonstration policy."}
 
     return app

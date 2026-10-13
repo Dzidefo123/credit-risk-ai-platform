@@ -232,6 +232,22 @@ def cmd_fairness_review(cfg, a) -> dict:
             "decision": r["decision"]}
 
 
+def cmd_policy_simulate(cfg, a) -> dict:
+    from crisk.policies.simulate import run_simulation
+
+    if not a.model_id or not a.eval_dataset:
+        raise SystemExit("--model-id and --eval-dataset are required")
+    pols = a.policies.split(",") if a.policies else ["configs/policies/demo_policy_v1.yaml",
+                                                     "configs/policies/demo_policy_v1_tight.yaml",
+                                                     "configs/policies/demo_policy_v1_loose.yaml"]
+    r = run_simulation(cfg, a.model_id, load_dataset_config(a.eval_dataset), pols)
+    return {"n_loans": r["n_loans"], "approved_use": r["approved_use"],
+            "results": {v: {k: x[k] for k in ("approve_rate", "refer_rate", "decline_rate", "default_rate_approved",
+                                               "default_rate_declined")} | {
+                "contribution_usd": x["economics_base_referred_declined"]["contribution_usd"]}
+                for v, x in r["results"].items()}}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -289,6 +305,7 @@ COMMANDS = {
     "score-batch": cmd_score_batch,
     "replay": cmd_replay,
     "verify-audit": cmd_verify_audit,
+    "policy-simulate": cmd_policy_simulate,
     "fairness-review": cmd_fairness_review,
     "validate": cmd_validate,
     "create-api-key": cmd_create_api_key,
@@ -311,6 +328,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
+    ap.add_argument("--policies", help="policy-simulate: comma-separated policy YAML paths")
     ap.add_argument("--validator", help="validate: name of the person performing validation")
     ap.add_argument("--name", help="create-api-key: key holder name")
     ap.add_argument("--role", help="create-api-key: modeller | validator | analyst | administrator | auditor")
