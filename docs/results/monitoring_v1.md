@@ -36,3 +36,10 @@ A decile refresh on **applications only** (FPD 2023-07 – 2024-06, no outcomes 
 
 Referrals return close to the rule's design share (deciles 9–10 of current applicants), and risk separation is
 preserved. Applying the refresh to the live champion needs a named reviewer (`crisk refresh-deciles`, RB-02).
+
+## Applied (2026-10-13, D-036)
+
+After the champion changed to M1-nostate, its deciles were refreshed by a named reviewer (Dzidefo123) on applications
+with FPD 2024-04 – 2025-03. Re-run monitoring: score PSI ≤ 0.22 in every month (a watch-level alert in 5 months; it
+had been high in all 21). Policy 1.0.0 on the whole 2023–25 holdout: approve 76.6% / refer 19.0% / decline 4.4%.
+Default rate 0.24% approved vs 2.85% declined. Contribution $105.5M (base assumptions).

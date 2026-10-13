@@ -17,7 +17,7 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | v3 walk-forward recalibration (pre-registered) | **done**: [results/recalibration_v3.md](results/recalibration_v3.md). Negative result: R0 kept. A Newton-divergence bug was found and fixed (D-025) |
 | v4 through-the-cycle level (pre-registered; exploratory) | **done**: [results/ttc_level_v4.md](results/ttc_level_v4.md). Negative result: L0 kept. 2025 vintage reserved for the Release 48+ confirmatory test |
 | Publication gate `crisk export-results` | **implemented and tested**; two owner-reviewed exports published |
-| Champion | **M1-nostate logistic `…8fd365`** (no `property_state`), promoted by Dzidefo123 for `demonstration_rank_ordering`; validated 13/14 (V07 PD-level fails, as expected); previous champion `…b6249e` available for rollback. Decile refresh pending a reviewer |
+| Champion | **M1-nostate logistic `…8fd365`** (no `property_state`), promoted by Dzidefo123 for `demonstration_rank_ordering`; validated 13/14 (V07 PD-level fails, as expected); previous champion `…b6249e` available for rollback. Deciles refreshed 2026-10-13 on FPD 2024-04..2025-03 applications (D-036) |
 | Scoring, replay, append-only audit, API with **authentication (5 roles)** and **human review** | implemented and tested; live-smoke-tested on the champion |
 | Analyst interface (Streamlit, API client only) | implemented; client tested; live smoke test passed |
 | Independent validation workflow + validation-gated promotion | implemented and tested; run on the champion |

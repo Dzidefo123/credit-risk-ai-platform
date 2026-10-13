@@ -180,3 +180,10 @@ Promoted following the pre-registered fairness review (D-031), through the valid
 calibration reference at promotion, so the score-drift remedy (`crisk refresh-deciles`, RB-02) still awaits a reviewer.
 The API now publishes the model's `input_fields` and the analyst UI sends only those (the no-state model rejects
 `property_state`).
+
+**D-036 · 2026-10-13 · Champion decile cut-offs refreshed (RB-02) by Dzidefo123 on applications with FPD 2024-04..2025-03 (46,563 loans, no outcomes used).**
+Monitoring after the refresh: score drift fell from a high alert in all 21 months (PSI 0.6–2.4) to a watch-level alert in
+5 months (max PSI 0.22). The 2023-07..2024-03 months, outside the reference window, are also stable. Under policy 1.0.0
+on the 2023–25 holdout: approve 76.6%, refer 19.0%, decline 4.4% (was 36.5/47.4/16.1). Default rate approved 0.24% vs
+declined 2.85%. Input-drift alerts remain, because they are measured against the 2017–19 training population and the
+drift is real (finding F-005). The previous cut-offs are kept in `decile_history`.
