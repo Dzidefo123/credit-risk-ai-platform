@@ -178,6 +178,28 @@ def cmd_export_results(cfg, a) -> dict:
     return export_results(cfg, [m.strip() for m in a.model_id.split(",") if m.strip()], extra_datasets=extra)
 
 
+def cmd_create_api_key(cfg, a) -> dict:
+    from crisk.security.auth import KeyStore, key_store_path
+
+    if not a.name or not a.role:
+        raise SystemExit("--name and --role are required")
+    key, entry = KeyStore(key_store_path(cfg)).create(a.name, a.role, AuditStore(cfg.audit_db))
+    return {"api_key": key, "warning": "Shown once. Store it in a secret manager or env var; it cannot be recovered.",
+            **entry}
+
+
+def cmd_revoke_api_key(cfg, a) -> dict:
+    from crisk.security.auth import KeyStore, key_store_path
+
+    return KeyStore(key_store_path(cfg)).revoke(a.key_id, AuditStore(cfg.audit_db))
+
+
+def cmd_list_api_keys(cfg, a) -> dict:
+    from crisk.security.auth import KeyStore, key_store_path
+
+    return {"keys": KeyStore(key_store_path(cfg)).list()}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -224,7 +246,8 @@ COMMANDS = {
     "evaluate-holdout": cmd_evaluate_holdout, "backtest-recalibration": cmd_backtest_recalibration,
     "backtest-ttc": cmd_backtest_ttc,
     "promote": cmd_promote, "rollback": cmd_rollback, "score-batch": cmd_score_batch, "replay": cmd_replay,
-    "verify-audit": cmd_verify_audit, "export-results": cmd_export_results, "serve": cmd_serve,
+    "verify-audit": cmd_verify_audit, "create-api-key": cmd_create_api_key, "revoke-api-key": cmd_revoke_api_key,
+    "list-api-keys": cmd_list_api_keys, "export-results": cmd_export_results, "serve": cmd_serve,
     "run-slice": cmd_run_slice,
 }
 
@@ -240,6 +263,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
+    ap.add_argument("--name", help="create-api-key: key holder name")
+    ap.add_argument("--role", help="create-api-key: modeller | validator | analyst | administrator | auditor")
+    ap.add_argument("--key-id", help="revoke-api-key: key id")
     ap.add_argument("--approved-use", default="demonstration_rank_ordering",
                     help="promote: demonstration_rank_ordering (default) or pd_level")
     ap.add_argument("--eval-dataset", help="backtest-recalibration: dataset providing the walk-forward cohorts")

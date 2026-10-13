@@ -136,41 +136,96 @@ def test_test_set_access_is_audited(trained_ws, tmp_path):
     assert r1["prior_test_evaluations"] == 0 and r2["prior_test_evaluations"] == 1
 
 
-def test_api_contract(promoted):
-    client = TestClient(create_app(promoted["cfg"]))
+def _client(cfg, tmp_path, store=None):
+    """App + one key per role (keys live in a temp key store)."""
+    from crisk.security.auth import ROLES, KeyStore
+
+    ks = KeyStore(tmp_path / "keys.json")
+    st = store or AuditStore(cfg.audit_db)
+    hdr = {r: {"Authorization": f"Bearer {ks.create(f'{r}-user', r, st)[0]}"} for r in ROLES}
+    return TestClient(create_app(cfg, keys=ks)), hdr, ks
+
+
+def test_api_contract(promoted, tmp_path):
+    client, H, _ = _client(promoted["cfg"], tmp_path)
     assert client.get("/health").json() == {"status": "ok"}
     ready = client.get("/ready")
     assert ready.status_code == 200 and ready.json()["data_origin"] == "SYNTHETIC"
 
-    r = client.post("/v1/score", json={"application": APP}, headers={"X-Correlation-ID": "abc"})
+    r = client.post("/v1/score", json={"application": APP}, headers={**H["analyst"], "X-Correlation-ID": "abc"})
     assert r.status_code == 200 and r.headers["X-Correlation-ID"] == "abc"
     body = r.json()
-    assert body["status"] == "scored" and body["correlation_id"] == "abc"
+    assert body["status"] == "scored" and body["correlation_id"] == "abc" and body["requested_by"] == "analyst-user"
 
-    bad = client.post("/v1/score", json={"application": {**APP, "credit_score": 1200}})
+    post = lambda app, **kw: client.post("/v1/score", json={"application": app, **kw}, headers=H["analyst"])  # noqa: E731
+    bad = post({**APP, "credit_score": 1200})
     assert bad.status_code == 422 and bad.json()["error"]["code"] == "invalid_request"
-    bad_code = client.post("/v1/score", json={"application": {**APP, "occupancy_status": "Z"}})
-    assert bad_code.status_code == 422
+    assert post({**APP, "occupancy_status": "Z"}).status_code == 422
     # Provider sentinel codes are not accepted online: "not available" is sent as null.
-    sentinel = client.post("/v1/score", json={"application": {**APP, "first_time_homebuyer_flag": "9"}})
-    assert sentinel.status_code == 422
-    extra = client.post("/v1/score", json={"application": {**APP, "servicer_name": "X"}})
-    assert extra.status_code == 422  # post-origination fields are not accepted
-
-    un = client.post("/v1/score", json={"application": {**APP, "orig_interest_rate": None}})
+    assert post({**APP, "first_time_homebuyer_flag": "9"}).status_code == 422
+    assert post({**APP, "servicer_name": "X"}).status_code == 422  # post-origination fields are not accepted
+    un = post({**APP, "orig_interest_rate": None})
     assert un.status_code == 200 and un.json()["status"] == "unavailable" and un.json()["pd"] is None
+    post(APP, idempotency_key="api-1")
+    assert post({**APP, "orig_dti": 10}, idempotency_key="api-1").status_code == 409
 
-    client.post("/v1/score", json={"application": APP, "idempotency_key": "api-1"})
-    conflict = client.post("/v1/score", json={"application": {**APP, "orig_dti": 10}, "idempotency_key": "api-1"})
-    assert conflict.status_code == 409
+
+def test_api_authentication_and_roles(promoted, tmp_path):
+    client, H, ks = _client(promoted["cfg"], tmp_path)
+    # no key / bad key / malformed key -> 401
+    assert client.post("/v1/score", json={"application": APP}).status_code == 401
+    assert client.get("/v1/scores", headers={"Authorization": "Bearer crk_deadbeef_nope"}).status_code == 401
+    assert client.get("/v1/scores", headers={"X-API-Key": "not-a-key"}).json()["error"]["code"] == "unauthenticated"
+    # role permissions
+    assert client.post("/v1/score", json={"application": APP}, headers=H["auditor"]).status_code == 403
+    assert client.post("/v1/score", json={"application": APP}, headers=H["validator"]).status_code == 403
+    sid = client.post("/v1/score", json={"application": APP}, headers=H["modeller"]).json()["score_id"]
+    assert client.get("/v1/scores", headers=H["modeller"]).status_code == 403
+    assert client.get(f"/v1/scores/{sid}", headers=H["auditor"]).status_code == 200
+    assert client.post(f"/v1/scores/{sid}/replay", headers=H["analyst"]).status_code == 403
+    rep = client.post(f"/v1/scores/{sid}/replay", headers=H["auditor"])
+    assert rep.status_code == 200 and rep.json()["match"]
+    assert client.get("/v1/model", headers=H["analyst"]).json()["caller"]["role"] == "analyst"
+    # revoked key -> 401; key store never contains the plain key
+    kid = H["analyst"]["Authorization"].split("_")[1]
+    ks.revoke(kid, AuditStore(promoted["cfg"].audit_db))
+    assert client.get("/v1/scores", headers=H["analyst"]).status_code == 401
+    raw = (tmp_path / "keys.json").read_text()
+    assert H["auditor"]["Authorization"][7:] not in raw and "sha256" in raw
+
+
+def test_review_workflow(promoted, tmp_path):
+    client, H, _ = _client(promoted["cfg"], tmp_path)
+    sid = client.post("/v1/score", json={"application": APP}, headers=H["analyst"]).json()["score_id"]
+    listed = client.get("/v1/scores?limit=500", headers=H["analyst"]).json()["items"]
+    assert any(i["score_id"] == sid and i["review_status"] == "pending" for i in listed)
+    bad = client.post(f"/v1/scores/{sid}/reviews", json={"action": "override", "rationale": "short"},
+                      headers=H["analyst"])
+    assert bad.status_code == 422  # rationale too short and override decision missing
+    ok = client.post(f"/v1/scores/{sid}/reviews", headers=H["analyst"],
+                     json={"action": "override", "override_decision": "refer",
+                           "rationale": "Income documentation inconsistent; refer to senior underwriter."})
+    assert ok.status_code == 201 and ok.json()["reviewer"] == "analyst-user"
+    assert client.post(f"/v1/scores/{sid}/reviews", headers=H["auditor"],
+                       json={"action": "agree", "rationale": "auditors cannot review decisions"}).status_code == 403
+    detail = client.get(f"/v1/scores/{sid}", headers=H["auditor"]).json()
+    assert detail["review_status"] == "override" and detail["override_decision"] == "refer"
+    assert len(detail["reviews"]) == 1
+    # reviews are append-only
+    import sqlite3
+
+    con = sqlite3.connect(promoted["cfg"].audit_db)
+    with pytest.raises(sqlite3.DatabaseError, match="append-only"):
+        con.execute("UPDATE review_events SET action = 'agree'")
+    con.close()
 
 
 def test_api_without_model_reports_not_ready(trained_ws, tmp_path):
     cfg = trained_ws["cfg"].with_root(tmp_path)  # empty workspace: no champion
-    client = TestClient(create_app(cfg))
+    client, H, _ = _client(cfg, tmp_path)
     assert client.get("/health").status_code == 200
     assert client.get("/ready").status_code == 503
-    r = client.post("/v1/score", json={"application": APP})
+    r = client.post("/v1/score", json={"application": APP}, headers=H["analyst"])
     assert r.status_code == 503 and r.json()["error"]["code"] == "model_unavailable"
 
 

@@ -57,9 +57,19 @@ CREATE TABLE IF NOT EXISTS audit_events (
     prev_hash TEXT NOT NULL,
     event_hash TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS review_events (
+    review_id TEXT PRIMARY KEY,
+    score_id TEXT NOT NULL,
+    reviewed_at TEXT NOT NULL,
+    reviewer TEXT NOT NULL,
+    reviewer_role TEXT NOT NULL,
+    action TEXT NOT NULL,              -- agree | override | escalate
+    override_decision TEXT,            -- approve | decline | refer (override only)
+    rationale TEXT NOT NULL
+);
 """
 
-_TABLES = ("scoring_events", "audit_events")
+_TABLES = ("scoring_events", "audit_events", "review_events")
 
 
 def _triggers() -> str:
@@ -173,3 +183,24 @@ class AuditStore:
     def count_scores(self) -> int:
         with closing(self._connect()) as con:
             return con.execute("SELECT count(*) FROM scoring_events").fetchone()[0]
+
+    def list_scores(self, limit: int = 50, offset: int = 0) -> list[dict]:
+        with closing(self._connect()) as con:
+            rows = con.execute("SELECT * FROM scoring_events ORDER BY scored_at DESC LIMIT ? OFFSET ?",
+                               (int(limit), int(offset))).fetchall()
+        return [dict(r) for r in rows]
+
+    # ---- human review (append-only; a later review supersedes an earlier one for display) -------------------
+    def add_review(self, rec: dict) -> None:
+        cols = ", ".join(rec)
+        ph = ", ".join(f":{k}" for k in rec)
+        with closing(self._connect()) as con:
+            con.execute(f"INSERT INTO review_events ({cols}) VALUES ({ph})", rec)
+
+    def reviews(self, score_id: str | None = None) -> list[dict]:
+        sql, args = "SELECT * FROM review_events", []
+        if score_id:
+            sql += " WHERE score_id = ?"
+            args.append(score_id)
+        with closing(self._connect()) as con:
+            return [dict(r) for r in con.execute(sql + " ORDER BY reviewed_at", args).fetchall()]
