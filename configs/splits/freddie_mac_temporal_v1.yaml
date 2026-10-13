@@ -1,0 +1,9 @@
+split_id: freddie_mac_temporal_v1
+# PROVISIONAL - to be confirmed after event counts are inspected (see assumptions A-012, question Q-3).
+# 2020-2021 cohorts are affected by COVID forbearance (90+ DPD reported while in forbearance).
+date_column: first_payment_date
+min_gap_months: 12
+splits:
+  train:       {start: "2015-01", end: "2017-12"}
+  calibration: {start: "2019-01", end: "2019-06"}
+  test:        {start: "2022-01", end: "2022-12"}

@@ -1,0 +1,9 @@
+split_id: synthetic_temporal_v1
+date_column: first_payment_date
+# Each later split must start at least `min_gap_months` after the previous split ends, so that every
+# training label was observable before the later cohorts would have been scored (purging).
+min_gap_months: 12
+splits:
+  train:       {start: "2016-01", end: "2018-12"}
+  calibration: {start: "2020-01", end: "2020-12"}
+  test:        {start: "2022-01", end: "2022-12"}

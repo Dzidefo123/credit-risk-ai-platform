@@ -1,0 +1,94 @@
+{
+  "contract_version": "sflld_r47_2026_07",
+  "data_origin": "SYNTHETIC",
+  "descriptions": {
+    "X19Q10000001": "S01_clean: Current throughout the window",
+    "X19Q10000002": "S02_90dpd: Misses payments from month 2; status 3 at m=5",
+    "X19Q10000003": "S03_prepaid: Voluntary payoff at m=7",
+    "X19Q10000004": "S04_reo: REO acquisition reported as RA at m=6",
+    "X19Q10000005": "S05_short_sale: Short sale (ZB 03) at m=6 while 60 days delinquent",
+    "X19Q10000006": "S06_immature: Window ends 2024-02, after the 2023-12 cutoff",
+    "X19Q10000007": "S07_reporting_stops: Reports end at m=8 without termination",
+    "X19Q10000008": "S08_one_gap: Single missing month (m=5) is tolerated",
+    "X19Q10000009": "S09_long_gap: Four missing months (m=4..7)",
+    "X19Q10000010": "S10_late_acquisition: First reported at m=9",
+    "X19Q10000011": "S11_defect: Defect settlement (ZB 96) at m=6",
+    "X19Q10000012": "S12_late_default: 90+ DPD first at m=15, outside the window",
+    "X19Q10000013": "S13_modified: Modified at m=6, never 90+",
+    "X19Q10000014": "S14_forbearance: 90+ while in disaster forbearance (2020)",
+    "X19Q10000015": "S15_no_performance: Origination record without performance rows",
+    "X19Q10000016": "S16_irregular: Irregular progression 2,1,3 (status 3 at m=6)",
+    "X19Q10000017": "S17_boundary_m13: Status 3 first reached at m=13",
+    "X19Q10000018": "S18_boundary_m12: Status 3 first reached at m=12",
+    "X19Q10000019": "S19_arm: ARM product: outside the FRM target population",
+    "X19Q10000020": "S20_whole_loan_sale: Whole loan sale (ZB 15) at m=10, no prior default",
+    "X19Q10000021": "S21_conflicting_month: Month 5 reported twice with different values -> gap",
+    "X19Q10000022": "S22_bad_status: Unparseable delinquency status 'ZZ' at m=4 is nulled",
+    "X19Q10000023": "S23_bad_credit_score: Credit score 1200 is invalid -> NULL",
+    "X19Q10000024": "S24_missing_score: Credit score sentinel 9999 -> NULL",
+    "X19Q10000025": "S25_prepay_then_window: Payoff at m=3 after reporting from m=1"
+  },
+  "expected_default_month": {
+    "X19Q10000002": 5,
+    "X19Q10000004": 6,
+    "X19Q10000005": 6,
+    "X19Q10000014": 8,
+    "X19Q10000016": 6,
+    "X19Q10000018": 12
+  },
+  "expected_field_issues": {
+    "X19Q10000022": "delinquency_status",
+    "X19Q10000023": "credit_score"
+  },
+  "expected_outcomes": {
+    "X19Q10000001": "non_default",
+    "X19Q10000002": "default",
+    "X19Q10000003": "non_default_prepaid",
+    "X19Q10000004": "default",
+    "X19Q10000005": "default",
+    "X19Q10000006": "excluded_immature",
+    "X19Q10000007": "excluded_incomplete_reporting",
+    "X19Q10000008": "non_default",
+    "X19Q10000009": "excluded_incomplete_reporting",
+    "X19Q10000010": "excluded_late_acquisition",
+    "X19Q10000011": "excluded_censored_removal",
+    "X19Q10000012": "non_default",
+    "X19Q10000013": "non_default",
+    "X19Q10000014": "default",
+    "X19Q10000015": "excluded_no_performance",
+    "X19Q10000016": "default",
+    "X19Q10000017": "non_default",
+    "X19Q10000018": "default",
+    "X19Q10000019": "excluded_ineligible",
+    "X19Q10000020": "excluded_censored_removal",
+    "X19Q10000021": "non_default",
+    "X19Q10000022": "non_default",
+    "X19Q10000023": "non_default",
+    "X19Q10000024": "non_default",
+    "X19Q10000025": "non_default_prepaid"
+  },
+  "expected_quarantine": {
+    "origination_conflicting_loans": [
+      "X19Q19000001"
+    ],
+    "origination_exact_duplicates_removed": 1,
+    "origination_rejected_rows": 2,
+    "orphan_loans": [
+      "X19Q19000001",
+      "X19Q19000002",
+      "X19Q19999999"
+    ],
+    "performance_conflicting_loan_months": 1,
+    "performance_exact_duplicates_removed": 1,
+    "performance_structural_rejects": 1
+  },
+  "files": [
+    "sample_orig_2019.txt",
+    "sample_svcg_2019.txt"
+  ],
+  "fixture_version": "synthetic_sflld_v1",
+  "n_random": 0,
+  "performance_cutoff": "2023-12",
+  "seed": 20261012,
+  "warning": "SYNTHETIC fixture. Not empirical evidence about credit risk."
+}

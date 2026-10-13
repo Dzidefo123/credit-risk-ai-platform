@@ -1,0 +1,26 @@
+# EMPIRICAL modelling dataset (Release 47), composed from already-ingested files:
+#   train       <- FULL-VOLUME 2015 vintage (all loans; ~25x the sample's events)
+#   calibration <- provider SAMPLE vintages 2017-2019 (simple random sample of the same population)
+#   test        <- FULL-VOLUME 2022 vintage
+# Each split draws from a single source, so no reweighting is needed within a split.
+# Build with: crisk ingest --dataset freddie_mac_combined   (composes; does not re-parse raw files)
+dataset_id: freddie_mac_combined
+data_origin: EMPIRICAL
+source_id: freddie_mac_sflld_standard_full+sample
+contract_version: sflld_r47_2026_07
+loan_id_profile: empirical
+raw_dir: data/raw/freddie_mac
+file_globs: {origination: "-", performance: "-"}   # unused: composed dataset
+compose:
+  - dataset: freddie_mac_historical
+    include: ["orig_2015Q*", "perf_2015Q*", "orig_2022Q*", "perf_2022Q*"]
+  - dataset: freddie_mac_sample
+    include: ["sample_orig_2017", "sample_perf_2017", "sample_orig_2018", "sample_perf_2018",
+              "sample_orig_2019", "sample_perf_2019"]
+performance_cutoff: "2026-03"
+max_structural_reject_rate: 0.001
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v1.yaml
+split_config: configs/splits/freddie_mac_combined_v1.yaml
+model_config: configs/models/logistic_v1.yaml

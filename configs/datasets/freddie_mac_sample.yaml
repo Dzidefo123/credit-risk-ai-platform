@@ -1,0 +1,19 @@
+# EMPIRICAL: Freddie Mac SFLLD *sample* files (50,000 loans per vintage year, simple random sample
+# drawn by the provider from the Standard Dataset). Requires a Clarity account and acceptance of terms.
+# Place unmodified files in data/raw/freddie_mac/sample/ (see docs/data_acquisition_freddie_mac.md).
+dataset_id: freddie_mac_sample
+data_origin: EMPIRICAL
+source_id: freddie_mac_sflld_standard_sample
+contract_version: sflld_r47_2026_07   # Release 47 (July 2026) layout
+loan_id_profile: empirical
+raw_dir: data/raw/freddie_mac/sample
+file_globs:
+  origination: "sample_*/sample_orig_*.txt"
+  performance: "sample_*/sample_perf_*.txt"   # R47 sample naming (guide still says sample_svcg)
+performance_cutoff: "2026-03"   # Release 47 release notes: performance cutoff 03/31/2026 (verified 2026-10-12)
+max_structural_reject_rate: 0.001
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v1.yaml
+split_config: configs/splits/freddie_mac_temporal_v1.yaml
+model_config: configs/models/logistic_v1.yaml

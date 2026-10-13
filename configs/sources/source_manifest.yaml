@@ -1,0 +1,100 @@
+# Source register. "UNKNOWN" means not yet verified; "NOT_ACQUIRED" means no file has been obtained.
+# Last reviewed: 2026-10-12. Update when files are actually downloaded (record checksums in
+# data/interim/<dataset>/_ingestion/*.json; those are produced automatically by `crisk ingest`).
+manifest_version: 1
+sources:
+  - source_id: freddie_mac_sflld_standard_sample
+    status: ACQUIRED_AND_VALIDATED  # downloaded by the user via Clarity; ingested 2026-10-12
+    release: "Release 47 (released 2026-07-29); origination and performance cutoff 2026-03-31"
+    contract_version_used: sflld_r47_2026_07
+    layout_source: >
+      file_layout_july_2026.xlsx, file_headers_july_2026.zip, disclosure-changes-summary.pdf v1.2 (6/2026),
+      general_user_guide_july_2026.pdf (public docs, retrieved 2026-10-12; kept in data/raw/freddie_mac/docs_release47/)
+    acquired_files:
+      - {archive: sample_2015.zip, sha256: 83cd76b9c705dd683d1490a37fb70f954c898a91a4279d09b06a7124f031c1e6}
+      - {archive: sample_2022.zip, sha256: d0d33da246a318ee43639f19aad904e9208076143381a40f0666452cb5de6964}
+      - {file: sample_orig_2015.txt, lines: 50000, bytes: 6237206, sha256: 96f19fbbbf7cd76b3f27c74a77b9e24795278c9b0742791d9f497268ba2cec70}
+      - {file: sample_perf_2015.txt, lines: 3467166, bytes: 386828102, sha256: 8ea028b9058fc6f1e87ab7e006271daf1372bea6c6a4188a24209425325b1bca}
+      - {file: sample_orig_2022.txt, lines: 50000, bytes: 6349118, sha256: a80a30ebd167e066971afe709ad0997477803589a935cc542d00f3387336adcc}
+      - {file: sample_perf_2022.txt, lines: 2034798, bytes: 235346223, sha256: aa306d1d42658dc40fb9234ab28cd18a7648b3a00584eb7d585fed7a25752770}
+    reconciliation: >
+      All 5,601,964 lines parsed with 0 structural rejects, 0 row rejects, 0 field issues; 50,000 loans per
+      vintage as documented; no duplicate loans or loan-months; no orphan performance rows.
+    note_file_naming: "Sample performance files are named sample_perf_YYYY.txt (guide text still says sample_svcg)."
+    role: primary empirical source (MVP)
+    product_population: >
+      US single-family, fully amortizing fixed-rate mortgages (10/15/20/30/40-year) acquired by Freddie Mac,
+      Standard Dataset; sample = provider simple random sample of 50,000 loans per full vintage year.
+    dataset_page: https://www.freddiemac.com/research/datasets/sf-loanlevel-dataset
+    access_platform: https://capitalmarkets.freddiemac.com/clarity
+    download_page: https://claritydownload.fmapps.freddiemac.com/CRT/   # per dataset page, 2026-10-12
+    user_guide: https://www.freddiemac.com/fmac-resources/research/pdf/user_guide.pdf
+    user_guide_version: "January 2026 (retrieved 2026-10-12)"
+    file_layout: https://www.freddiemac.com/fmac-resources/research/pdf/file_layout.xlsx
+    terms: https://capitalmarkets.freddiemac.com/crt/docs/pdfs/fre_terms_conditions_sflld.pdf
+    terms_version: "Website version effective November 2025; last updated 2025-11-03 (retrieved 2026-10-12)"
+    access_method: manual download by an authenticated, terms-accepting user; no automated login
+    file_naming: {origination: "sample_orig_YYYY.txt", performance: "sample_svcg_YYYY.txt", archive: "sample_YYYY.zip"}
+    format: pipe-delimited, no header row, 32 origination fields, 32 performance fields
+    contract_version: sflld_guide_2026_01
+    requested_cohorts: "origination years 2015-2022 (sample files)"
+    actual_coverage: "origination years 2015 and 2022 only (2016-2021 not downloaded); performance through 2026-03"
+    performance_cutoff: "2026-03"
+    sampling_rule: provider simple random sample (no further subsampling in v1)
+    prevalence: >
+      default_90dpd_12m_v1 among labelled loans: 0.42% overall; FPD-year 2015 0.12%, 2016 0.20%,
+      2022 0.69%, 2023 0.70% (see data/processed/freddie_mac_sample/label_report.json)
+    permitted_use: >
+      Personal / internal-organisation use for analysing or researching the credit performance of the
+      mortgages in the dataset; academic or research use. Research results and related derived products may
+      be made public only for noncommercial purposes and only if they cannot be used to derive or recreate any
+      part of the dataset or identify individuals. Linking to identify individuals is prohibited.
+    redistribution: >
+      Prohibited to third parties (dataset or Derived Products) without a separate licence and distribution
+      agreement with Freddie Mac. Not for mapping to Freddie Mac MBS disclosures.
+    publication_status: >
+      Raw, interim, processed data, loan-level scores, audit stores and trained artefacts stay local
+      (git-excluded). Aggregate, noncommercial research metrics may be published after a check that they
+      cannot recreate records. Whether trained model artefacts count as publishable "related Derived
+      Products" is an OPEN QUESTION (Q-2).
+    commercial_use: "Not permitted under these terms without a separate agreement (open question Q-2)."
+
+  - source_id: freddie_mac_sflld_standard_full
+    status: ACQUIRED   # vintages 2015 and 2022, Release 47; ingestion in progress (see PROJECT_STATUS)
+    archives: "historical_data_2015.zip, historical_data_2022.zip (+ extracted quarterly zips); checksums in extracted/_unpack_manifest.json"
+    role: scale-up after the sample-based baseline (quarterly files historical_data_YYYYQn.zip)
+    file_naming: {origination: "historical_data_YYYYQn.txt", performance: "historical_data_time_YYYYQn.txt"}
+    notes: Same terms and layout as the sample. Full files are large; check laptop memory before acquisition.
+
+  - source_id: synthetic_sflld_v1
+    status: GENERATED
+    role: engineering fixtures only (SYNTHETIC, fictional loan IDs with product letter X)
+    generator: src/crisk/fixtures/synthetic.py
+    seed: 20261012
+    permitted_use: unrestricted (fictional); must be labelled SYNTHETIC in all outputs
+    publication_status: committed under tests/fixtures (scenario set only)
+
+  - source_id: fred_alfred
+    status: PROPOSED_NOT_ACQUIRED    # Phase A3, after the baseline
+    urls: ["https://fred.stlouisfed.org/docs/api/fred/", "https://alfred.stlouisfed.org/help/downloaddata"]
+    notes: Requires API key (user-held, outside repo). Series selection, vintage availability and terms UNKNOWN.
+
+  - source_id: home_credit_default_risk
+    status: OPTIONAL_NOT_ACQUIRED
+    url: https://www.kaggle.com/competitions/home-credit-default-risk/data
+    notes: Separate consumer-lending adapter; competition terms UNKNOWN until verified.
+
+  - source_id: uci_default_credit_card_clients
+    status: OPTIONAL_NOT_ACQUIRED
+    url: https://archive.ics.uci.edu/dataset/350/default%2Bof%2Bcredit%2Bcard%2Bclients
+    notes: Fallback quick benchmark only (listed CC BY 4.0; verify). Not used while the fixture path suffices.
+
+  - source_id: bcb_scr_aggregates
+    status: OPTIONAL_NOT_ACQUIRED
+    urls: ["https://bcb.gov.br/estabilidadefinanceira/scrdata", "https://dadosabertos.bcb.gov.br/"]
+    notes: Aggregated Brazilian context only; never mixed with US loan-level features.
+
+  - source_id: sec_edgar
+    status: OPTIONAL_NOT_ACQUIRED
+    urls: ["https://www.sec.gov/search-filings", "https://www.sec.gov/search-filings/edgar-application-programming-interfaces"]
+    notes: Separate corporate-document extraction benchmark (Phase G); never joined to mortgage borrowers.

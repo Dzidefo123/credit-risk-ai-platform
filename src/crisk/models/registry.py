@@ -1,0 +1,85 @@
+"""File-based model registry with content hashes and a governed champion pointer.
+
+Layout: ``artifacts/<dataset>/models/<model_id>/{model.joblib, metadata.json}`` and
+``artifacts/<dataset>/models/champion.json``. A model is only usable for scoring after it
+has been loaded with a verified SHA-256. The champion pointer changes only through
+``promote``/``rollback``, which require a named reviewer and rationale and are written
+to the audit chain. (MLflow is a candidate replacement; see decision D-005.)
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import joblib
+
+from crisk.audit.store import AuditStore
+from crisk.config import DatasetConfig
+from crisk.models.bundle import ModelBundle
+from crisk.utils import read_json, sha256_file, utc_now, write_json
+
+
+class ModelIntegrityError(RuntimeError):
+    pass
+
+
+def model_dir(cfg: DatasetConfig, model_id: str) -> Path:
+    return cfg.models_dir / model_id
+
+
+def save_bundle(cfg: DatasetConfig, bundle: ModelBundle, model_id: str, metadata: dict) -> dict:
+    d = model_dir(cfg, model_id)
+    d.mkdir(parents=True, exist_ok=False)
+    path = d / "model.joblib"
+    joblib.dump(bundle, path)
+    metadata = {**metadata, "model_id": model_id, "artifact": "model.joblib", "artifact_sha256": sha256_file(path)}
+    write_json(d / "metadata.json", metadata)
+    return metadata
+
+
+def load_metadata(cfg: DatasetConfig, model_id: str) -> dict:
+    return read_json(model_dir(cfg, model_id) / "metadata.json")
+
+
+def load_bundle(cfg: DatasetConfig, model_id: str) -> tuple[ModelBundle, dict]:
+    meta = load_metadata(cfg, model_id)
+    path = model_dir(cfg, model_id) / meta["artifact"]
+    actual = sha256_file(path)
+    if actual != meta["artifact_sha256"]:
+        raise ModelIntegrityError(f"{model_id}: artefact hash {actual} != registered {meta['artifact_sha256']}")
+    return joblib.load(path), meta
+
+
+def list_models(cfg: DatasetConfig) -> list[str]:
+    if not cfg.models_dir.exists():
+        return []
+    return sorted(p.name for p in cfg.models_dir.iterdir() if (p / "metadata.json").exists())
+
+
+def champion(cfg: DatasetConfig) -> dict | None:
+    p = cfg.models_dir / "champion.json"
+    return read_json(p) if p.exists() else None
+
+
+def promote(cfg: DatasetConfig, model_id: str, reviewer: str, rationale: str, store: AuditStore,
+            action: str = "model_promoted") -> dict:
+    if not reviewer.strip() or not rationale.strip():
+        raise ValueError("Promotion requires a named reviewer and a rationale")
+    load_bundle(cfg, model_id)  # integrity check before promotion
+    meta = load_metadata(cfg, model_id)
+    previous = champion(cfg)
+    pointer = {"model_id": model_id, "artifact_sha256": meta["artifact_sha256"], "promoted_at": utc_now(),
+               "reviewer": reviewer, "rationale": rationale, "data_origin": meta["data_origin"],
+               "previous_model_id": previous["model_id"] if previous else None}
+    event = store.append_event(actor=reviewer, action=action, entity_type="model", entity_id=model_id,
+                               details=pointer)
+    pointer["audit_event_id"] = event["event_id"]
+    write_json(cfg.models_dir / "champion.json", pointer)
+    return pointer
+
+
+def rollback(cfg: DatasetConfig, reviewer: str, rationale: str, store: AuditStore) -> dict:
+    cur = champion(cfg)
+    if not cur or not cur.get("previous_model_id"):
+        raise ValueError("No previous champion to roll back to")
+    return promote(cfg, cur["previous_model_id"], reviewer, rationale, store, action="model_rolled_back")

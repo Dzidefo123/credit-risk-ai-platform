@@ -1,0 +1,16 @@
+# Research target definition (NOT a regulatory default definition). See docs/target_specification.md.
+target_id: default_90dpd_12m_v1
+description: >
+  Origination-time PD target. Event = first occurrence, in reporting periods whose month index
+  m (m = months since first payment date + 1; m=1 is the first-payment month) lies in [1, horizon_months],
+  of delinquency status >= 3 (90+ days past due, MBA method), status 'RA' (REO acquisition), or a
+  credit-related zero balance code.
+horizon_months: 12
+default_delinquency_status_min: 3
+default_status_codes: ["RA"]
+default_zero_balance_codes: ["02", "03", "09"]   # third-party sale, short sale/charge-off, REO disposition
+censoring_zero_balance_codes: ["15", "16", "96"] # whole-loan sale, RPL securitisation, defect: outcome unobservable
+prepay_zero_balance_codes: ["01"]                # voluntary payoff: label 0 (did not default before exit)
+eligible_amortization_types: ["FRM"]
+max_first_observed_month: 6     # loans first reported later than m=6 are excluded (left truncation)
+max_missing_months_in_window: 2 # more reporting gaps than this without an observed default => excluded

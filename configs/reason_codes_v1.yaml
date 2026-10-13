@@ -1,0 +1,22 @@
+# Model-input reason codes for the origination PD model. These describe which model inputs pushed the
+# estimate above the training-population average. They are NOT validated adverse-action reasons under
+# ECOA/Regulation B; that mapping requires legal/compliance review (see docs/assumptions_register.md).
+reason_code_set_id: reason_codes_v1
+codes:
+  credit_score:              {code: RC01, text: "Credit score",                         missing_text: "Credit score not available"}
+  orig_ltv:                  {code: RC02, text: "Loan-to-value ratio",                  missing_text: "LTV not available"}
+  orig_cltv:                 {code: RC03, text: "Combined loan-to-value ratio",         missing_text: "CLTV not available"}
+  cltv_minus_ltv:            {code: RC03, text: "Secondary financing (CLTV above LTV)", missing_text: "CLTV not available"}
+  orig_dti:                  {code: RC04, text: "Debt-to-income ratio",                 missing_text: "DTI not available"}
+  orig_interest_rate:        {code: RC05, text: "Note interest rate",                   missing_text: "Interest rate not available"}
+  orig_loan_term:            {code: RC06, text: "Loan term",                            missing_text: "Loan term not available"}
+  log_orig_upb:              {code: RC07, text: "Loan amount",                          missing_text: "Loan amount not available"}
+  mi_pct:                    {code: RC08, text: "Mortgage insurance coverage",          missing_text: "MI coverage not available"}
+  num_units:                 {code: RC09, text: "Number of units",                      missing_text: "Number of units not available"}
+  multiple_borrowers:        {code: RC10, text: "Number of borrowers",                  missing_text: "Number of borrowers not available"}
+  occupancy_status:          {code: RC11, text: "Occupancy type",                       missing_text: "Occupancy not available"}
+  channel:                   {code: RC12, text: "Origination channel",                  missing_text: "Channel not available"}
+  property_type:             {code: RC13, text: "Property type",                        missing_text: "Property type not available"}
+  loan_purpose:              {code: RC14, text: "Loan purpose",                         missing_text: "Loan purpose not available"}
+  first_time_homebuyer_flag: {code: RC15, text: "First-time homebuyer status",          missing_text: "First-time homebuyer status not available"}
+  property_state:            {code: RC16, text: "Property location (state)",            missing_text: "Property state not available"}

@@ -1,0 +1,17 @@
+# SYNTHETIC: hand-specified edge-case loans with an answer key (tests). Not empirical evidence.
+dataset_id: synthetic_scenarios
+data_origin: SYNTHETIC
+source_id: synthetic_sflld_v1
+contract_version: sflld_r47_2026_07   # Release 47 (July 2026) layout
+loan_id_profile: synthetic
+raw_dir: data/raw/synthetic_scenarios
+file_globs:
+  origination: "sample_orig_*.txt"
+  performance: "sample_svcg_*.txt"
+performance_cutoff: "2023-12"
+max_structural_reject_rate: 0.01
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v1.yaml
+split_config: configs/splits/synthetic_temporal_v1.yaml
+model_config: configs/models/logistic_v1.yaml

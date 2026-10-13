@@ -1,0 +1,19 @@
+# SENSITIVITY target (decision D-017, owner choice "report both" on 2026-10-12).
+# Identical to default_90dpd_12m_v1 except that 90+/RA statuses reported while the loan is flagged
+# "delinquency due to disaster" or is in a forbearance plan are NOT default events. Loans whose only
+# in-window 90+ months are flagged are excluded (excluded_disaster_forbearance), not labelled 0.
+# Credit terminations (zero balance 02/03/09) still count.
+target_id: default_90dpd_12m_exdisaster_v1
+description: >
+  Sensitivity variant of default_90dpd_12m_v1 that removes disaster/forbearance-flagged delinquency
+  from the default event.
+horizon_months: 12
+default_delinquency_status_min: 3
+default_status_codes: ["RA"]
+default_zero_balance_codes: ["02", "03", "09"]
+censoring_zero_balance_codes: ["15", "16", "96"]
+prepay_zero_balance_codes: ["01"]
+eligible_amortization_types: ["FRM"]
+max_first_observed_month: 6
+max_missing_months_in_window: 2
+exclude_disaster_forbearance_events: true

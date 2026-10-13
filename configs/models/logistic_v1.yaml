@@ -1,0 +1,14 @@
+model_config_id: logistic_v1
+family: logistic_regression
+seed: 20261012
+logistic:
+  C: 1.0               # inverse L2 strength; tuned in Phase C with temporal validation
+  max_iter: 2000
+  class_weight: null   # no reweighting: keeps probabilities on the population scale
+preprocessing:
+  numeric_impute: median          # learned on train only; missing indicators added
+  categorical_min_frequency: 0.005  # rarer categories pooled as infrequent (learned on train only)
+calibration:
+  method: platt                   # fitted on the calibration split, never on train or test
+reason_codes:
+  max_reasons: 4

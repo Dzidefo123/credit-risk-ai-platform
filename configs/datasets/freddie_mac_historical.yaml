@@ -1,0 +1,19 @@
+# EMPIRICAL: Freddie Mac SFLLD Standard Dataset, FULL VOLUME quarterly files (Release 47, July 2026).
+# Downloaded vintages: 2015 and 2022 (historical_data_YYYY.zip -> historical_data_YYYYQn.zip).
+# Run `crisk unpack` first: members are extracted to data/raw/freddie_mac/historical/extracted/.
+dataset_id: freddie_mac_historical
+data_origin: EMPIRICAL
+source_id: freddie_mac_sflld_standard_full
+contract_version: sflld_r47_2026_07   # Release 47 (July 2026) layout
+loan_id_profile: empirical
+raw_dir: data/raw/freddie_mac/historical
+file_globs:
+  origination: "extracted/orig_*.txt"
+  performance: "extracted/perf_*.txt"
+performance_cutoff: "2026-03"   # Release 47 release notes: performance cutoff 03/31/2026
+max_structural_reject_rate: 0.001
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v1.yaml
+split_config: configs/splits/freddie_mac_temporal_v1.yaml   # PROVISIONAL: must be redesigned for 2015+2022 only (Q-3)
+model_config: configs/models/logistic_v1.yaml

@@ -1,0 +1,33 @@
+# --- Data: Freddie Mac terms prohibit redistribution of the dataset or derived products ---
+data/raw/**
+data/interim/**
+data/processed/**
+!data/**/.gitkeep
+# Models, audit stores and reports can contain loan-level information
+artifacts/**
+reports/**
+!artifacts/.gitkeep
+!reports/.gitkeep
+
+# Python / tooling
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Secrets / local env
+.env
+.env.*
+*.pem
+*.key
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+notebooks/.ipynb_checkpoints/

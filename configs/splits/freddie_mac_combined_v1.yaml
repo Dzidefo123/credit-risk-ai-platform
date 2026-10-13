@@ -1,0 +1,15 @@
+split_id: freddie_mac_combined_v1
+# Decided 2026-10-12 (owner downloaded 2015-2022 samples + 2015/2022 full volume).
+#  train:       FPD 2015-01..2016-06  -> full-volume 2015 vintage only (no other vintage in this dataset has FPD here)
+#  calibration: FPD 2017-07..2019-03  -> sample 2017/2018/2019 vintages; 12-month windows end by 2020-02,
+#                                         i.e. before COVID forbearance (hurricane Harvey/Irma 2017 IS included)
+#  test:        FPD 2022-01..2023-06  -> full-volume 2022 vintage; all windows mature by the 2026-03 cutoff
+# source_id filters keep each split single-source (57 seasoned full-volume 2015 loans with FPD in the
+# calibration window would otherwise mix in at a 25x different sampling rate).
+# Gaps between splits exceed the 12-month horizon (enforced by the loader).
+date_column: first_payment_date
+min_gap_months: 12
+splits:
+  train:       {start: "2015-01", end: "2016-06", source_id: freddie_mac_sflld_standard_full}
+  calibration: {start: "2017-07", end: "2019-03", source_id: freddie_mac_sflld_standard_sample}
+  test:        {start: "2022-01", end: "2023-06", source_id: freddie_mac_sflld_standard_full}
