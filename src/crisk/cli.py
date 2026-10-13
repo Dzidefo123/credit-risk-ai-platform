@@ -142,6 +142,14 @@ def cmd_promote(cfg, a) -> dict:
         if len(ref):
             extra = {"risk_decile_cutoffs": reference_deciles(bundle, ref),
                      "risk_decile_reference": f"{cfg.dataset_id} calibration split ({len(ref)} loans)"}
+    if cfg.data_origin == "EMPIRICAL":  # validation gate (release_criteria_v1)
+        from crisk.validation.runner import latest_validation
+
+        val = latest_validation(cfg, a.model_id)
+        if val is None or a.approved_use not in val["approved_for"]:
+            raise SystemExit(f"Promotion refused: no validation report approving '{a.approved_use}' for "
+                             f"{a.model_id}. Run `crisk validate` first.")
+        extra["validation_id"] = val["validation_id"]
     return promote(cfg, a.model_id, a.reviewer, a.rationale, AuditStore(cfg.audit_db),
                    approved_use=a.approved_use, extra=extra)
 
@@ -200,6 +208,18 @@ def cmd_list_api_keys(cfg, a) -> dict:
     return {"keys": KeyStore(key_store_path(cfg)).list()}
 
 
+def cmd_validate(cfg, a) -> dict:
+    from crisk.validation.runner import validate_model
+
+    if not a.model_id or not a.validator:
+        raise SystemExit("--model-id and --validator are required")
+    r = validate_model(cfg, a.model_id, a.validator)
+    return {k: r[k] for k in ("validation_id", "approved_for", "summary", "open_findings_by_severity",
+                              "segregation_of_duties")} | {
+        "failed_checks": [c["id"] + " " + c["title"] for c in r["checks"] if c["status"] == "fail"],
+        "report": str(cfg.reports_dir / "validation" / a.model_id / "validation_report.md")}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -241,13 +261,28 @@ def cmd_run_slice(cfg, a) -> dict:
 
 
 COMMANDS = {
-    "fixtures": cmd_fixtures, "unpack": cmd_unpack, "ingest": cmd_ingest, "build-canonical": cmd_canonical,
-    "build-labels": cmd_labels, "build-features": cmd_features, "train": cmd_train, "evaluate-test": cmd_evaluate,
-    "evaluate-holdout": cmd_evaluate_holdout, "backtest-recalibration": cmd_backtest_recalibration,
+    "fixtures": cmd_fixtures,
+    "unpack": cmd_unpack,
+    "ingest": cmd_ingest,
+    "build-canonical": cmd_canonical,
+    "build-labels": cmd_labels,
+    "build-features": cmd_features,
+    "train": cmd_train,
+    "evaluate-test": cmd_evaluate,
+    "evaluate-holdout": cmd_evaluate_holdout,
+    "backtest-recalibration": cmd_backtest_recalibration,
     "backtest-ttc": cmd_backtest_ttc,
-    "promote": cmd_promote, "rollback": cmd_rollback, "score-batch": cmd_score_batch, "replay": cmd_replay,
-    "verify-audit": cmd_verify_audit, "create-api-key": cmd_create_api_key, "revoke-api-key": cmd_revoke_api_key,
-    "list-api-keys": cmd_list_api_keys, "export-results": cmd_export_results, "serve": cmd_serve,
+    "promote": cmd_promote,
+    "rollback": cmd_rollback,
+    "score-batch": cmd_score_batch,
+    "replay": cmd_replay,
+    "verify-audit": cmd_verify_audit,
+    "validate": cmd_validate,
+    "create-api-key": cmd_create_api_key,
+    "revoke-api-key": cmd_revoke_api_key,
+    "list-api-keys": cmd_list_api_keys,
+    "export-results": cmd_export_results,
+    "serve": cmd_serve,
     "run-slice": cmd_run_slice,
 }
 
@@ -263,6 +298,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--feature-config", help="build-features/train: feature set YAML (default: dataset config)")
     ap.add_argument("--model-config", help="train: model YAML (default: dataset config)")
     ap.add_argument("--holdout-dataset", help="evaluate-holdout: evaluation-only dataset id")
+    ap.add_argument("--validator", help="validate: name of the person performing validation")
     ap.add_argument("--name", help="create-api-key: key holder name")
     ap.add_argument("--role", help="create-api-key: modeller | validator | analyst | administrator | auditor")
     ap.add_argument("--key-id", help="revoke-api-key: key id")

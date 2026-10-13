@@ -1,0 +1,24 @@
+# Release criteria, fixed 2026-10-13 BEFORE the validation runner was first executed.
+# A model may be promoted for a use only if every 'critical' check for that use passes.
+criteria_id: release_criteria_v1
+uses:
+  demonstration_rank_ordering:
+    critical_checks: [V01, V02, V03, V04, V05, V06, V08, V09, V10, V11, V12, V13, V14]
+  pd_level:
+    critical_checks: [V01, V02, V03, V04, V05, V06, V07, V08, V09, V10, V11, V12, V13, V14]
+discrimination:
+  auc_ci_lower_gt: 0.5            # V06, latest out-of-time evaluation (holdout preferred over test)
+pd_level:
+  observed_expected_band: [0.8, 1.25]   # V07
+  calibration_slope_band: [0.8, 1.2]    # V07
+test_access:
+  max_evaluations_per_split: 1    # V08: locked test / holdout looked at no more than once per model
+robustness:
+  parity_sample_loans: 500        # V13
+  parity_tolerance: 1.0e-12
+  replay_tolerance: 1.0e-12       # V14
+# Expected direction of PD when one input increases for a median applicant (V10); economically justified only.
+monotonic_expectations:
+  credit_score: {step: 40, direction: -1}
+  orig_dti: {step: 10, direction: 1}
+  orig_ltv: {step: 10, direction: 1}

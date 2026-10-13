@@ -1,0 +1,47 @@
+# Standing findings (known issues not detectable by automated checks). The validation runner merges these with
+# findings raised by failed checks. Severity: critical | high | medium | low. Status: open | accepted | closed.
+findings:
+  - id: F-001
+    title: Absolute PD level unstable across vintages
+    severity: high
+    status: open
+    owner: modeller
+    evidence: docs/results/holdout_2023_2024.md, docs/results/recalibration_v3.md, docs/results/ttc_level_v4.md
+    detail: >
+      Holdout observed/expected 0.62 (M1); lagged recalibration and TTC anchors rejected. Restricts use to
+      rank-ordering until a level methodology passes a confirmatory test.
+  - id: F-002
+    title: property_state proxy / fair-lending review not performed
+    severity: medium
+    status: open
+    owner: validator
+    evidence: configs/features/origination_v1.yaml (review_notes)
+    detail: Geography can proxy protected characteristics; segment-level error and proxy analysis outstanding.
+  - id: F-003
+    title: Funded-loan selection; no reject inference
+    severity: medium
+    status: accepted
+    owner: modeller
+    evidence: docs/target_specification.md
+    detail: Model is trained and tested on loans that were funded and acquired by Freddie Mac only.
+  - id: F-004
+    title: Reason codes are model attributions, not adverse-action reasons
+    severity: medium
+    status: accepted
+    owner: administrator
+    evidence: configs/reason_codes_v1.yaml
+    detail: Must not be used as ECOA/Reg B adverse-action notices without legal/compliance mapping.
+  - id: F-005
+    title: Note-rate extrapolation outside training range
+    severity: medium
+    status: open
+    owner: modeller
+    evidence: docs/results/holdout_2023_2024.md
+    detail: ~90% of 2023-25 loans exceed the training maximum note rate (5.875%); rate is a top reason code for them.
+  - id: F-006
+    title: Champion promoted before the validation workflow existed
+    severity: low
+    status: open
+    owner: validator
+    evidence: artifacts audit chain (model_promoted 2026-10-13)
+    detail: Closed when a validation report approving the champion's use is recorded.
