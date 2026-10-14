@@ -1,0 +1,19 @@
+# EMPIRICAL v5 SELECTION set (docs/evaluation_plan_v5.md): provider sample 2023 vintage, FPD 2023-01..2023-12.
+# Already-examined period; used only to choose between C1 and C2. Evaluation-only (no training).
+dataset_id: freddie_mac_dev2023
+data_origin: EMPIRICAL
+source_id: freddie_mac_sflld_standard_sample
+contract_version: sflld_r47_2026_07
+loan_id_profile: empirical
+raw_dir: data/raw/freddie_mac/sample
+file_globs: {origination: "-", performance: "-"}   # unused: composed dataset
+compose:
+  - dataset: freddie_mac_sample
+    include: ["sample_orig_2023", "sample_perf_2023"]
+performance_cutoff: "2026-03"
+max_structural_reject_rate: 0.001
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v2_nostate.yaml
+split_config: configs/splits/dev2023_v5.yaml
+model_config: configs/models/logistic_v1.yaml

@@ -364,6 +364,25 @@ def cmd_copilot_eval(cfg, a) -> dict:
                                         for k, v in r["systems"].items()}}
 
 
+def cmd_v5_compare(cfg, a) -> dict:
+    """Plan v5: C0 (combined champion) vs refit C1/C2 (trained on --dataset) on --eval-dataset's test split."""
+    from crisk.models.refresh_v5 import compare
+    from crisk.models.registry import champion
+
+    combined = load_dataset_config("freddie_mac_combined")
+    models = {"C0": (combined, champion(combined)["model_id"])}
+    if a.c1:
+        models["C1"] = (cfg, a.c1)
+    if a.c2:
+        models["C2"] = (cfg, a.c2)
+    r = compare(models, load_dataset_config(a.eval_dataset), a.stage, AuditStore(cfg.audit_db), cfg,
+                actor=a.reviewer or "modeller-cli", target_id=a.target_id, candidate=a.candidate)
+    keep = ("stage", "evaluation_dataset", "target_id", "loans", "events", "paired", "selection", "confirmatory")
+    return {**{k: r[k] for k in keep if k in r},
+            "auc": {n: m["roc_auc"] for n, m in r["metrics"].items()},
+            "observed_expected": {n: m["observed_expected_ratio"] for n, m in r["metrics"].items()}}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -439,6 +458,7 @@ COMMANDS = {
     "docai-eval": cmd_docai_eval,
     "copilot-ask": cmd_copilot_ask,
     "copilot-eval": cmd_copilot_eval,
+    "v5-compare": cmd_v5_compare,
 }
 
 
@@ -476,6 +496,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--extractor", default="rule", choices=["rule", "llm"], help="docai-eval: extractor")
     ap.add_argument("--question", help="copilot-ask: the question")
     ap.add_argument("--force", action="store_true", help="docai-eval/copilot-eval: re-run held-out (audited)")
+    ap.add_argument("--stage", choices=["selection", "confirmatory"], help="v5-compare: plan v5 stage")
+    ap.add_argument("--c1", help="v5-compare: model id of refit C1")
+    ap.add_argument("--c2", help="v5-compare: model id of refit C2")
+    ap.add_argument("--candidate", help="v5-compare confirmatory: C1 or C2 (the selected candidate)")
     a = ap.parse_args(argv)
     cfg = load_dataset_config(a.dataset)
     _p(COMMANDS[a.command](cfg, a))

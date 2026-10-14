@@ -1,0 +1,8 @@
+split_id: dev2023_v5
+# Evaluation-only selection set for plan v5: train/calibration ranges are empty placeholders.
+date_column: first_payment_date
+min_gap_months: 12
+splits:
+  train:       {start: "2000-01", end: "2000-12"}
+  calibration: {start: "2002-01", end: "2002-12"}
+  test:        {start: "2023-01", end: "2023-12", source_id: freddie_mac_sflld_standard_sample}

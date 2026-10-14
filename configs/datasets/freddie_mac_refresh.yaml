@@ -1,0 +1,25 @@
+# EMPIRICAL v5 model-refresh dataset (docs/evaluation_plan_v5.md), composed from already-ingested Release 47 files:
+#   train       <- FULL-VOLUME 2022 vintage, FPD 2022-01..2022-12
+#   calibration <- provider SAMPLE 2024 vintage, FPD 2024-01..2025-03
+#   test        <- empty placeholder; the confirmatory test uses the Release 48 2025 vintage (separate dataset)
+# Sample 2022/2023 files are NOT included: sample-2022 loans are a subset of the full 2022 vintage (duplicates), and
+# sample 2023 is the separate selection set (freddie_mac_dev2023).
+dataset_id: freddie_mac_refresh
+data_origin: EMPIRICAL
+source_id: freddie_mac_sflld_standard_full+sample
+contract_version: sflld_r47_2026_07
+loan_id_profile: empirical
+raw_dir: data/raw/freddie_mac
+file_globs: {origination: "-", performance: "-"}   # unused: composed dataset
+compose:
+  - dataset: freddie_mac_historical
+    include: ["orig_2022Q*", "perf_2022Q*"]
+  - dataset: freddie_mac_sample
+    include: ["sample_orig_2024", "sample_perf_2024"]
+performance_cutoff: "2026-03"
+max_structural_reject_rate: 0.001
+target_config: configs/target/default_90dpd_12m_v1.yaml
+sensitivity_target_configs: [configs/target/default_90dpd_12m_exdisaster_v1.yaml]
+feature_config: configs/features/origination_v2_nostate.yaml
+split_config: configs/splits/freddie_mac_refresh_v5.yaml
+model_config: configs/models/logistic_v1.yaml

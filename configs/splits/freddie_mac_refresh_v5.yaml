@@ -1,0 +1,9 @@
+split_id: freddie_mac_refresh_v5
+# Pre-registered in docs/evaluation_plan_v5.md. The test range is an empty placeholder (no loans have FPD there yet);
+# the confirmatory test is the Release 48 2025 vintage, evaluated through its own dataset.
+date_column: first_payment_date
+min_gap_months: 12
+splits:
+  train:       {start: "2022-01", end: "2022-12", source_id: freddie_mac_sflld_standard_full}
+  calibration: {start: "2024-01", end: "2025-03", source_id: freddie_mac_sflld_standard_sample}
+  test:        {start: "2026-04", end: "2027-03", source_id: freddie_mac_sflld_standard_sample}

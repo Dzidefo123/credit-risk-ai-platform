@@ -79,3 +79,21 @@ def test_ttc_predictions_and_rule():
     assert decide_ttc({"a": s(1.0, 0.5, 0.3), "b": s(1.0, 0.5, 0.3)})["adopted"] == "L2"
     assert decide_ttc({"a": s(1.0, 0.95, 0.95), "b": s(1.0, 0.95, 0.95)})["adopted"] == "L0"  # < 10% vs L0
     assert decide_ttc({"a": s(1.0, 0.5, 0.6, ll1=1.02), "b": s(1.0, 0.5, 0.6)})["adopted"] == "L0"  # log loss guard
+
+
+def test_v5_compare_selection_rule_and_single_confirmatory(trained_ws, tmp_path):
+    """Plan v5 mechanics on SYNTHETIC data: identical models tie, so the default (C2) is chosen; the
+    confirmatory stage runs once."""
+    from crisk.audit.store import AuditStore
+    from crisk.models.refresh_v5 import compare
+
+    cfg, mid = trained_ws["cfg"], trained_ws["meta"]["model_id"]
+    store = AuditStore(tmp_path / "a.sqlite")
+    models = {"C0": (cfg, mid), "C1": (cfg, mid), "C2": (cfg, mid)}
+    r = compare(models, cfg, "selection", store, cfg, actor="test")
+    assert r["selection"]["chosen"] == "C2" and r["paired"]["C1-C2"]["delta_auc"] == 0.0
+    assert r["loans"] > 0 and set(r["credit_score_bands"]) == {"C0", "C1", "C2"}
+    c = compare({"C0": (cfg, mid), "C2": (cfg, mid)}, cfg, "confirmatory", store, cfg, actor="test", candidate="C2")
+    assert c["confirmatory"]["checks"]["no_ranking_loss_vs_c0"] and "pass" in c["confirmatory"]
+    with pytest.raises(RuntimeError, match="already run"):
+        compare({"C0": (cfg, mid), "C2": (cfg, mid)}, cfg, "confirmatory", store, cfg, actor="test")

@@ -1,0 +1,48 @@
+feature_set_id: origination_v2_nostate
+description: "origination_v2 (PMMS rate spread instead of note rate) without property_state (plan v5, D-031)."
+numeric:
+  - credit_score
+  - orig_dti
+  - orig_ltv
+  - orig_cltv
+  - orig_loan_term
+  - mi_pct
+  - num_units
+derived_numeric:
+  log_orig_upb: "ln(orig_upb); orig_upb is disclosed rounded to $1,000"
+  multiple_borrowers: "1 if num_borrowers >= 2 else 0; harmonises the pre/post 2018Q2 coding change"
+  cltv_minus_ltv: "orig_cltv - orig_ltv; secondary financing proxy"
+  rate_spread: "orig_interest_rate minus mean PMMS rate (15y for term<=180, else 30y) published in month FPD-3"
+categorical:
+  - occupancy_status
+  - channel
+  - property_type
+  - loan_purpose
+  - first_time_homebuyer_flag
+# Fields measured at Freddie Mac acquisition rather than the note date, accepted with rationale.
+acquisition_fields_accepted:
+  mi_pct: "MI coverage is contracted at origination; disclosed as of purchase. Small timing gap accepted."
+excluded:
+  property_state: "Removed after the fairness review (D-031): adds no out-of-time value; geography can proxy."
+  orig_interest_rate: "Replaced by rate_spread: the raw rate mostly reflects the market level (2023 rates exceed the 2015-16 training range)."
+  loan_id: identifier
+  pre_relief_refi_loan_id: identifier
+  servicer_name: "Reported as of the LAST performance period -> future information (leakage)."
+  mi_cancellation_indicator: "Post-origination event (MI cancelled after purchase) -> leakage."
+  seller_name: "Masked using a quarter-level 1% UPB rule computed after the quarter -> not decision-time; also an institution identifier."
+  first_payment_date: "Not a direct predictor; used only to look up the market rate published 3 months earlier."
+  maturity_date: "Redundant with orig_loan_term."
+  orig_upb: "Replaced by derived log_orig_upb."
+  num_borrowers: "Replaced by derived multiple_borrowers (coding changed in 2018Q2)."
+  postal_code: "High-cardinality geography; deferred pending proxy/fairness review."
+  msa_code: "High-cardinality geography; deferred pending proxy/fairness review."
+  amortization_type: "Constant (FRM) within the eligible population."
+  ppm_flag: "Expected near-constant in Standard dataset; review empirically before use."
+  io_indicator: "Expected near-constant in Standard dataset; review empirically before use."
+  super_conforming_flag: "Deferred: review prevalence empirically."
+  special_eligibility_program: "Deferred: programme coding differs before/after 2015-03."
+  relief_refi_indicator: "Deferred: HARP/relief loans have DTI masked; review as a segment."
+  property_valuation_method: "Populated only for 2017+ originations -> time-dependent missingness."
+review_notes:
+  - "property_state removed (D-031); geography-free feature set."
+  - "credit_score is 'generally the score known at acquisition and used to originate' (provider wording)."
