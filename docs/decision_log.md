@@ -222,3 +222,12 @@ The system was frozen at `3a473bb`.
 - **Open items:** the verifier is over-strict on numbers echoed from the question (v2 change; needs new questions to
   evaluate), and the scenario-vs-applied figure ambiguity in monitoring_v1.md (N08). The owner's API key is held in
   a user environment variable outside the repository; a key pasted in chat was not used and was rotated.
+
+**D-041 · 2026-10-14 · v5 model refresh pre-registered (owner-approved) before any training.**
+See [evaluation_plan_v5.md](evaluation_plan_v5.md).
+- **Data:** train on full-volume 2022 (FPD 2022), calibrate on sample 2024, select on sample 2023.
+- **Candidates:** C1 (logistic, no state) and C2 (logistic, PMMS rate spread, no state), against control C0 (the
+  champion).
+- **Confirmatory test:** once, on the Release 48 edition of the 2025 vintage (shared with the v4 L0 test), with a
+  pre-committed second look at Release 49.
+- **Promotion:** only after the confirmatory pass, validation and a named reviewer.
