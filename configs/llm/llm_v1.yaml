@@ -5,8 +5,8 @@ provider: mock
 mock:
   min_coverage: 0.5
 anthropic:
-  model: claude-opus-5-5
-  effort: medium            # low | medium | high | xhigh | max (Opus 5.5 default is medium)
+  model: claude-sonnet-5-5  # chosen for cost (half the Opus 5.5 price); extraction and quoting are not reasoning-heavy
+  effort: medium            # low | medium | high | xhigh | max (Sonnet 5.5 default is high; medium keeps cost down)
   max_tokens: 16000
   timeout_s: 120
   max_retries: 2

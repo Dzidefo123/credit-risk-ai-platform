@@ -100,3 +100,21 @@ injection resistance; permission enforcement (no restricted source cited and no 
 Guarantees are also covered by adversarial unit tests (a scripted LLM that hallucinates numbers, cites missing
 passages, or follows injected instructions). A failure of any held-out criterion is reported as a failure, not
 re-tuned on held-out.
+
+## Addendum A (2026-10-14, before any real-LLM call): real-LLM evaluation
+
+Written after the mock held-out results (D-039) and before any call to a real model.
+
+- **System C1-LLM:** the same copilot code with the Anthropic backend: `claude-sonnet-5-5`, effort `medium`,
+  server-side refusal fallback on. The model was chosen for cost (the owner's decision). **D1-LLM:** the grounded LLM
+  extractor (`llm_extract_document`) with the same validators.
+- **Unchanged:** questions, documents, criteria and grading. B0 and the mock results are not re-run. The corpus
+  includes the post-D-039 edits to `runbooks.md` (RB-05/06) and `data_handling_and_security.md`. No held-out
+  answer depends on the edited sections, and corpus versions are recorded in the report.
+- **Order:** dev first, as a connectivity and cost check with no tuning of prompts or thresholds, then held-out once
+  per system (audited). The verifier, guards and grounding check are unchanged, so the guarantees are enforced
+  exactly as for the mock.
+- **Budget:** about $10 in total, by the owner's choice of model. Token usage is reported. If the dev run implies a
+  total above $10, stop and ask the owner.
+- **Interpretation:** this measures one model at one effort level on a small, author-written set. It is not a
+  general claim about LLM quality.
