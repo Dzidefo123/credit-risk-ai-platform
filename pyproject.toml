@@ -57,3 +57,4 @@ link-mode = "copy"
 # Embedded SQL is easier to review unwrapped.
 "src/crisk/quality/canonical.py" = ["E501"]
 "src/crisk/labels/default_horizon.py" = ["E501"]
+"src/crisk/lgd/data.py" = ["E501"]
