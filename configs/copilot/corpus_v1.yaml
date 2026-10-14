@@ -1,0 +1,26 @@
+# Approved copilot corpus v1. Only these sources can be retrieved. Versions (content SHA-256) and as-of dates
+# (last commit) are computed when the index is built. `roles` lists who may read a source; access filtering is
+# applied BEFORE retrieval, so a role's index never contains passages it may not read.
+corpus_id: copilot_corpus_v1
+all_roles: [modeller, validator, analyst, administrator, auditor]
+model_risk_roles: [modeller, validator, administrator, auditor]
+sources:
+  - {id: results.holdout, path: docs/results/holdout_2023_2024.md, roles: all}
+  - {id: results.baseline, path: docs/results/empirical_baseline_v1.md, roles: all}
+  - {id: results.comparison, path: docs/results/model_comparison_v2.md, roles: all}
+  - {id: results.recalibration, path: docs/results/recalibration_v3.md, roles: all}
+  - {id: results.ttc, path: docs/results/ttc_level_v4.md, roles: all}
+  - {id: results.fairness, path: docs/results/fairness_review_v1.md, roles: all}
+  - {id: results.policy_simulation, path: docs/results/policy_simulation_v1.md, roles: all}
+  - {id: results.monitoring, path: docs/results/monitoring_v1.md, roles: all}
+  - {id: results.lgd_el, path: docs/results/lgd_el_v1.md, roles: all}
+  - {id: runbooks, path: docs/runbooks.md, roles: all}
+  - {id: policy.demo_v1, path: configs/policies/demo_policy_v1.yaml, roles: all}
+  - {id: monitoring.thresholds, path: configs/monitoring/thresholds_v1.yaml, roles: all}
+  - {id: spec.target, path: docs/target_specification.md, roles: all}
+  - {id: spec.features, path: docs/feature_dictionary.md, roles: all}
+  - {id: security, path: docs/data_handling_and_security.md, roles: all}
+  - {id: assumptions, path: docs/assumptions_register.md, roles: all}
+  - {id: validation.findings, path: configs/validation/findings_register.yaml, roles: model_risk}
+  - {id: validation.report_m1, path: docs/results/validation_champion_m1.md, roles: model_risk}
+  - {id: decision_log, path: docs/decision_log.md, roles: model_risk}

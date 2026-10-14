@@ -193,3 +193,10 @@ The Release 47 loss sign convention was verified empirically. P(liquidation | 90
 (2015 vintage). S2 fractional logit was selected by the pre-registered rule (−11% validation MAE). Locked test:
 MAE 0.176 vs 0.224 baseline, Spearman 0.36. EL is illustrative 12-month only (base 1.4 bps; severe 10.5 bps), using a
 decile-rate PD overlay because the champion is approved for ranking only.
+
+**D-038 · 2026-10-13 · Phases G/H pre-registered before any code: synthetic documents, mocked LLM first.**
+Plan [document_ai_copilot_plan_v1.md](document_ai_copilot_plan_v1.md), corpus access rules
+(`configs/copilot/corpus_v1.yaml`) and 48 labelled questions (`configs/copilot/eval_questions_v1.yaml`, dev 28 /
+held-out 20) were committed before the generator, extractor, retrieval index or copilot existed. Documents are fictional
+(SYNTHETIC). The default LLM is a deterministic mock, so results measure the pipeline, not LLM quality. Access filtering
+happens before retrieval; the copilot has read-only tools and no write path; unvalidated extractions cannot reach scoring.
