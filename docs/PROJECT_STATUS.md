@@ -28,7 +28,8 @@ _Last updated: 2026-10-13 (session 1, continued; Phases G/H v1)._
 | LGD/EAD + expected loss with scenarios (Phase J v1, pre-registered) | **done**: [results/lgd_el_v1.md](results/lgd_el_v1.md) |
 | Document intelligence (G) and analyst copilot (H) v1, mocked LLM (pre-registered) | **done**: [results/document_ai_copilot_v1.md](results/document_ai_copilot_v1.md). Guarantees met on held-out; unseen-layout extraction and mock answer quality failed (recorded) |
 | Real-LLM evaluation of G/H (claude-sonnet-5-5, addendum A) | **done**: all held-out criteria met (copilot accuracy 0.73; unseen-layout extraction 24/24); cost ≈ $0.94 |
-| Identity provider, TLS, model refresh on recent vintages | **proposed** |
+| Model refresh v5 (pre-registered) | **selection done** ([results/model_refresh_v5.md](results/model_refresh_v5.md)): C2 selected; confirmatory test awaits Release 48 |
+| Identity provider, TLS | **proposed** |
 
 ## This session's commands (all succeeded unless noted)
 
