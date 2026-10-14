@@ -1,0 +1,100 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_bank",
+    "income_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Morgan Fakely"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Bramblecote Tools Ltd"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 586000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 2100.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 939000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 163900.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Morgan Fakely"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 34545.0
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 30417.68
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-07"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 7486.34
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 4104.65
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Morgan Fakely"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Bramblecote Tools Ltd"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 10116.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-07-16"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 7
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 70816.69
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0003",
+  "split": "dev"
+}

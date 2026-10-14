@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borr0wer | Kai Dummond |\n| Current emp1oyer | Quillfeather Logistics Inc |\n| Gross annua1 inc0me (USD) | 150,400.00 |\n| Tota1 monthly debts  (USD) | 1,250.00 |\n| Requested 10an (USD) | 214,000.00 |\n| Estimated property va1ue (USD) | 321,000.00 |\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nEARNINGS STATEMENT (FICTIONAL)\nEmpl0yee: Kai Dummond\nEmployer: Quillfeather Logistics Inc\nPay  date: 2026-05-16\nPay frequency: Monthly\nGross pay this peri0d: $12,533.33\nYear-to-date gross: $63,504.15\nPay periods year-t0-date: 5"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount holder: Kai Dummond\nStatement  peri0d: May 2026\n| Summary | Amount |\n|---|---|\n| Beginning balance | 29,953.51 |\n| Credits | 9,274.66 |\n| Debits | 3,693.74 |\n| Ending  balance | 35,534.43 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-05-03  Rent                                     -2,622.43\n2026-05-09  Utilities                                -190.01\n2026-05-15  Payroll Quillfeather Logistics Inc       +9,274.66\n2026-05-18  Card payment                             -252.95\n2026-05-24  Groceries                                -628.35"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0037"
+}

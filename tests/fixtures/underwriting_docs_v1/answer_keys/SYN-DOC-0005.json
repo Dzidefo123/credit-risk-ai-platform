@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": true,
+  "expected_flags": [
+    "employer_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Jordan Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Larkspire Civil Works"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 456000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 2025.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 507000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 178300.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Jordan Dummond"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 43473.44
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 37128.27
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-09"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 10995.16
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 4649.99
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Jordan Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 14858.33
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-09-12"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 9
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 133724.97
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "A",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0005",
+  "split": "dev"
+}

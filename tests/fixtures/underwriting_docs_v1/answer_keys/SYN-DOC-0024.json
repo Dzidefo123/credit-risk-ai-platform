@@ -1,0 +1,101 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_bank",
+    "arithmetic_paystub",
+    "income_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Sasha Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Larkspire Civil Works"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 347000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 2025.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 428000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 84100.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Sasha Mockford"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 36844.89
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 34043.35
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-08"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 4741.53
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 2788.85
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Sasha Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Larkspire Civil Works"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 2595.83
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-08-08"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 16
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 40812.31
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0024",
+  "split": "dev"
+}

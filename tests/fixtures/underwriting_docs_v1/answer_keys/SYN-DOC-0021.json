@@ -1,0 +1,97 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": true,
+  "expected_flags": [],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Jordan Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 626000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 525.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 769000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 166100.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Jordan Synthwood"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 19681.55
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 11568.2
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-04"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 10242.84
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2129.49
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Jordan Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 13841.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-04-24"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 4
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 55366.68
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "B",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0021",
+  "split": "dev"
+}

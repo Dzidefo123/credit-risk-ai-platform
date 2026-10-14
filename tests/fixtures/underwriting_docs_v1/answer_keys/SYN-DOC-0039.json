@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "missing_field:bank_statement.total_withdrawals"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Quinn Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 204000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 300.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 266000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 117000.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Quinn Mockford"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 37280.25
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 34270.64
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-04"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 7215.0
+      },
+      "total_withdrawals": {
+        "page": null,
+        "value": null
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Quinn Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 9750.0
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-04-12"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 4
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 39000.0
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "B",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0039",
+  "split": "heldout"
+}

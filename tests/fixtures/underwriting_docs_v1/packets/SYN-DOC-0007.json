@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Rowan Fakely |\n| Current employer | Bramblecote Tools Ltd |\n| Gross annual income (USD) | 76,100.00 |\n| Total monthly debts (USD) | 425.00 |\n| Requested loan (USD) | 572,000.00 |\n| Estimated property value (USD) | 606,000.00 |\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Rowan Fakely\nEmployer: Bramblecote Tools Ltd\nPay date: 2026-09-13\nPay frequency: Monthly\nGross pay this period: $6,341.67\nYear-to-date gross: $55,251.23\nPay periods year-to-date: 9"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount holder: Rowan Fakely\nStatement period: September 2026\n| Summary | Amount |\n|---|---|\n| Beginning balance | 20,453.26 |\n| Credits | 4,692.84 |\n| Debits | 3,040.22 |\n| Ending balance | 22,642.85 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-09-03  Rent                                     -2,550.18\n2026-09-09  Utilities                                -63.66\n2026-09-15  Payroll Bramblecote Tools Ltd            +4,692.84\n2026-09-18  Card payment                             -127.47\n2026-09-24  Groceries                                -298.91"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0007"
+}

@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "missing_field:application.property_value"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Rowan Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 663000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1625.0
+      },
+      "property_value": {
+        "page": null,
+        "value": null
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 205100.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Rowan Synthwood"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 22713.08
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 13815.13
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-08"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 11674.92
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2776.97
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Rowan Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 7888.46
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-08-27"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "biweekly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 17
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 134103.82
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "B",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0019",
+  "split": "dev"
+}

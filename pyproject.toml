@@ -30,6 +30,10 @@ dev = [
 ui = [
     "streamlit>=1.40",
 ]
+# Optional real LLM backend for document extraction and the copilot (default provider is a mock).
+llm = [
+    "anthropic>=1.13",
+]
 
 [build-system]
 requires = ["hatchling>=1.24"]

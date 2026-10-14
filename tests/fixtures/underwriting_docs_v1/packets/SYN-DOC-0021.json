@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Jordan Synthwood\nEmployer: Tinmoor Health Partners\nAnnual income: $166,100.00\nMonth1y debt payments: $525.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan  amount: $626,000.00\nProperty  va1ue: $769,000.00\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nPAY ADVICE (FICTIONAL)\nEmployee name: Jordan Synthwood\nCompany: Tinmoor Health Partners\nCheck  date: 04/24/2026\nFrequency: monthly\nPeri0ds paid YTD: 4\n| Item | Current | YTD |\n|---|---|---|\n| Gr0ss earnings | 13,841.67 | 55,366.68 |\n| Net pay | 10,242.84 | 40,971.36 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount  holder: Jordan Synthwood\nStatement peri0d: April 2026\n| Summary | Amount |\n|---|---|\n| Beginning  balance | 11,568.20 |\n| Credits | 10,242.84 |\n| Debits | 2,129.49 |\n| Ending  balance | 19,681.55 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-04-03  Rent                                     -1,044.06\n2026-04-09  Utilities                                -243.88\n2026-04-15  Payroll Tinmoor Health Partners          +10,242.84\n2026-04-18  Card payment                             -564.88\n2026-04-24  Groceries                                -276.67"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0021"
+}

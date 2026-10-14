@@ -20,8 +20,9 @@ services:
     build: .
     command: ["streamlit", "run", "src/crisk/ui/app.py", "--server.address", "0.0.0.0", "--server.port", "8501",
               "--server.headless", "true", "--browser.gatherUsageStats", "false"]
-    environment: {CRISK_API_URL: "http://api:8000"}
+    environment: {CRISK_API_URL: "http://api:8000", CRISK_DOC_FIXTURES: "/app/data/underwriting_docs_v1"}
     ports: ["127.0.0.1:8501:8501"]
+    volumes: [demo-data:/app/data]
     depends_on:
       api: {condition: service_healthy}
 volumes:

@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Skyler Sampleton |\n| Current employer | Copperfen Foods Co |\n| Gross annual income (USD) | 175,700.00 |\n| Total monthly debts (USD) | 750.00 |\n| Requested loan (USD) | 656,000.00 |\n| Estimated property value (USD) | 707,000.00 |\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Skyler Sampleton\nEmployer: Copperfen Foods Co\nPay date: 2026-08-24\nPay frequency: Biweekly\nGross pay this period: $6,757.69\nYear-to-date gross: $114,880.73\nPay periods year-to-date: 17"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Skyler Sampleton\nStatement period: 2026-08\nOpening balance: $1,254.54",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-08-01  Payroll Copperfen Foods Co               +5,000.69\n2026-08-03  Rent                                     -2,512.77\n2026-08-09  Utilities                                -200.01\n2026-08-15  Payroll Copperfen Foods Co               +5,000.69\n2026-08-18  Card payment                             -192.07\n2026-08-24  Groceries                                -288.71\nTotal deposits: $10,001.38\nClosing balance: $8,062.36"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0030"
+}

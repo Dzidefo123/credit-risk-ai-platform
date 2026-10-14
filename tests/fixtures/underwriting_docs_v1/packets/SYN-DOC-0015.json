@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Kai Fictitious\nEmployer: Orchardvale Software LLC\nAnnual income: $130,500.00\nMonthly debt payments: $600.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $350,000.00\nProperty value: $446,000.00\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Kai Fictitious\nEmployer: Orchardvale Software LLC\nPay date: 2026-05-02\nPay frequency: Semi-monthly\nGross pay this period: $5,437.50\nYear-to-date gross: $54,375.00\nPay periods year-to-date: 10"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Kai Fictitious\nStatement period: 2026-05\nOpening balance: $17,365.13",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-05-01  Payroll Orchardvale Software LLC         +4,023.75\n2026-05-03  Rent                                     -918.83\n2026-05-09  Utilities                                -299.51\n2026-05-15  Payroll Orchardvale Software LLC         +4,023.75\n2026-05-18  Card payment                             -886.72\n2026-05-20  Transfer from savings                    +557.95\n2026-05-24  Groceries                                -677.32\nTotal deposits: $8,605.45\nTotal withdrawals: $2,782.38\nClosing balance: $22,681.06"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0015"
+}

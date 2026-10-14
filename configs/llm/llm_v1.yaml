@@ -1,0 +1,13 @@
+# LLM provider for document extraction and the copilot. Default: deterministic mock (no network, no key).
+# Override per process with CRISK_LLM_PROVIDER=anthropic. The Anthropic backend needs `uv sync --group llm` and an
+# API key in the environment (ANTHROPIC_API_KEY or `ant auth login`). Never put keys in this file or the repository.
+provider: mock
+mock:
+  min_coverage: 0.5
+anthropic:
+  model: claude-opus-5-5
+  effort: medium            # low | medium | high | xhigh | max (Opus 5.5 default is medium)
+  max_tokens: 16000
+  timeout_s: 120
+  max_retries: 2
+  fallbacks: default        # server-side refusal fallback; set to null to disable

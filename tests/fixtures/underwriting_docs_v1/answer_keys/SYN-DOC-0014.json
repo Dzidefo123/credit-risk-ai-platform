@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "employer_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Kai Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Larkspire Civil Works"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 694000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1950.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 738000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 185600.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Kai Synthwood"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 49402.86
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 39712.29
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-03"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 12263.61
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 2573.04
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Kai Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 7733.33
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-03-12"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 6
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 46399.98
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0014",
+  "split": "dev"
+}

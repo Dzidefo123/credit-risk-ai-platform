@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "employer_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Avery Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 719000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 2275.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 912000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 121000.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Avery Mockford"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 12611.96
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 8624.99
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-03"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 6887.7
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2900.73
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Avery Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 4653.85
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-03-02"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "biweekly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 4
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 18615.4
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "B",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0034",
+  "split": "heldout"
+}

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from crisk.audit.store import AuditStore
 from crisk.config import DatasetConfig, load_dataset_config
@@ -311,6 +312,58 @@ def cmd_el_run(cfg, a) -> dict:
                                                "exposure_usd")} for k, v in r["scenarios"].items()}}
 
 
+DOC_FIXTURES = Path("tests/fixtures/underwriting_docs_v1")
+
+
+def _eval_split(a) -> str:
+    return "dev" if a.split == "test" else a.split
+
+
+def cmd_docai_generate(cfg, a) -> dict:
+    from crisk.docai.generator import generate_all
+
+    m = generate_all(Path(a.out or DOC_FIXTURES))
+    return {"out": str(a.out or DOC_FIXTURES), "packets": len(m["packets"]), "seed": m["seed"]}
+
+
+def cmd_docai_eval(cfg, a) -> dict:
+    from crisk.docai.evaluate import evaluate_documents
+    from crisk.llm import get_llm
+
+    split = _eval_split(a)
+    llm = get_llm() if a.extractor == "llm" else None
+    r = evaluate_documents(Path(a.out or DOC_FIXTURES), split, AuditStore(cfg.audit_db), llm=llm, force=a.force,
+                           actor=a.reviewer or "evaluator-cli")
+    name = r["extractor"].replace(":", "_").replace("/", "_")
+    write_json(cfg.reports_dir / "docai" / f"eval_{split}__{name}.json", r)
+    return {k: r[k] for k in ("split", "extractor", "metrics", "counts", "checks")}
+
+
+def cmd_copilot_ask(cfg, a) -> dict:
+    from crisk.copilot.copilot import Copilot, Tools
+    from crisk.copilot.corpus import Corpus
+    from crisk.copilot.evaluate import caller_for
+    from crisk.llm import get_llm
+
+    store = AuditStore(cfg.audit_db)
+    cp = Copilot(Corpus.load(), get_llm(), Tools(cfg, store), store)
+    r = cp.ask(a.question or "", caller_for(a.role or "analyst"))
+    return {k: r[k] for k in ("outcome", "reason", "answer", "citations", "as_of", "role", "llm", "tools")}
+
+
+def cmd_copilot_eval(cfg, a) -> dict:
+    from crisk.copilot.corpus import Corpus
+    from crisk.copilot.evaluate import evaluate_copilot
+    from crisk.llm import get_llm
+
+    split = _eval_split(a)
+    r = evaluate_copilot(Corpus.load(), get_llm(), split, AuditStore(cfg.audit_db), cfg=cfg, force=a.force,
+                         actor=a.reviewer or "evaluator-cli")
+    write_json(cfg.reports_dir / "copilot" / f"eval_{split}.json", r)
+    return {"split": split, "systems": {k: {"metrics": v["metrics"], "checks": v["checks"]}
+                                        for k, v in r["systems"].items()}}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -382,6 +435,10 @@ COMMANDS = {
     "export-results": cmd_export_results,
     "serve": cmd_serve,
     "run-slice": cmd_run_slice,
+    "docai-generate": cmd_docai_generate,
+    "docai-eval": cmd_docai_eval,
+    "copilot-ask": cmd_copilot_ask,
+    "copilot-eval": cmd_copilot_eval,
 }
 
 
@@ -415,6 +472,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--score-id")
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--host", default="127.0.0.1", help="serve: bind address (0.0.0.0 only inside a container)")
+    ap.add_argument("--out", help="docai-generate/docai-eval: synthetic document fixture directory")
+    ap.add_argument("--extractor", default="rule", choices=["rule", "llm"], help="docai-eval: extractor")
+    ap.add_argument("--question", help="copilot-ask: the question")
+    ap.add_argument("--force", action="store_true", help="docai-eval/copilot-eval: re-run held-out (audited)")
     a = ap.parse_args(argv)
     cfg = load_dataset_config(a.dataset)
     _p(COMMANDS[a.command](cfg, a))

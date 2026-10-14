@@ -13,6 +13,13 @@ Endpoints (auth = ``Authorization: Bearer <key>`` or ``X-API-Key``; see crisk.se
   POST /v1/scores/{score_id}/reviews       review:create human review: agree | override | escalate
   POST /v1/scores/{score_id}/decision      decision:create policy recommendation (versioned policy engine)
   GET  /v1/monitoring                      monitoring:read latest monitoring report (drift, outcomes, alerts)
+  POST /v1/documents                       document:create submit a SYNTHETIC document packet (extract + validate)
+  GET  /v1/documents                       document:read   recent packets
+  GET  /v1/documents/{packet_id}           document:read   extraction, flags, status, reviewer actions
+  POST /v1/documents/{packet_id}/corrections  document:review correct a field (rationale required)
+  POST /v1/documents/{packet_id}/review    document:review accept open acceptable flags, or reject
+  GET  /v1/documents/{packet_id}/verified-inputs  document:read  only for validated packets (409 otherwise)
+  POST /v1/copilot/ask                     copilot:ask     cited answer from role-permitted sources + read-only tools
 Errors use one JSON shape: {"error": {"code", "message", "correlation_id"}}.
 Still a prototype: no TLS termination, rate limiting or identity provider. Keep it on localhost.
 """
@@ -29,7 +36,12 @@ from pydantic import BaseModel, ConfigDict, Field, create_model, model_validator
 
 from crisk.audit.store import AuditStore, IdempotencyConflict
 from crisk.config import DatasetConfig
+from crisk.copilot.copilot import Caller, Copilot, Tools
+from crisk.copilot.corpus import Corpus
+from crisk.docai.schema import PacketIn
+from crisk.docai.service import DocumentService, UnvalidatedExtractionError, WorkflowError, verified_inputs
 from crisk.features.origination import FeatureSpec
+from crisk.llm import get_llm
 from crisk.models.registry import champion
 from crisk.policies.engine import Policy, PolicyError
 from crisk.scoring.schemas import ScoreResponse, application_model
@@ -53,6 +65,24 @@ class ReviewRequest(BaseModel):
         return self
 
 
+class CorrectionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    field: str = Field(min_length=3, max_length=64, description="doc_type.field, e.g. paystub.ytd_gross")
+    value: str = Field(min_length=1, max_length=200)
+    rationale: str = Field(min_length=10, max_length=2000)
+
+
+class DocReviewRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    action: Literal["accept", "reject"]
+    rationale: str = Field(min_length=10, max_length=2000)
+
+
+class AskRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    question: str = Field(min_length=3, max_length=1000)
+
+
 def _error(status: int, code: str, message: str, cid: str | None) -> JSONResponse:
     return JSONResponse(status_code=status, content={"error": {"code": code, "message": message,
                                                                 "correlation_id": cid}},
@@ -73,8 +103,15 @@ DEFAULT_POLICY = "configs/policies/demo_policy_v1.yaml"
 
 
 def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore | None = None,
-               policy_path: str = DEFAULT_POLICY) -> FastAPI:
+               policy_path: str = DEFAULT_POLICY, llm=None, corpus: Corpus | None = None) -> FastAPI:
     store = AuditStore(cfg.audit_db)
+    docs = DocumentService(store)
+    copilot_state: dict = {"copilot": None, "error": None}
+    try:
+        copilot_state["copilot"] = Copilot(corpus or Corpus.load(), llm or get_llm(), Tools(cfg, store), store)
+    except Exception as e:  # the scoring service still starts; copilot endpoints report 503
+        copilot_state["error"] = f"{type(e).__name__}: {e}"
+        log.error("copilot unavailable: %s", copilot_state["error"])
     keys = keys or KeyStore(key_store_path(cfg))
     app = FastAPI(title="Credit risk PD scoring (prototype)", version="0.2.0")
     state: dict = {"service": None, "load_error": None}
@@ -241,5 +278,69 @@ def create_app(cfg: DatasetConfig, model_id: str | None = None, keys: KeyStore |
                                                         "policy_version": out["policy_version"]})
         return {**out, "decision_id": row["decision_id"], "decided_at": row["decided_at"],
                 "note": "Policy recommendation for human review; FICTIONAL demonstration policy."}
+
+    # ---- Phase G: documents (SYNTHETIC only) ----------------------------------------------------------------------
+    @app.post("/v1/documents", status_code=201)
+    def submit_documents(body: PacketIn, request: Request,
+                         p: Principal = Depends(needs("document:create"))):  # noqa: B008
+        try:
+            return docs.submit(body.model_dump(), actor=p.name, role=p.role)
+        except WorkflowError as e:
+            return _error(422, "invalid_packet", str(e), request.state.cid)
+
+    @app.get("/v1/documents")
+    def list_documents(limit: int = 50, p: Principal = Depends(needs("document:read"))):  # noqa: B008
+        items = []
+        for row in store.doc_packets(max(1, min(int(limit), 200))):
+            st = docs.state(row["packet_id"])
+            items.append({**row, "status": st["status"], "open_flags": st["open_flags"]})
+        return {"items": items}
+
+    @app.get("/v1/documents/{packet_id}")
+    def get_document(packet_id: str, request: Request, include_documents: bool = False,
+                     p: Principal = Depends(needs("document:read"))):  # noqa: B008
+        try:
+            return docs.state(packet_id, include_documents=include_documents)
+        except KeyError:
+            return _error(404, "not_found", "Unknown packet_id", request.state.cid)
+
+    @app.post("/v1/documents/{packet_id}/corrections")
+    def correct_document(packet_id: str, body: CorrectionRequest, request: Request,
+                         p: Principal = Depends(needs("document:review"))):  # noqa: B008
+        try:
+            return docs.correct(packet_id, body.field, body.value, body.rationale, actor=p.name, role=p.role)
+        except KeyError:
+            return _error(404, "not_found", "Unknown packet_id", request.state.cid)
+        except WorkflowError as e:
+            return _error(409, "workflow_conflict", str(e), request.state.cid)
+
+    @app.post("/v1/documents/{packet_id}/review")
+    def review_document(packet_id: str, body: DocReviewRequest, request: Request,
+                        p: Principal = Depends(needs("document:review"))):  # noqa: B008
+        try:
+            fn = docs.accept if body.action == "accept" else docs.reject
+            return fn(packet_id, body.rationale, actor=p.name, role=p.role)
+        except KeyError:
+            return _error(404, "not_found", "Unknown packet_id", request.state.cid)
+        except WorkflowError as e:
+            return _error(409, "workflow_conflict", str(e), request.state.cid)
+
+    @app.get("/v1/documents/{packet_id}/verified-inputs")
+    def document_inputs(packet_id: str, request: Request,
+                        p: Principal = Depends(needs("document:read"))):  # noqa: B008
+        try:
+            return verified_inputs(docs.state(packet_id))
+        except KeyError:
+            return _error(404, "not_found", "Unknown packet_id", request.state.cid)
+        except UnvalidatedExtractionError as e:
+            return _error(409, "not_validated", str(e), request.state.cid)
+
+    # ---- Phase H: copilot ------------------------------------------------------------------------------------------
+    @app.post("/v1/copilot/ask")
+    def ask(body: AskRequest, request: Request, p: Principal = Depends(needs("copilot:ask"))):  # noqa: B008
+        cp: Copilot | None = copilot_state["copilot"]
+        if cp is None:
+            return _error(503, "copilot_unavailable", copilot_state["error"] or "copilot not loaded", request.state.cid)
+        return cp.ask(body.question, Caller(name=p.name, role=p.role, can=p.can))
 
     return app

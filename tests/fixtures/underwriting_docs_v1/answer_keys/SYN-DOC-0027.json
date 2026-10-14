@@ -1,0 +1,97 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": true,
+  "expected_flags": [],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Tatum Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 197000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 500.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 214000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 50200.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Tatum Synthwood"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 40244.51
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 39897.93
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-09"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 3857.54
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 3510.96
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Tatum Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 2091.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-09-27"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 17
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 35558.39
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "B",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0027",
+  "split": "dev"
+}

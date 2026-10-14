@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| B0rrower | Quinn Fakely |\n| Current employer | Quillfeather Logistics Inc |\n| Gross annual  inc0me (USD) | 98,700.00 |\n| Total m0nthly  debts (USD) | 1,775.00 |\n| Requested  loan (USD) | 695,000.00 |\n| Estimated  property value  (USD) | 999,000.00 |\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nEARNINGS STATEMENT (FICTIONAL)\nEmp10yee: Quinn Fakely\nEmployer: Quillfeather Logistics Inc\nPay  date: 2026-05-08\nPay frequency: Biweekly\nGross pay  this period: $3,796.15\nYear-t0-date  gross: $34,165.35\nPay periods year-t0-date: 9"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Quinn Fakely\nStatement  period: 2026-05\nOpening ba1ance: $35,060.23",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-05-01  Payroll Quillfeather Logistics Inc       +2,809.15\n2026-05-03  Rent                                     -2,181.66\n2026-05-09  Utilities                                -117.00\n2026-05-15  Payroll Quillfeather Logistics Inc       +2,809.15\n2026-05-18  Card payment                             -917.55\n2026-05-24  Groceries                                -289.70\nTota1 deposits: $5,618.30\nTota1 withdrawals: $3,505.91\nCl0sing  ba1ance: $37,172.62"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0026"
+}

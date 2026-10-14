@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Morgan Fakely\nEmployer: Bramblecote Tools Ltd\nAnnual income: $163,900.00\nMonthly debt payments: $2,100.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $586,000.00\nProperty value: $939,000.00\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Morgan Fakely\nCompany: Bramblecote Tools Ltd\nCheck date: 07/16/2026\nFrequency: monthly\nPeriods paid YTD: 7\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 10,116.67 | 70,816.69 |\n| Net pay | 7,486.34 | 52,404.38 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Morgan Fakely\nStatement period: 2026-07\nOpening balance: $30,417.68",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-07-03  Rent                                     -1,838.87\n2026-07-09  Utilities                                -242.56\n2026-07-15  Payroll Bramblecote Tools Ltd            +7,486.34\n2026-07-18  Card payment                             -1,418.81\n2026-07-24  Groceries                                -604.41\nTotal deposits: $7,486.34\nTotal withdrawals: $4,104.65\nClosing balance: $34,545.00"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0003"
+}

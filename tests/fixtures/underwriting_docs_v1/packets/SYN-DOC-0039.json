@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Quinn Mockford |\n| Current employer | Tinmoor Health Partners |\n| Gross annual income (USD) | 117,000.00 |\n| Total monthly debts (USD) | 300.00 |\n| Requested loan (USD) | 204,000.00 |\n| Estimated property value (USD) | 266,000.00 |\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Quinn Mockford\nCompany: Tinmoor Health Partners\nCheck date: 04/12/2026\nFrequency: monthly\nPeriods paid YTD: 4\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 9,750.00 | 39,000.00 |\n| Net pay | 7,215.00 | 28,860.00 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount holder: Quinn Mockford\nStatement period: April 2026\n| Summary | Amount |\n|---|---|\n| Beginning balance | 34,270.64 |\n| Credits | 7,215.00 |\n| Ending balance | 37,280.25 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-04-03  Rent                                     -2,422.87\n2026-04-09  Utilities                                -284.10\n2026-04-15  Payroll Tinmoor Health Partners          +7,215.00\n2026-04-18  Card payment                             -940.12\n2026-04-24  Groceries                                -558.30"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0039"
+}

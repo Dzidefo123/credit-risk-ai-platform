@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Jordan Dummond\nEmployer: Larkspire Civil Works\nAnnual income: $178,300.00\nMonthly debt payments: $2,025.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $456,000.00\nPr0perty  value: $507,000.00\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nEARNINGS STATEMENT (FICTIONAL)\nEmpl0yee: Jordan Dummond\nEmp10yer: Tinmoor Health Partners\nPay  date: 2026-09-12\nPay frequency: Monthly\nGr0ss  pay this  peri0d: $14,858.33\nYear-to-date gross: $133,724.97\nPay  periods year-to-date: 9"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Jordan Dummond\nStatement period: 2026-09\nOpening balance: $37,128.27",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-09-03  Rent                                     -3,009.68\n2026-09-09  Utilities                                -291.22\n2026-09-15  Payroll Larkspire Civil Works            +10,995.16\n2026-09-18  Card payment                             -986.10\n2026-09-24  Groceries                                -362.99\nTotal deposits: $10,995.16\nT0ta1 withdrawals: $4,649.99\nCl0sing  balance: $43,473.44"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0005"
+}

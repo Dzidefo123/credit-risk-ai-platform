@@ -1,0 +1,209 @@
+{
+  "data_origin": "SYNTHETIC",
+  "generator": "crisk.docai.generator",
+  "note": "Fictional underwriting documents for testing. Not real people, employers, banks or loans.",
+  "packets": [
+    {
+      "packet_ref": "SYN-DOC-0000",
+      "sha256": "207412652af2895fdaccf4f7018f546034a09b1818b9c00fe83bbbb419156cea",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0001",
+      "sha256": "92448e4e3447899c7e3308d9ccd3a3367e38f764a6db976f51c26ef5e880bbde",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0002",
+      "sha256": "5ea6d267c57fcaf6dc1f2d8818e4583545923aa2ec5a9a2559cc48aa230f1cf1",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0003",
+      "sha256": "15273b43dc88938b6002e686bdd8e71d23a5f437adf24fc6dc620767623272ee",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0004",
+      "sha256": "9dd1eb791ea69021693444cf6ed1591a15ba3720a3f974543f30d90fe4fd8e91",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0005",
+      "sha256": "2c76ceb9a6505cfb4c16967b0fa4464aad9dd3e5e5d4836a60d193bbd57beb40",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0006",
+      "sha256": "dbff654e173f1ac8dfbaf1f7767f78a167a1fc8a7583a80f81dff4bfe370cea7",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0007",
+      "sha256": "c81525d86f0156cdac4ce15d1ecb46560bf3a315816c4287bdae947413c6581f",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0008",
+      "sha256": "4f49f41628e911127d774b2732af4f2bf72d91ced95971d5598842759a06799e",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0009",
+      "sha256": "3464bd631d34e09141ac065d1c67fd4fb863dc6bfbdad5101e71629980cf07d1",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0010",
+      "sha256": "af36e4a0d9861c3e11ce14771dc569900ad043fc50144d49f5f15893153e1546",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0011",
+      "sha256": "fbc1bc1536bcb7ffdc86084b3cb39589187e802b4cc52ad9b8ad579db1667883",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0012",
+      "sha256": "3b8399dfdbad6187326571b93e742ac45d5ccb97eb7bdd15c8805738ba81566e",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0013",
+      "sha256": "b18ced94e88fc6683e197bc73bfec68e86e5a843d63475fd67b53418fcbe6201",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0014",
+      "sha256": "c5d55c6ba9d5679cee7d45c7e308af3570398cf0d7b4c6b84b734fd8d9a4dc92",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0015",
+      "sha256": "a949a8eeebdb86cdffc987cfbaaa97bad010232c2d4f47edfaabd98aafddb220",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0016",
+      "sha256": "53c36b53526d55e1bc925a8c0cfdf54b8a76b80bbb4c844df1d547dd4ccf87f5",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0017",
+      "sha256": "ad614fd399d4c572d56dffe5372b39e89360c84fb942f091af520b9d897817aa",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0018",
+      "sha256": "46c0b6cab350ed87be5d7c046d5439b7075889ec91a7e3d2a4c8919b325675e4",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0019",
+      "sha256": "40812c7a9c12d56c873843e15ec4de6e41b64db3769e963ff41c5bf9f71b8ceb",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0020",
+      "sha256": "c9f46cb2a15947d52215e5a004e956f4da321ffad3093e18abb05edf1312ba21",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0021",
+      "sha256": "69d65ccf3c9d171b02c94a8e862b68858c6ab2c8fe4d006843f92ecc053d6321",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0022",
+      "sha256": "b736f37cd1a27de5a06cc6e55992fba57650402c4dd3d5409ca365b0bdcc7693",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0023",
+      "sha256": "df2219fed21437fdb551841a41435d5794add0bf93bb3c1e6d5d82d4fd9e8c69",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0024",
+      "sha256": "933468d528215004a45d6f86dd16482892e3030b1f0db2e7b0e4d58e86d8e649",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0025",
+      "sha256": "cb61ba26f6cc868a4497ff6450c3cc47dfd687115acd86a8e82ce44fc9297f51",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0026",
+      "sha256": "749473d62a7a1f521a3c9ae1926c35e26214691dd5ce837042123efc6760f2a3",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0027",
+      "sha256": "e719909fbcbc066221c9d607f4943b5d2027a522d98100362a288e2e6c5c32c6",
+      "split": "dev"
+    },
+    {
+      "packet_ref": "SYN-DOC-0028",
+      "sha256": "37c6136ecd077a378c6f456e7247ad789edb60e83729ea38e2aa7994daf63319",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0029",
+      "sha256": "138d7217ad4ed2c6fa09d51fd4666101bef10e88b31d420601be44d2fd06074b",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0030",
+      "sha256": "ea4fc6df6eb6d6282368a3d5a7fa628423fad2184108d7ac31240b60fbf7f9a1",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0031",
+      "sha256": "1fb254f4e1ed6559398bd3782928959247c9a0f4f892016e98fa8bae3c6bd2b2",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0032",
+      "sha256": "16801fe50b09db0b0544080631cd06f1bab614076dd36233bd152c20b65539a3",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0033",
+      "sha256": "55c4d8f2e21cb65e1b043d0c98feba8d047befd0c520708aee4d0349ab01139a",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0034",
+      "sha256": "e5078de91b873879172a40713673ee73b39eb6f2307fc960a635bc78e2178c94",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0035",
+      "sha256": "3ac72e54159ff5bc8bda1875de506985b8948a4157883baa6ade334482100c4b",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0036",
+      "sha256": "d3eff7796570b6aad75ddb00981370b939473398313928491293497d5f11d90f",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0037",
+      "sha256": "ddbd0f55dc74c3aac4e4ac219e22d6122e8d7140cd63739bbdf0b48faea6e694",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0038",
+      "sha256": "79e89954b062c25cb7eacc5bbe1535fb5a72e2ff044721919b5d7ceaf56efc58",
+      "split": "heldout"
+    },
+    {
+      "packet_ref": "SYN-DOC-0039",
+      "sha256": "738de3bf3ebd6c5fb376579b97db635aaa4bd1ad73d21358bcdbe96560bea44a",
+      "split": "heldout"
+    }
+  ],
+  "seed": 20261013,
+  "version": "v1"
+}

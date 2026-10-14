@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Tatum Placeholder |\n| Current emp1oyer | Quillfeather Logistics Inc |\n| Gross annual  income (USD) | 44,600.00 |\n| Tota1  m0nth1y debts (USD) | 1,075.00 |\n| Requested l0an (USD) | 433,000.00 |\n| Estimated pr0perty value  (USD) | 470,000.00 |\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nPAY ADVICE (FICTIONAL)\nEmp10yee  name: Tatum Placeholder\nCompany: Quillfeather Logistics Inc\nCheck date: 06/17/2026\nFrequency: semimonthly\nPeriods paid YTD: 11\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 1,858.33 | 18,670.77 |\n| Net pay | 1,375.16 | 15,126.76 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount ho1der: Tatum Placeholder\nStatement peri0d: June 2026\n| Summary | Amount |\n|---|---|\n| Beginning balance | 39,281.13 |\n| Credits | 2,750.32 |\n| Debits | 3,888.13 |\n| Ending balance | 39,024.01 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-06-01  Payroll Quillfeather Logistics Inc       +1,375.16\n2026-06-03  Rent                                     -1,948.45\n2026-06-09  Utilities                                -110.76\n2026-06-15  Payroll Quillfeather Logistics Inc       +1,375.16\n2026-06-18  Card payment                             -1,437.46\n2026-06-24  Groceries                                -391.46"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0011"
+}

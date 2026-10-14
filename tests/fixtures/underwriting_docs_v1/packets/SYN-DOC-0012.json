@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Kai Synthwood |\n| Current employer | Copperfen Foods Co |\n| Gross annual income (USD) | 68,200.00 |\n| Total monthly debts (USD) | 1,400.00 |\n| Requested loan (USD) | 237,000.00 |\n| Estimated property value (USD) | 290,000.00 |\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Kai Synthwood\nEmployer: Copperfen Foods Co\nPay date: 2026-03-15\nPay frequency: Semi-monthly\nGross pay this period: $2,841.67\nYear-to-date gross: $17,587.42\nPay periods year-to-date: 6"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Kai Synthwood\nStatement period: 2026-03\nOpening balance: $25,908.37",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-03-01  Payroll Copperfen Foods Co               +2,102.84\n2026-03-03  Rent                                     -2,722.67\n2026-03-09  Utilities                                -223.59\n2026-03-15  Payroll Copperfen Foods Co               +2,102.84\n2026-03-18  Card payment                             -710.19\n2026-03-20  Transfer from savings                    +72.67\n2026-03-24  Groceries                                -315.05\nTotal deposits: $4,278.35\nTotal withdrawals: $3,971.50\nClosing balance: $26,215.22"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0012"
+}

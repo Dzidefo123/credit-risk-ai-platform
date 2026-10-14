@@ -1,0 +1,100 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_paystub",
+    "employer_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Skyler Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 756000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 500.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 824000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 193700.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Skyler Dummond"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 33971.05
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 24823.06
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-03"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 11944.82
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 2796.83
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Skyler Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Bramblecote Tools Ltd"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 8070.83
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-03-09"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 6
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 48616.99
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0018",
+  "split": "dev"
+}

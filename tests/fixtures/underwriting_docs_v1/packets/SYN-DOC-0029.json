@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nAPPLICANT STATEMENT (FICTIONAL)\nTatum Mockford, who works for Tinmoor Health Partners, reports a gross yearly income of $186,600.00 and pays $925.00 a month toward other debts. The request is for a $372,000.00 mortgage on a home valued at $618,000.00.\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Tatum Mockford\nEmployer: Tinmoor Health Partners\nPay date: 2026-05-20\nPay  frequency: Biweekly\nGross  pay  this period: $7,176.92\nYear-to-date gross: $71,769.20\nPay  periods  year-to-date: 10"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount holder: Tatum Mockford\nStatement period: May 2026\n| Summary | Amount |\n|---|---|\n| Beginning  balance | 34,461.21 |\n| Credits | 10,621.84 |\n| Debits | 2,985.37 |\n| Ending balance | 42,097.68 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-05-01  Payroll Tinmoor Health Partners          +5,310.92\n2026-05-03  Rent                                     -2,239.76\n2026-05-09  Utilities                                -159.53\n2026-05-15  Payroll Tinmoor Health Partners          +5,310.92\n2026-05-18  Card payment                             -358.57\n2026-05-24  Groceries                                -227.51"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0029"
+}

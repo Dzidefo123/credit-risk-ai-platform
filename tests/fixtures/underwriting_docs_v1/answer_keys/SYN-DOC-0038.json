@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": true,
+  "expected_flags": [
+    "income_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Reese Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 204000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1600.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 301000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 128300.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Reese Fictitious"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 47122.83
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 39982.21
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-07"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 9891.34
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2750.72
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Reese Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 13366.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-07-28"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 7
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 93566.69
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "C",
+    "bank_statement": "B",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0038",
+  "split": "heldout"
+}

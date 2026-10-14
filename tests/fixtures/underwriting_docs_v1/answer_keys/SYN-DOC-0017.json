@@ -1,0 +1,97 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Jordan Placeholder"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 403000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 300.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 545000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 174800.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Jordan Placeholder"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 36244.16
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 29780.93
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-07"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 10779.34
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 4316.11
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Jordan Placeholder"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 14566.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-07-13"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 7
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 101966.69
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "A",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0017",
+  "split": "dev"
+}

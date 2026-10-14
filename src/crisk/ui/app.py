@@ -8,8 +8,10 @@ records human review actions, and never makes an automated credit decision.
 
 from __future__ import annotations
 
+import json
 import os
 import uuid
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
@@ -22,7 +24,8 @@ st.set_page_config(page_title="Credit risk analyst", layout="wide")
 st.sidebar.header("Connection")
 api_url = st.sidebar.text_input("API URL", os.environ.get("CRISK_API_URL", "http://127.0.0.1:8000"))
 api_key = st.sidebar.text_input("API key", os.environ.get("CRISK_API_KEY", ""), type="password")
-page = st.sidebar.radio("Page", ["Score application", "Review queue", "Monitoring", "Model & governance"])
+page = st.sidebar.radio("Page", ["Score application", "Review queue", "Monitoring", "Documents", "Copilot",
+                               "Model & governance"])
 
 if not api_key:
     st.info("Enter your API key in the sidebar. Keys are issued with `crisk create-api-key --role analyst`.")
@@ -177,6 +180,106 @@ elif page == "Monitoring":
     fp = pd.DataFrame({m: r["feature_psi"] for m, r in zip(months.index, mon["months"], strict=True)}).T
     st.subheader("Input drift (feature PSI by month)")
     st.dataframe(fp.round(3), use_container_width=True)
+
+elif page == "Documents":
+    st.header("Document review (SYNTHETIC documents only)")
+    st.caption("Documents are untrusted content: instruction-like text is flagged and ignored. Extracted values never "
+               "become model inputs; only a validated packet yields verified inputs, for comparison with the "
+               "application.")
+    with st.expander("Submit a packet"):
+        fixture_dir = Path(os.environ.get("CRISK_DOC_FIXTURES", "tests/fixtures/underwriting_docs_v1")) / "packets"
+        samples = sorted(fixture_dir.glob("*.json")) if fixture_dir.exists() else []
+        choice = st.selectbox("Fictional sample packet", ["(paste JSON instead)"] + [x.stem for x in samples])
+        raw = "" if choice != "(paste JSON instead)" else st.text_area(
+            "Packet JSON", '{"data_origin": "SYNTHETIC", "documents": [{"doc_type": "paystub", "pages": ["..."]}]}')
+        if st.button("Submit packet"):
+            try:
+                packet = (json.loads((fixture_dir / f"{choice}.json").read_text(encoding="utf-8")) if raw == ""
+                          else json.loads(raw))
+                res = client.submit_documents(packet)
+                st.session_state["packet_id"] = res["packet_id"]
+                st.success(f"Packet {res['packet_id']} submitted: status {res['status']}")
+            except (ApiError, ValueError) as e:
+                st.error(str(e))
+    try:
+        items = client.documents()
+    except ApiError as e:
+        st.error(str(e))
+        st.stop()
+    if not items:
+        st.info("No packets yet.")
+        st.stop()
+    st.dataframe(pd.DataFrame(items), use_container_width=True, hide_index=True)
+    ids = [x["packet_id"] for x in items]
+    default = ids.index(st.session_state["packet_id"]) if st.session_state.get("packet_id") in ids else 0
+    pid = st.selectbox("Packet", ids, index=default,
+                       format_func=lambda i: next(f"{x['packet_ref'] or i} · {x['status']}" for x in items
+                                                  if x["packet_id"] == i))
+    d = client.document(pid, include_documents=True)
+    {"validated": st.success, "needs_review": st.warning, "quarantined": st.error,
+     "rejected": st.error}[d["status"]](f"Status: {d['status']}")
+    if d["flags"]:
+        st.subheader("Flags")
+        st.dataframe(pd.DataFrame(d["flags"]), use_container_width=True, hide_index=True)
+    st.subheader("Extracted fields (page and quote references)")
+    rows = [{"field": f"{doc}.{f}", **v} for doc, m in d["fields"].items() for f, v in m.items()]
+    st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    for doc in d.get("documents", []):
+        with st.expander(f"Source: {doc['doc_type']} ({len(doc['pages'])} pages)"):
+            for i, pg in enumerate(doc["pages"], start=1):
+                st.markdown(f"**Page {i}**")
+                st.code(pg, language=None)
+    st.subheader("Reviewer actions")
+    with st.form("correct"):
+        field = st.selectbox("Field", [r["field"] for r in rows])
+        value = st.text_input("Corrected value (as written in the document)")
+        rationale = st.text_area("Rationale (required)", key="corr_rationale")
+        if st.form_submit_button("Record correction"):
+            try:
+                st.json(client.correct_document(pid, field, value, rationale)["open_flags"])
+            except ApiError as e:
+                st.error(str(e))
+    with st.form("review"):
+        action = st.radio("Decision", ["accept", "reject"], horizontal=True,
+                          help="Accept is allowed only for acceptable flags (mismatches, a suspected instruction "
+                               "after checking it was ignored). Missing fields and arithmetic errors must be "
+                               "corrected.")
+        rationale = st.text_area("Rationale (required)", key="rev_rationale")
+        if st.form_submit_button("Record decision"):
+            try:
+                st.success(f"Status: {client.review_document(pid, action, rationale)['status']}")
+            except ApiError as e:
+                st.error(str(e))
+    if st.button("Verified inputs"):
+        try:
+            st.json(client.verified_inputs(pid))
+        except ApiError as e:
+            st.error(str(e))
+
+elif page == "Copilot":
+    st.header("Analyst copilot")
+    st.caption("Answers come only from approved, versioned project documents your role may read, and from read-only "
+               "tools. Every answer cites its sources; the copilot abstains when the evidence is missing.")
+    question = st.text_input("Question", placeholder="What is the base scenario 12-month expected loss rate?")
+    if st.button("Ask") and question.strip():
+        try:
+            r = client.ask(question)
+        except ApiError as e:
+            st.error(str(e))
+            st.stop()
+        if r["outcome"] == "answer":
+            st.success(r["answer"])
+            if r.get("fallback"):
+                st.warning(f"Fallback: {r['fallback']}")
+        else:
+            st.warning(f"{r['answer']} ({r['outcome']}: {r['reason']})")
+        if r["citations"]:
+            st.subheader(f"Citations (as of {r.get('as_of')})")
+            st.dataframe(pd.DataFrame(r["citations"])[["source_id", "path", "lines", "version", "as_of", "quote"]],
+                         use_container_width=True, hide_index=True)
+        with st.expander("Retrieved passages and tools"):
+            st.json({"retrieved": r["retrieved"], "tools": r["tools"], "llm": r["llm"], "usage": r.get("usage")})
+        st.caption(r["label"])
 
 else:
     st.header("Model & governance")

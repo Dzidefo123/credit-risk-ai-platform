@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": true,
+  "expected_flags": [
+    "arithmetic_paystub"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Kai Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 214000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1250.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 321000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 150400.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Kai Dummond"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 35534.43
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 29953.51
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-05"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 9274.66
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 3693.74
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Kai Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 12533.33
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-05-16"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 5
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 63504.15
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "B",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0037",
+  "split": "heldout"
+}

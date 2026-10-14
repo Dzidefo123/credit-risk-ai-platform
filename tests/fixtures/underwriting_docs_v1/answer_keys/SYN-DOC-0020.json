@@ -1,0 +1,97 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Harper Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 759000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1350.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 1001000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 146700.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Harper Fictitious"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 42258.96
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 36157.59
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-03"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 9210.34
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 3108.97
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Harper Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 12225.0
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-03-17"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 3
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 36675.0
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0020",
+  "split": "dev"
+}

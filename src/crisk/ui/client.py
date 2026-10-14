@@ -72,3 +72,27 @@ class ApiClient:
 
     def monitoring(self) -> dict:
         return self._call("GET", "/v1/monitoring")
+
+    # ---- documents (SYNTHETIC) and copilot ------------------------------------------------------------------------
+    def submit_documents(self, packet: dict) -> dict:
+        return self._call("POST", "/v1/documents", packet)
+
+    def documents(self, limit: int = 50) -> list[dict]:
+        return self._call("GET", f"/v1/documents?limit={int(limit)}")["items"]
+
+    def document(self, packet_id: str, include_documents: bool = False) -> dict:
+        flag = "true" if include_documents else "false"
+        return self._call("GET", f"/v1/documents/{packet_id}?include_documents={flag}")
+
+    def correct_document(self, packet_id: str, field: str, value: str, rationale: str) -> dict:
+        return self._call("POST", f"/v1/documents/{packet_id}/corrections",
+                          {"field": field, "value": value, "rationale": rationale})
+
+    def review_document(self, packet_id: str, action: str, rationale: str) -> dict:
+        return self._call("POST", f"/v1/documents/{packet_id}/review", {"action": action, "rationale": rationale})
+
+    def verified_inputs(self, packet_id: str) -> dict:
+        return self._call("GET", f"/v1/documents/{packet_id}/verified-inputs")
+
+    def ask(self, question: str) -> dict:
+        return self._call("POST", "/v1/copilot/ask", {"question": question})

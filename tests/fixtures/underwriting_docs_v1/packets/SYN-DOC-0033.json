@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Tatum Placeholder |\n| Current employer | Bramblecote Tools Ltd |\n| Gross annual income (USD) | 138,400.00 |\n| Total monthly debts (USD) | 175.00 |\n| Requested loan (USD) | 189,000.00 |\n| Estimated property value (USD) | 256,000.00 |\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Tatum Placeholder\nCompany: Bramblecote Tools Ltd\nCheck date: 08/03/2026\nFrequency: monthly\nPeriods paid YTD: 8\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 11,533.33 | 92,679.74 |\n| Net pay | 8,534.66 | 68,277.28 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Tatum Placeholder\nStatement period: 2026-08\nOpening balance: $25,324.40",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-08-03  Rent                                     -1,135.12\n2026-08-09  Utilities                                -72.76\n2026-08-15  Payroll Bramblecote Tools Ltd            +8,534.66\n2026-08-18  Card payment                             -1,151.42\n2026-08-20  Transfer from savings                    +375.62\n2026-08-24  Groceries                                -152.46\nTotal deposits: $8,910.28\nClosing balance: $31,722.92"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0033"
+}

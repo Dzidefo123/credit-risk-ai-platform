@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Emerson Synthwood |\n| Current employer | Orchardvale Software LLC |\n| Gross annual income (USD) | 160,100.00 |\n| Total monthly debts (USD) | 1,050.00 |\n| Requested loan (USD) | 304,000.00 |\n| Estimated property value (USD) | 377,000.00 |\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Emerson Synthwood\nEmployer: Orchardvale Software LLC\nPay date: 2026-06-09\nPay frequency: Biweekly\nGross pay this period: $6,157.69\nYear-to-date gross: $67,734.59\nPay periods year-to-date: 11"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount holder: Emerson Synthwood\nStatement period: June 2026\n| Summary | Amount |\n|---|---|\n| Beginning balance | 23,874.40 |\n| Credits | 9,703.59 |\n| Debits | 2,768.13 |\n| Ending balance | 29,986.54 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-06-01  Payroll Orchardvale Software LLC         +4,556.69\n2026-06-03  Rent                                     -1,610.82\n2026-06-09  Utilities                                -129.55\n2026-06-15  Payroll Orchardvale Software LLC         +4,556.69\n2026-06-18  Card payment                             -489.09\n2026-06-20  Transfer from savings                    +590.21\n2026-06-24  Groceries                                -538.67"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0009"
+}

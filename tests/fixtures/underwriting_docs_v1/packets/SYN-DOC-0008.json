@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Kai Fictitious |\n| Current employer | Quillfeather Logistics Inc |\n| Gross annual income (USD) | 178,900.00 |\n| Total monthly debts (USD) | 150.00 |\n| Requested loan (USD) | 298,000.00 |\n| Estimated property value (USD) | 423,000.00 |\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Kai Fictitious\nCompany: Quillfeather Logistics Inc\nCheck date: 09/28/2026\nFrequency: monthly\nPeriods paid YTD: 9\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 14,908.33 | 131,908.39 |\n| Net pay | 11,032.16 | 99,289.44 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Kai Fictitious\nStatement period: 2026-09\nOpening balance: $18,451.28",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-09-03  Rent                                     -1,422.44\n2026-09-09  Utilities                                -117.83\n2026-09-15  Payroll Quillfeather Logistics Inc       +11,032.16\n2026-09-18  Card payment                             -1,417.54\n2026-09-20  Transfer from savings                    +852.90\n2026-09-24  Groceries                                -225.71\nTotal deposits: $11,885.06\nTotal withdrawals: $3,183.52\nClosing balance: $27,152.82"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0008"
+}

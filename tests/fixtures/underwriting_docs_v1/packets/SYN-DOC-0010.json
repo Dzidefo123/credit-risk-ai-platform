@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Jordan Mockford\nEmployer: Tinmoor Health Partners\nAnnua1 inc0me: $203,700.00\nMonthly  debt  payments: $1,600.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nL0an amount: $412,000.00\nProperty value: $575,000.00\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Jordan Mockford\nEmployer: Tinmoor Health Partners\nPay  date: 2026-09-20\nPay frequency: Biweekly\nGross pay this peri0d: $7,834.62\nYear-to-date  gross: $147,267.68\nPay periods year-t0-date: 19"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAcc0unt  holder: Jordan Mockford\nStatement peri0d: 2026-09\nOpening  balance: $19,822.34",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-09-01  Payroll Tinmoor Health Partners          +5,797.62\n2026-09-03  Rent                                     -1,349.28\n2026-09-09  Utilities                                -209.56\n2026-09-15  Payroll Tinmoor Health Partners          +5,797.62\n2026-09-18  Card payment                             -239.52\n2026-09-20  Transfer from savings                    +631.17\n2026-09-24  Groceries                                -523.99\nT0tal deposits: $12,226.41\nTotal withdrawals: $2,322.35\nClosing  balance: $29,726.40"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0010"
+}

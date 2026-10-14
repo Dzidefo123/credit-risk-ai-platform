@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Tatum Fictitious |\n| Current employer | Copperfen Foods Co |\n| Gross annual income (USD) | 52,600.00 |\n| Total monthly debts (USD) | 2,100.00 |\n| Requested loan (USD) | 377,000.00 |\n| Estimated property value (USD) | 433,000.00 |\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Tatum Fictitious\nCompany: Copperfen Foods Co\nCheck date: 09/25/2026\nFrequency: semimonthly\nPeriods paid YTD: 17\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 2,191.67 | 37,258.39 |\n| Net pay | 1,621.84 | 27,571.28 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Tatum Fictitious\nStatement period: 2026-09\nOpening balance: $15,706.81",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-09-01  Payroll Copperfen Foods Co               +1,621.84\n2026-09-03  Rent                                     -3,000.99\n2026-09-09  Utilities                                -206.95\n2026-09-15  Payroll Copperfen Foods Co               +1,621.84\n2026-09-18  Card payment                             -540.24\n2026-09-24  Groceries                                -225.81\nTotal deposits: $3,243.68\nTotal withdrawals: $3,973.99\nClosing balance: $14,236.16"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0016"
+}

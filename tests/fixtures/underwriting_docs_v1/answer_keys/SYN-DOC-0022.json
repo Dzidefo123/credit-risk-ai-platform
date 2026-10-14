@@ -1,0 +1,101 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_bank",
+    "arithmetic_paystub",
+    "missing_field:application.property_value"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Morgan Testwell"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 656000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1250.0
+      },
+      "property_value": {
+        "page": null,
+        "value": null
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 77600.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Morgan Testwell"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 11199.76
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 9007.62
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-05"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 4785.34
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2766.39
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Morgan Testwell"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 6466.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-05-28"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 5
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 32850.3
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "B",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0022",
+  "split": "dev"
+}

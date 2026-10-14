@@ -78,9 +78,39 @@ CREATE TABLE IF NOT EXISTS policy_decisions (
     decision TEXT NOT NULL,            -- approve | refer | decline (policy recommendation; humans review)
     detail TEXT NOT NULL               -- JSON: triggered rules, model reasons, risk decile
 );
+CREATE TABLE IF NOT EXISTS doc_packets (
+    packet_id TEXT PRIMARY KEY,
+    received_at TEXT NOT NULL,
+    submitted_by TEXT NOT NULL,
+    data_origin TEXT NOT NULL,          -- SYNTHETIC only in this prototype
+    packet_ref TEXT,
+    content_sha256 TEXT NOT NULL,
+    documents TEXT NOT NULL             -- JSON: [{doc_type, pages}] (untrusted content, stored as data)
+);
+CREATE TABLE IF NOT EXISTS doc_extractions (
+    extraction_id TEXT PRIMARY KEY,
+    packet_id TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    extractor TEXT NOT NULL,
+    fields TEXT NOT NULL,               -- JSON: {doc_type: {field: {value, raw, page, quote, method}}}
+    screen TEXT NOT NULL                -- JSON: untrusted-content screen hits per document
+);
+CREATE TABLE IF NOT EXISTS doc_actions (
+    action_id TEXT PRIMARY KEY,
+    packet_id TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    actor TEXT NOT NULL,
+    actor_role TEXT NOT NULL,
+    action TEXT NOT NULL,               -- correct | accept | reject
+    field TEXT,                         -- doc_type.field (correct only)
+    value TEXT,                         -- JSON value (correct only)
+    accepted_flags TEXT,                -- JSON list (accept only)
+    rationale TEXT NOT NULL
+);
 """
 
-_TABLES = ("scoring_events", "audit_events", "review_events", "policy_decisions")
+_TABLES = ("scoring_events", "audit_events", "review_events", "policy_decisions", "doc_packets", "doc_extractions",
+           "doc_actions")
 
 
 def _triggers() -> str:
@@ -228,3 +258,31 @@ class AuditStore:
             rows = con.execute("SELECT * FROM policy_decisions WHERE score_id = ? ORDER BY decided_at",
                                (score_id,)).fetchall()
         return [{**dict(r), "detail": json.loads(r["detail"])} for r in rows]
+
+    # ---- document packets, extractions and reviewer actions (append-only) ----------------------------------------
+    def insert(self, table: str, rec: dict) -> None:
+        if table not in ("doc_packets", "doc_extractions", "doc_actions"):
+            raise ValueError(table)
+        cols = ", ".join(rec)
+        ph = ", ".join(f":{k}" for k in rec)
+        with closing(self._connect()) as con:
+            con.execute(f"INSERT INTO {table} ({cols}) VALUES ({ph})", rec)
+
+    def doc_packet(self, packet_id: str) -> dict | None:
+        with closing(self._connect()) as con:
+            r = con.execute("SELECT * FROM doc_packets WHERE packet_id = ?", (packet_id,)).fetchone()
+        return dict(r) if r else None
+
+    def doc_packets(self, limit: int = 50) -> list[dict]:
+        with closing(self._connect()) as con:
+            rows = con.execute("SELECT packet_id, received_at, submitted_by, data_origin, packet_ref FROM doc_packets "
+                               "ORDER BY received_at DESC LIMIT ?", (int(limit),)).fetchall()
+        return [dict(r) for r in rows]
+
+    def doc_rows(self, table: str, packet_id: str) -> list[dict]:
+        if table not in ("doc_extractions", "doc_actions"):
+            raise ValueError(table)
+        with closing(self._connect()) as con:
+            rows = con.execute(f"SELECT * FROM {table} WHERE packet_id = ? ORDER BY created_at, rowid",
+                               (packet_id,)).fetchall()
+        return [dict(r) for r in rows]

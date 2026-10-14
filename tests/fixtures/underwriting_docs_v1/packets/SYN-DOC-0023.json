@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Morgan Testwell\nEmployer: Quillfeather Logistics Inc\nAnnual income: $74,700.00\nMonthly debt payments: $1,550.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $619,000.00\nProperty value: $923,000.00\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Morgan Testwell\nCompany: Quillfeather Logistics Inc\nCheck date: 03/14/2026\nFrequency: bi-weekly\nPeriods paid YTD: 5\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 2,873.08 | 14,365.40 |\n| Net pay | 2,126.08 | 10,630.40 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Morgan Testwell\nStatement period: 2026-03\nOpening balance: $17,903.50",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-03-01  Payroll Quillfeather Logistics Inc       +2,126.08\n2026-03-03  Rent                                     -2,485.22\n2026-03-09  Utilities                                -222.82\n2026-03-15  Payroll Quillfeather Logistics Inc       +2,126.08\n2026-03-18  Card payment                             -421.99\n2026-03-24  Groceries                                -409.97\nTotal deposits: $4,252.16\nTotal withdrawals: $3,540.00\nClosing balance: $18,615.66"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0023"
+}

@@ -33,6 +33,11 @@ PERMISSIONS: dict[str, set[str]] = {
     "decision:create": {"analyst", "administrator"},
     "monitoring:read": {"analyst", "auditor", "validator", "modeller", "administrator"},
     "model:read": set(ROLES),
+    # Phase G/H: synthetic document intake and review; copilot questions (read-only answers, role-filtered sources).
+    "document:create": {"analyst", "administrator"},
+    "document:read": {"analyst", "validator", "auditor", "administrator"},
+    "document:review": {"analyst", "administrator"},
+    "copilot:ask": set(ROLES),
 }
 
 

@@ -1,0 +1,97 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": true,
+  "expected_flags": [],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Tatum Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 372000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 925.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 618000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 186600.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Tatum Mockford"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 42097.68
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 34461.21
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-05"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 10621.84
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2985.37
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Tatum Mockford"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Tinmoor Health Partners"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 7176.92
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-05-20"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "biweekly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 10
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 71769.2
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "C",
+    "bank_statement": "B",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0029",
+  "split": "heldout"
+}

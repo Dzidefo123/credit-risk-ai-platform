@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nAPPLICANT STATEMENT (FICTIONAL)\nReese Fictitious, who works for Orchardvale Software LLC, reports a gross yearly income of $128,300.00 and pays $1,600.00 a month toward other debts. The request is for a $204,000.00 mortgage on a home valued at $301,000.00.\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nEARNINGS STATEMENT (FICTIONAL)\nEmp1oyee: Reese Fictitious\nEmployer: Orchardvale Software LLC\nPay  date: 2026-07-28\nPay frequency: Monthly\nGr0ss pay this  period: $13,366.67\nYear-to-date  gross: $93,566.69\nPay  periods  year-to-date: 7"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\n~ ~ scanned copy, 200 dpi ~ ~\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount  holder: Reese Fictitious\nStatement  period: July 2026\n| Summary | Amount |\n|---|---|\n| Beginning  balance | 39,982.21 |\n| Credits | 9,891.34 |\n| Debits | 2,750.72 |\n| Ending balance | 47,122.83 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-07-03  Rent                                     -2,041.94\n2026-07-09  Utilities                                -250.94\n2026-07-15  Payroll Orchardvale Software LLC         +9,891.34\n2026-07-18  Card payment                             -193.90\n2026-07-24  Groceries                                -263.94"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0038"
+}

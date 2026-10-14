@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_bank"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Emerson Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 304000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1050.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 377000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 160100.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Emerson Synthwood"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 29986.54
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 23874.4
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-06"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 9703.59
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 2768.13
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Emerson Synthwood"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Orchardvale Software LLC"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 6157.69
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-06-09"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "biweekly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 11
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 67734.59
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "B",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0009",
+  "split": "dev"
+}

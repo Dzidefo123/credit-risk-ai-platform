@@ -2,6 +2,8 @@
 # One-off demo initialisation (SYNTHETIC): pipeline -> model -> promotion -> monitoring -> demo API keys.
 set -e
 DS=synthetic_fixture
+# Fictional underwriting document packets for the Documents page (deterministic; cheap to regenerate).
+crisk docai-generate --dataset "$DS" --out data/underwriting_docs_v1 > /dev/null
 if [ -f "artifacts/$DS/models/champion.json" ] && [ -f "artifacts/$DS/DEMO_KEYS.txt" ]; then
   echo "Demo already initialised."; cat "artifacts/$DS/DEMO_KEYS.txt"; exit 0
 fi

@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Jordan Placeholder\nEmployer: Copperfen Foods Co\nAnnual income: $174,800.00\nMonthly debt payments: $300.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $403,000.00\nProperty value: $545,000.00\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Jordan Placeholder\nEmployer: Copperfen Foods Co\nPay date: 2026-07-13\nPay frequency: Monthly\nGross pay this period: $14,566.67\nYear-to-date gross: $101,966.69\nPay periods year-to-date: 7"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Jordan Placeholder\nStatement period: 2026-07\nOpening balance: $29,780.93",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-07-03  Rent                                     -2,279.42\n2026-07-09  Utilities                                -182.15\n2026-07-15  Payroll Copperfen Foods Co               +10,779.34\n2026-07-18  Card payment                             -1,184.17\n2026-07-24  Groceries                                -670.37\nTotal deposits: $10,779.34\nTotal withdrawals: $4,316.11\nClosing balance: $36,244.16"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0017"
+}

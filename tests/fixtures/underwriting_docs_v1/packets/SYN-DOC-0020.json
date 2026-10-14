@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Harper Fictitious\nEmployer: Tinmoor Health Partners\nAnnual income: $146,700.00\nMonthly debt payments: $1,350.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $759,000.00\nProperty value: $1,001,000.00\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Harper Fictitious\nCompany: Tinmoor Health Partners\nCheck date: 03/17/2026\nFrequency: monthly\nPeriods paid YTD: 3\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 12,225.00 | 36,675.00 |\n| Net pay | 9,046.50 | 27,139.50 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Harper Fictitious\nStatement period: 2026-03\nOpening balance: $36,157.59",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-03-03  Rent                                     -1,140.11\n2026-03-09  Utilities                                -245.72\n2026-03-15  Payroll Tinmoor Health Partners          +9,046.50\n2026-03-18  Card payment                             -1,103.48\n2026-03-20  Transfer from savings                    +163.84\n2026-03-24  Groceries                                -619.66\nTotal deposits: $9,210.34\nTotal withdrawals: $3,108.97\nClosing balance: $42,258.96"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0020"
+}

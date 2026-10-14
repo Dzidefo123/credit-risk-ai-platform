@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_bank"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Tatum Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 377000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 2100.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 433000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 52600.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Tatum Fictitious"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 14236.16
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 15706.81
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-09"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 3243.68
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 3973.99
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Tatum Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 2191.67
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-09-25"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 17
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 37258.39
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0016",
+  "split": "dev"
+}

@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_paystub"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Kai Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 298000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 150.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 423000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 178900.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Kai Fictitious"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 27152.82
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 18451.28
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-09"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 11885.06
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 3183.52
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Kai Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 14908.33
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-09-28"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 9
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 131908.39
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0008",
+  "split": "dev"
+}

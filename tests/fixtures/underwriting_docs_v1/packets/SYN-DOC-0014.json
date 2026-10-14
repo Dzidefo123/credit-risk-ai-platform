@@ -1,0 +1,25 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nMORTGAGE APPLICATION SUMMARY (FICTIONAL)\n| Field | Value |\n|---|---|\n| Borrower | Kai Synthwood |\n| Current employer | Larkspire Civil Works |\n| Gross annual income (USD) | 185,600.00 |\n| Total monthly debts (USD) | 1,950.00 |\n| Requested loan (USD) | 694,000.00 |\n| Estimated property value (USD) | 738,000.00 |\nRemarks: Co-applicant: none."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Kai Synthwood\nCompany: Quillfeather Logistics Inc\nCheck date: 03/12/2026\nFrequency: semimonthly\nPeriods paid YTD: 6\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 7,733.33 | 46,399.98 |\n| Net pay | 5,722.66 | 34,335.96 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Kai Synthwood\nStatement period: 2026-03\nOpening balance: $39,712.29",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-03-01  Payroll Larkspire Civil Works            +5,722.66\n2026-03-03  Rent                                     -1,242.03\n2026-03-09  Utilities                                -265.27\n2026-03-15  Payroll Larkspire Civil Works            +5,722.66\n2026-03-18  Card payment                             -714.25\n2026-03-20  Transfer from savings                    +818.29\n2026-03-24  Groceries                                -351.49\nTotal deposits: $12,263.61\nTotal withdrawals: $2,573.04\nClosing balance: $49,402.86"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0014"
+}

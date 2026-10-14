@@ -1,0 +1,100 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "arithmetic_paystub",
+    "missing_field:bank_statement.total_withdrawals"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Tatum Placeholder"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Bramblecote Tools Ltd"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 189000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 175.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 256000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 138400.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Tatum Placeholder"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 31722.92
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 25324.4
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-08"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 8910.28
+      },
+      "total_withdrawals": {
+        "page": null,
+        "value": null
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Tatum Placeholder"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Bramblecote Tools Ltd"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 11533.33
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-08-03"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "monthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 8
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 92679.74
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "B",
+    "bank_statement": "A",
+    "paystub": "B"
+  },
+  "packet_ref": "SYN-DOC-0033",
+  "split": "heldout"
+}

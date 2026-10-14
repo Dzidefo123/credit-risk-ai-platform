@@ -1,0 +1,99 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [
+    "income_mismatch"
+  ],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Tatum Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "loan_amount": {
+        "page": 1,
+        "value": 568000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 1175.0
+      },
+      "property_value": {
+        "page": 1,
+        "value": 690000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 253900.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Tatum Fictitious"
+      },
+      "closing_balance": {
+        "page": 1,
+        "value": 16445.94
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 7555.59
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-03"
+      },
+      "total_deposits": {
+        "page": 1,
+        "value": 12524.5
+      },
+      "total_withdrawals": {
+        "page": 1,
+        "value": 3634.15
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Tatum Fictitious"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Quillfeather Logistics Inc"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 8462.5
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-03-06"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 6
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 50775.0
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "C",
+    "bank_statement": "B",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0032",
+  "split": "heldout"
+}

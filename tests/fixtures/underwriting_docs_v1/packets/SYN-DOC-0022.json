@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Morgan Testwell\nEmployer: Copperfen Foods Co\nAnnual income: $77,600.00\nMonthly debt payments: $1,250.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $656,000.00\nRemarks: Second home not intended."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Morgan Testwell\nCompany: Copperfen Foods Co\nCheck date: 05/28/2026\nFrequency: monthly\nPeriods paid YTD: 5\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 6,466.67 | 32,850.30 |\n| Net pay | 4,785.34 | 23,926.70 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACCOUNT SUMMARY - Lantern Ridge Savings (fictional)\nAccount holder: Morgan Testwell\nStatement period: May 2026\n| Summary | Amount |\n|---|---|\n| Beginning balance | 9,007.62 |\n| Credits | 4,785.34 |\n| Debits | 2,766.39 |\n| Ending balance | 11,199.76 |",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nACTIVITY DETAIL\n2026-05-03  Rent                                     -1,541.13\n2026-05-09  Utilities                                -253.67\n2026-05-15  Payroll Copperfen Foods Co               +4,785.34\n2026-05-18  Card payment                             -357.85\n2026-05-24  Groceries                                -613.74"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0022"
+}

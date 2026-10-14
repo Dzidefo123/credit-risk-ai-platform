@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Skyler Dummond\nEmployer: Tinmoor Health Partners\nAnnual income: $193,700.00\nMonthly debt payments: $500.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $756,000.00\nProperty value: $824,000.00\nRemarks: Applicant relocating for work."
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nPAY ADVICE (FICTIONAL)\nEmployee name: Skyler Dummond\nCompany: Bramblecote Tools Ltd\nCheck date: 03/09/2026\nFrequency: semimonthly\nPeriods paid YTD: 6\n| Item | Current | YTD |\n|---|---|---|\n| Gross earnings | 8,070.83 | 48,616.99 |\n| Net pay | 5,972.41 | 35,834.46 |"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Skyler Dummond\nStatement period: 2026-03\nOpening balance: $24,823.06",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-03-01  Payroll Tinmoor Health Partners          +5,972.41\n2026-03-03  Rent                                     -1,909.74\n2026-03-09  Utilities                                -248.14\n2026-03-15  Payroll Tinmoor Health Partners          +5,972.41\n2026-03-18  Card payment                             -315.65\n2026-03-24  Groceries                                -323.30\nTotal deposits: $11,944.82\nTotal withdrawals: $2,796.83\nClosing balance: $33,971.05"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0018"
+}

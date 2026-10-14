@@ -1,0 +1,97 @@
+{
+  "data_origin": "SYNTHETIC",
+  "degraded": false,
+  "expected_flags": [],
+  "fields": {
+    "application": {
+      "applicant_name": {
+        "page": 1,
+        "value": "Reese Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "loan_amount": {
+        "page": 2,
+        "value": 145000.0
+      },
+      "monthly_debt_payments": {
+        "page": 1,
+        "value": 625.0
+      },
+      "property_value": {
+        "page": 2,
+        "value": 173000.0
+      },
+      "stated_annual_income": {
+        "page": 1,
+        "value": 195300.0
+      }
+    },
+    "bank_statement": {
+      "account_holder": {
+        "page": 1,
+        "value": "Reese Dummond"
+      },
+      "closing_balance": {
+        "page": 2,
+        "value": 45774.77
+      },
+      "opening_balance": {
+        "page": 1,
+        "value": 37703.64
+      },
+      "statement_period": {
+        "page": 1,
+        "value": "2026-07"
+      },
+      "total_deposits": {
+        "page": 2,
+        "value": 12043.5
+      },
+      "total_withdrawals": {
+        "page": 2,
+        "value": 3972.37
+      }
+    },
+    "paystub": {
+      "employee_name": {
+        "page": 1,
+        "value": "Reese Dummond"
+      },
+      "employer": {
+        "page": 1,
+        "value": "Copperfen Foods Co"
+      },
+      "gross_pay_period": {
+        "page": 1,
+        "value": 8137.5
+      },
+      "pay_date": {
+        "page": 1,
+        "value": "2026-07-10"
+      },
+      "pay_frequency": {
+        "page": 1,
+        "value": "semimonthly"
+      },
+      "periods_ytd": {
+        "page": 1,
+        "value": 13
+      },
+      "ytd_gross": {
+        "page": 1,
+        "value": 105787.5
+      }
+    }
+  },
+  "injection_document": null,
+  "layouts": {
+    "application": "A",
+    "bank_statement": "A",
+    "paystub": "A"
+  },
+  "packet_ref": "SYN-DOC-0025",
+  "split": "dev"
+}

@@ -1,0 +1,26 @@
+{
+  "data_origin": "SYNTHETIC",
+  "documents": [
+    {
+      "doc_type": "application",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nUNIFORM RESIDENTIAL LOAN APPLICATION (FICTIONAL FORM 1003-S)\nApplicant name: Reese Dummond\nEmployer: Copperfen Foods Co\nAnnual income: $195,300.00\nMonthly debt payments: $625.00",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nLOAN DETAILS\nLoan amount: $145,000.00\nProperty value: $173,000.00\nRemarks: none"
+      ]
+    },
+    {
+      "doc_type": "paystub",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nEARNINGS STATEMENT (FICTIONAL)\nEmployee: Reese Dummond\nEmployer: Copperfen Foods Co\nPay date: 2026-07-10\nPay frequency: Semi-monthly\nGross pay this period: $8,137.50\nYear-to-date gross: $105,787.50\nPay periods year-to-date: 13"
+      ]
+    },
+    {
+      "doc_type": "bank_statement",
+      "pages": [
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nSTATEMENT OF ACCOUNT - Lantern Ridge Savings (fictional)\nAccount holder: Reese Dummond\nStatement period: 2026-07\nOpening balance: $37,703.64",
+        "SYNTHETIC DOCUMENT - FICTIONAL APPLICANT - NOT A REAL PERSON OR LOAN\nTRANSACTIONS\n2026-07-01  Payroll Copperfen Foods Co               +6,021.75\n2026-07-03  Rent                                     -2,920.21\n2026-07-09  Utilities                                -83.35\n2026-07-15  Payroll Copperfen Foods Co               +6,021.75\n2026-07-18  Card payment                             -750.51\n2026-07-24  Groceries                                -218.30\nTotal deposits: $12,043.50\nTotal withdrawals: $3,972.37\nClosing balance: $45,774.77"
+      ]
+    }
+  ],
+  "packet_ref": "SYN-DOC-0025"
+}
