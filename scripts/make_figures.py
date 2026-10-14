@@ -125,4 +125,9 @@ if __name__ == "__main__":
         level(t, mode)
         bands(t, mode)
         expected_loss(t, mode)
+    # Text stays as text; name a font stack browsers have (matplotlib writes only the font it measured with).
+    stack = "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    for f in OUT.glob("*.svg"):
+        f.write_text(f.read_text(encoding="utf-8").replace("font-family: 'DejaVu Sans'", f"font-family: {stack}"),
+                     encoding="utf-8", newline="\n")
     print(sorted(p.name for p in OUT.glob("*.svg")))
