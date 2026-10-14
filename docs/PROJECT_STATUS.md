@@ -27,7 +27,7 @@ _Last updated: 2026-10-13 (session 1, continued; Phases G/H v1)._
 | Docker Compose demo (synthetic) | **implemented** (see README) |
 | LGD/EAD + expected loss with scenarios (Phase J v1, pre-registered) | **done**: [results/lgd_el_v1.md](results/lgd_el_v1.md) |
 | Document intelligence (G) and analyst copilot (H) v1, mocked LLM (pre-registered) | **done**: [results/document_ai_copilot_v1.md](results/document_ai_copilot_v1.md). Guarantees met on held-out; unseen-layout extraction and mock answer quality failed (recorded) |
-| Real-LLM evaluation of G/H (Anthropic backend built and tested with a fake SDK; no live call yet) | **awaiting** an API key and cost approval |
+| Real-LLM evaluation of G/H (claude-sonnet-5-5, addendum A) | **done**: all held-out criteria met (copilot accuracy 0.73; unseen-layout extraction 24/24); cost ≈ $0.94 |
 | Identity provider, TLS, model refresh on recent vintages | **proposed** |
 
 ## This session's commands (all succeeded unless noted)

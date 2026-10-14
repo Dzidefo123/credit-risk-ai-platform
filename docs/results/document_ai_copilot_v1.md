@@ -129,3 +129,60 @@ no abstention, screen or tools). Both use the same role-filtered BM25 index.
 2. **v2 document set** with new layouts and a fresh held-out split, if the grounded LLM extractor is to be evaluated
    on unseen layouts.
 3. Clearer "scenario" vs "applied" labelling in result documents (N08).
+
+## Addendum A results: real LLM (`claude-sonnet-5-5`, effort medium), 2026-10-14
+
+Pre-registered in plan Addendum A (commit `8013ce2`) before any call. Run sequence: dev, then held-out once per
+system (audited). No prompt, threshold or verifier changes were made between dev and held-out. The corpus included
+the post-D-039 edits to runbooks and the security document.
+
+| Metric | Criterion | C1-LLM dev | **C1-LLM held-out** | C1-mock held-out | B0 held-out |
+|---|---|---|---|---|---|
+| Permission enforcement | 100% | 100% | **100%** | 100% | 100% |
+| Injection resistance | 100% | 100% | **100%** | 100% | 100% |
+| Citation validity | 100% | 100% | **100%** | 100% | 100% |
+| Unsupported-claim rate | 0% | 0% | **0%** | 0% | 0% |
+| Retrieval hit@5 | ≥ 0.80 | 1.00 | **1.00** | 1.00 | 1.00 |
+| Answer accuracy | ≥ 0.70 | 0.80 | **0.73 — pass** | 0.27 | 0.45 |
+| Abstention recall | ≥ 0.60 | 1.00 | **1.00** | 1.00 | 0.20 |
+| False-abstention rate | ≤ 0.25 | 0.20 | **0.18 — pass** | 0.45 | 0.00 |
+| Accuracy vs B0 | ≥ B0 − 0.10 | — | **+0.27 — pass** | −0.18 | — |
+
+| Documents (D1-LLM, grounded extractor) | Criterion | Dev | **Held-out** | Rule extractor held-out |
+|---|---|---|---|---|
+| Field precision | ≥ 0.98 | 1.00 | **1.00** | 1.00 |
+| Field recall, seen layouts | ≥ 0.95 | 1.00 | **1.00** | 1.00 |
+| Field recall, unseen prose layout | reported | — | **1.00 (24/24)** | 0.00 |
+| Reference correctness | 100% | 100% | **100%** | 100% |
+| Defect recall (injection / missing / arithmetic / cross-document) | 100 / 100 / ≥ 0.95 / ≥ 0.95 | all 1.00 | **all 1.00** | cross-document 0.60 |
+| False-flag rate, defect-free packets | ≤ 0.10 | 0.00 | **0.00** | 0.33 |
+| Unvalidated packets through the gate | 0 | 0 | **0** | 0 |
+
+**All pre-registered criteria are met on held-out by the real-LLM systems.** The grounded LLM extractor read the
+unseen prose layout correctly (24/24 fields, each with a verbatim quote on the cited page), which removes both
+rule-extractor failures.
+
+**Remaining copilot misses (3 of 11), all visible and checkable:**
+- **A09 and N10 were withdrawn by the verifier.**
+  - In N10 the model added "95% CI" to its answer, which its quotes did not contain.
+  - In A09 its wording was too loosely supported.
+  - On dev, all three misses were the verifier rejecting numbers the model had *repeated from the question* (e.g.
+    "2023–25").
+  - Planned v2 change: allow numbers that appear in the question, then re-evaluate on new questions.
+- **N08** quoted the scenario figures (0.28% vs 2.59%) instead of the applied ones (0.24% vs 2.85%), exactly as the
+  mock and B0 did. This confirms a document-labelling problem rather than a model one.
+
+**Cost and usage:**
+
+| Run | Calls | Input tokens | Output tokens | Cost |
+|---|---|---|---|---|
+| Copilot dev | 21 | 30,558 | 2,906 | $0.09 |
+| Documents dev | 84 | 142,551 | 25,863 | $0.54 |
+| Copilot held-out | 15 | 22,368 | 2,418 | $0.07 |
+| Documents held-out | 36 | 60,563 | 11,757 | $0.24 |
+| **Total** | | | | **≈ $0.94** |
+
+Questions refused, denied or abstained by the guards never reach the model.
+
+**Scope:** one model at one effort level, on a small author-written question set and 12 held-out fictional packets.
+This shows the pipeline works with a real LLM under these controls; it is not a general benchmark.

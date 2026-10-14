@@ -33,7 +33,7 @@ This is a design baseline for a local research prototype. It is **not** a compli
 | Document intake accepts `data_origin: SYNTHETIC` only (real documents contain personal data this prototype cannot protect) | implemented, tested |
 | Untrusted-content screen; documents and questions are data, never instructions | implemented, tested |
 | Copilot: role filtering before retrieval, read-only tools with API permissions, citation/number verification, audit (question hash only) | implemented, tested |
-| LLM provider: mock by default; Anthropic backend sends question + permitted passages (or document text) to the provider; key from environment only | implemented; not yet run live |
+| LLM provider: mock by default; Anthropic backend sends question + permitted passages (or document text) to the provider; key from environment only | implemented; evaluated live on SYNTHETIC documents and project docs only (D-040) |
 | Threat model | to be written in Phase F/D |
 
 ## Retention (proposed)

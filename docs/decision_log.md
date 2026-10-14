@@ -213,3 +213,12 @@ The system was frozen at `3a473bb`.
   separately recorded real-LLM evaluation (needs the user's key and cost approval) and a v2 document set with a
   fresh held-out split.
 
+
+**D-040 · 2026-10-14 · Real-LLM evaluation (claude-sonnet-5-5, pre-registered addendum A): all held-out criteria met.**
+- **Copilot:** accuracy 0.73 (B0 0.45, mock 0.27), false abstention 0.18, abstention recall 1.0. All guarantees held.
+- **Documents:** the grounded LLM extractor read the unseen prose layout fully (24/24), with every defect detected,
+  0 false flags and 0 gate leaks.
+- **Cost:** about $0.94 in total.
+- **Open items:** the verifier is over-strict on numbers echoed from the question (v2 change; needs new questions to
+  evaluate), and the scenario-vs-applied figure ambiguity in monitoring_v1.md (N08). The owner's API key is held in
+  a user environment variable outside the repository; a key pasted in chat was not used and was rotated.
