@@ -187,3 +187,9 @@ Monitoring after the refresh: score drift fell from a high alert in all 21 month
 on the 2023–25 holdout: approve 76.6%, refer 19.0%, decline 4.4% (was 36.5/47.4/16.1). Default rate approved 0.24% vs
 declined 2.85%. Input-drift alerts remain, because they are measured against the 2017–19 training population and the
 drift is real (finding F-005). The previous cut-offs are kept in `decile_history`.
+
+**D-037 · 2026-10-13 · Phase J v1: severity model S2 selected and tested once; EL = PD overlay × P(liquidation) × severity × EAD.**
+The Release 47 loss sign convention was verified empirically. P(liquidation | 90+) = 0.294 and the EAD ratio = 0.95
+(2015 vintage). S2 fractional logit was selected by the pre-registered rule (−11% validation MAE). Locked test:
+MAE 0.176 vs 0.224 baseline, Spearman 0.36. EL is illustrative 12-month only (base 1.4 bps; severe 10.5 bps), using a
+decile-rate PD overlay because the champion is approved for ranking only.

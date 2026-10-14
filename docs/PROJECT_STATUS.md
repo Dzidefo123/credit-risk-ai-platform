@@ -25,7 +25,8 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | Policy engine + historical simulation | **done**: [results/policy_simulation_v1.md](results/policy_simulation_v1.md) |
 | Portfolio monitoring + runbooks + governed decile refresh | **done**: [results/monitoring_v1.md](results/monitoring_v1.md), [runbooks.md](runbooks.md) |
 | Docker Compose demo (synthetic) | **implemented** (see README) |
-| Identity provider, TLS, document intelligence (G), copilot (H), LGD/EAD (J) | **proposed** |
+| LGD/EAD + expected loss with scenarios (Phase J v1, pre-registered) | **done**: [results/lgd_el_v1.md](results/lgd_el_v1.md) |
+| Identity provider, TLS, document intelligence (G), copilot (H), model refresh on recent vintages | **proposed** |
 
 ## This session's commands (all succeeded unless noted)
 

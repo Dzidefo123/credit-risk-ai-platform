@@ -9,7 +9,9 @@ the Freddie Mac Single-Family Loan-Level Dataset (SFLLD). It includes auditable,
 > [v2/challenger comparison](docs/results/model_comparison_v2.md), and the
 > [fresh 2023–24 holdout](docs/results/holdout_2023_2024.md) (AUC 0.81–0.82; absolute PD not stable over time), and a
 > pre-registered [recalibration backtest](docs/results/recalibration_v3.md) and
-> [through-the-cycle study](docs/results/ttc_level_v4.md) (both negative: the PD level is shock-driven; use the model for ranking).
+> [through-the-cycle study](docs/results/ttc_level_v4.md) (both negative: the PD level is shock-driven; use the model for ranking),
+> plus [fairness review](docs/results/fairness_review_v1.md), [policy simulation](docs/results/policy_simulation_v1.md),
+> [monitoring](docs/results/monitoring_v1.md) and [LGD/expected loss](docs/results/lgd_el_v1.md).
 > Research prototype only: not production-ready, not a regulatory model, not a validated credit decision system.
 
 ## Evidence classes

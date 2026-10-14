@@ -281,6 +281,36 @@ def cmd_refresh_deciles(cfg, a) -> dict:
                            a.reviewer, a.rationale, AuditStore(cfg.audit_db))
 
 
+def cmd_lgd_develop(cfg, a) -> dict:
+    from crisk.lgd.workflow import develop
+
+    m = develop(cfg, AuditStore(cfg.audit_db))
+    return {k: m[k] for k in ("lgd_id", "selected", "selection_trail", "p_liquidation_given_default",
+                              "ead_ratio_mean")}
+
+
+def cmd_lgd_test(cfg, a) -> dict:
+    from crisk.lgd.workflow import test_once
+
+    if not a.model_id or not a.eval_dataset:
+        raise SystemExit("--model-id <lgd_id> and --eval-dataset <test dataset> are required")
+    r = test_once(cfg, load_dataset_config(a.eval_dataset), a.model_id, AuditStore(cfg.audit_db))
+    return {"prior_evaluations": r["prior_evaluations"], "selected": r["selected"], "baseline_S0": r["baseline_S0"]}
+
+
+def cmd_el_run(cfg, a) -> dict:
+    from crisk.lgd.el import run_el
+
+    if not (a.model_id and a.eval_dataset and a.holdout_dataset and a.fpd_from and a.fpd_to):
+        raise SystemExit("el-run needs --model-id <lgd_id> --holdout-dataset <dataset holding the LGD artefact> "
+                         "--eval-dataset <book dataset> --fpd-from --fpd-to")
+    r = run_el(cfg, load_dataset_config(a.eval_dataset), load_dataset_config(a.holdout_dataset), a.model_id,
+               (a.fpd_from, a.fpd_to), (a.fpd_from, a.fpd_to))
+    return {"label": r["label"], "portfolio": r["portfolio"],
+            "scenarios": {k: {x: v[x] for x in ("expected_loss_usd", "el_rate_bps", "mean_pd", "mean_severity",
+                                               "exposure_usd")} for k, v in r["scenarios"].items()}}
+
+
 def cmd_verify_audit(cfg, a) -> dict:
     ok, msg = AuditStore(cfg.audit_db).verify_chain()
     return {"chain_ok": ok, "detail": msg}
@@ -338,6 +368,9 @@ COMMANDS = {
     "score-batch": cmd_score_batch,
     "replay": cmd_replay,
     "verify-audit": cmd_verify_audit,
+    "lgd-develop": cmd_lgd_develop,
+    "lgd-test": cmd_lgd_test,
+    "el-run": cmd_el_run,
     "monitor": cmd_monitor,
     "refresh-deciles": cmd_refresh_deciles,
     "policy-simulate": cmd_policy_simulate,

@@ -352,10 +352,16 @@ def _random_lines(n: int, seed: int, cutoff: str, fpd_start: str, fpd_end: str) 
                 ov.update(zero_balance_code=term_code, zero_balance_effective_date=_ymd(period),
                           zero_balance_removal_upb=f"{bal:.2f}")
                 if term_code in ("03", "09"):
-                    proceeds = round(bal * 0.72, 2)
-                    ov.update(net_sale_proceeds=f"{proceeds:.2f}", total_expenses=f"{bal * 0.08:.2f}",
-                              mi_recoveries="0", non_mi_recoveries="0",
-                              actual_loss=f"{bal - proceeds + bal * 0.08:.2f}")
+                    # recovery rate varies deterministically by loan (no extra random draws)
+                    proceeds = round(bal * (0.55 + 0.30 * ((i % 7) / 6)), 2)
+                    expenses = round(bal * 0.08, 2)
+                    if _LAYOUT["version"] == CONTRACT_VERSION_R47:  # recoveries disclosed as negatives
+                        nsp, loss = -proceeds, bal + expenses - proceeds
+                    else:
+                        nsp, loss = proceeds, bal - proceeds + expenses
+                    ov.update(net_sale_proceeds=f"{nsp:.2f}", total_expenses=f"{expenses:.2f}",
+                              mi_recoveries="0", non_mi_recoveries="0", delinquent_accrued_interest="0",
+                              actual_loss=f"{loss:.2f}")
                 perf.append(perf_line(loan_id, fpd, m, upb=0.0, status=status, rate=f"{rate:.3f}", term=term, **ov))
             else:
                 perf.append(perf_line(loan_id, fpd, m, upb=bal, status=status, rate=f"{rate:.3f}", term=term, **ov))
