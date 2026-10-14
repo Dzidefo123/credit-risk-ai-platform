@@ -11,8 +11,8 @@ blocked) · **blocked** · **next** · **proposed**.
 | D | Independent validation and release gates | proposed | Separate validation runner · pre-registered release criteria · perturbation and edge tests · offline/service parity on empirical data · findings register · promotion/rollback procedure (mechanics ✅) |
 | E | Credit policy and economics | proposed | Versioned policy engine with reason codes · deterministic boundary tests · scenario assumptions (LGD/EAD as explicit scenarios) · sensitivity · analyst-readable comparison |
 | F | Scoring, workflow, auditability | **partial**: batch/online scoring, idempotency, replay, append-only audit, health/ready done | Authentication · timeouts and retries for dependencies · load test vs declared targets · analyst UI · override/review events · Docker Compose one-command demo |
-| G | Document intelligence | proposed | Fictional document set with answer keys · extraction benchmark · injection tests · correction workflow |
-| H | Analyst copilot | proposed | Retrieval over versioned policies and model docs · read-only tools · citation/abstention eval vs a plain retrieval baseline |
+| G | Document intelligence | **done (v1, SYNTHETIC, mocked LLM)**: seen layouts met all criteria; unseen layout failed safely ([results](results/document_ai_copilot_v1.md)) | Fictional document set with answer keys · extraction benchmark · injection tests · correction workflow |
+| H | Analyst copilot | **done (v1, mocked LLM)**: all guarantees met; mock answer quality failed on held-out ([results](results/document_ai_copilot_v1.md)) | Retrieval over versioned policies and model docs · read-only tools · citation/abstention eval vs a plain retrieval baseline |
 | I | Monitoring and controlled updates | proposed | Drift (PSI) with justified bins · delayed-outcome joins · alerts and runbooks · candidate-to-promotion walkthrough |
 | J | LGD/EAD, early warning, scenarios | proposed | Separate targets and specs; build only after the PD system is validated |
 

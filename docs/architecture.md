@@ -60,7 +60,13 @@ flowchart LR
 | `crisk.ui` | Analyst interface (Streamlit) and its stdlib API client | F |
 | `crisk.validation` | Independent validation runner, release criteria, findings | D |
 | `crisk.publish` | Publication gate for aggregate results | — |
-| *(planned)* `crisk.policies`, `crisk.monitoring`, `crisk.documents`, `crisk.copilot` | | E, I, G, H |
+| `crisk.policies` | Versioned policy engine (whitelisted expressions) and historical simulation | E |
+| `crisk.monitoring` | Score/feature PSI, matured outcomes, de-duplicated alerts, decile refresh | I |
+| `crisk.lgd` | Liquidation data, severity models, EAD, expected loss with scenarios | J |
+| `crisk.llm` | Provider-neutral LLM adapter: `MockLLM` (default), optional Anthropic backend | G/H |
+| `crisk.docai` | Fictional document generator, extraction with references, validation, review workflow, feature gate | G |
+| `crisk.copilot` | Versioned corpus, role-filtered BM25, read-only tools, verifier, evaluation vs plain retrieval | H |
+| `crisk.security.untrusted` | Screen for instruction-like text in documents and questions | G/H |
 
 ## Data locations (all git-excluded)
 

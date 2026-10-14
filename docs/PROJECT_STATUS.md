@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-10-13 (session 1, continued)._
+_Last updated: 2026-10-13 (session 1, continued; Phases G/H v1)._
 
 ## Summary
 
@@ -26,7 +26,9 @@ _Last updated: 2026-10-13 (session 1, continued)._
 | Portfolio monitoring + runbooks + governed decile refresh | **done**: [results/monitoring_v1.md](results/monitoring_v1.md), [runbooks.md](runbooks.md) |
 | Docker Compose demo (synthetic) | **implemented** (see README) |
 | LGD/EAD + expected loss with scenarios (Phase J v1, pre-registered) | **done**: [results/lgd_el_v1.md](results/lgd_el_v1.md) |
-| Identity provider, TLS, document intelligence (G), copilot (H), model refresh on recent vintages | **proposed** |
+| Document intelligence (G) and analyst copilot (H) v1, mocked LLM (pre-registered) | **done**: [results/document_ai_copilot_v1.md](results/document_ai_copilot_v1.md). Guarantees met on held-out; unseen-layout extraction and mock answer quality failed (recorded) |
+| Real-LLM evaluation of G/H (Anthropic backend built and tested with a fake SDK; no live call yet) | **awaiting** an API key and cost approval |
+| Identity provider, TLS, model refresh on recent vintages | **proposed** |
 
 ## This session's commands (all succeeded unless noted)
 

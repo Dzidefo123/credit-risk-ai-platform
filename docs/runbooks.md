@@ -32,8 +32,20 @@ policy needs a named reviewer, and is audited.
    models) and review the level overlay.
 3. Any retraining produces a **candidate**. It needs a validation report and a named reviewer before promotion.
 
-## RB-05 Suspicious document inputs (Phase G, not yet built)
-Placeholder: documents are untrusted content. Quarantine them, and never let an unvalidated extraction become a feature.
+## RB-05 Suspicious document inputs (packet status `quarantined`, flag `injection`)
+1. Documents are untrusted content. The extractor never acts on text inside them; the flag shows the matched line.
+2. Open the packet (UI Documents page or `GET /v1/documents/{id}?include_documents=true`). Check every extracted
+   value against the page it cites, and that no value came from the instruction text.
+3. If the values are genuine, `accept` with a rationale (the exception stays listed). If the packet looks
+   manipulated, `reject` it and escalate to fraud review. Either action is audited.
+4. Unvalidated packets never reach scoring: the feature gate refuses them and PD request schemas forbid document
+   fields.
 
-## RB-06 AI copilot citation failure (Phase H, not yet built)
-Placeholder: withdraw the answer, log the failing question in the evaluation set, and fall back to plain retrieval.
+## RB-06 AI copilot answer withdrawn or provider failure
+1. The verifier withdraws any answer with an unknown citation, a non-verbatim quote, a number missing from its quotes
+   or weak support. The user sees an abstention, and the audit chain records `copilot_answer_withdrawn` with the
+   reason.
+2. If the LLM provider is unavailable or refuses, the copilot returns the top permitted passage, labelled
+   `fallback: plain_retrieval`.
+3. Recurring withdrawals or wrong answers: add the question (with expected sources) to the next question-set version.
+   Never edit a version that has already been evaluated.

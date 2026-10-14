@@ -30,6 +30,19 @@ Raw pipe files are processed as follows: contract validation → quarantine → 
 logistic baseline + Platt calibration → audited test evaluation → audited promotion → batch/online scoring
 → replay from score ID. Every step writes to an append-only, hash-chained audit store.
 
+**Documents and copilot (Phases G/H, mocked LLM first).** Fictional underwriting packets (SYNTHETIC) are extracted
+with page and quote references, then checked for arithmetic, cross-document and completeness problems and for
+embedded instructions. They go through a human correction workflow, and only validated packets pass a feature gate.
+The analyst copilot answers from approved, versioned project documents and read-only tools. It filters by role
+before retrieval, cites verbatim quotes, verifies numbers, refuses injection and abstains without evidence. The LLM
+is provider-neutral: a deterministic mock by default, with an optional Claude backend (`uv sync --group llm`, key in
+the environment). Results, including the failures: [docs/results/document_ai_copilot_v1.md](docs/results/document_ai_copilot_v1.md).
+
+```
+uv run crisk copilot-ask --dataset freddie_mac_combined --role analyst --question "What is the base scenario 12-month expected loss rate?"
+uv run crisk docai-eval --dataset synthetic_fixture --split dev
+```
+
 ## One-command demo (Docker, SYNTHETIC data, no credentials)
 
 ```bash
@@ -102,6 +115,7 @@ Roles: `analyst` (score, read, review), `auditor` (read, replay), `validator` (r
 - [Assumptions register and open questions](docs/assumptions_register.md) · [Decision log](docs/decision_log.md)
 - [Freddie Mac acquisition steps](docs/data_acquisition_freddie_mac.md) · [Source manifest](configs/sources/source_manifest.yaml)
 - [Data handling and security](docs/data_handling_and_security.md)
+- [Document AI and copilot plan](docs/document_ai_copilot_plan_v1.md) · [results](docs/results/document_ai_copilot_v1.md)
 
 ## Data terms
 

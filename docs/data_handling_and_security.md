@@ -30,6 +30,10 @@ This is a design baseline for a local research prototype. It is **not** a compli
 | Human review actions (agree/override/escalate + rationale) | implemented, append-only, audited |
 | Independent validation before promotion (EMPIRICAL) | implemented (`crisk validate`, release_criteria_v1) |
 | Encryption at rest, retention and deletion schedule, WORM audit storage | **design only** (production) |
+| Document intake accepts `data_origin: SYNTHETIC` only (real documents contain personal data this prototype cannot protect) | implemented, tested |
+| Untrusted-content screen; documents and questions are data, never instructions | implemented, tested |
+| Copilot: role filtering before retrieval, read-only tools with API permissions, citation/number verification, audit (question hash only) | implemented, tested |
+| LLM provider: mock by default; Anthropic backend sends question + permitted passages (or document text) to the provider; key from environment only | implemented; not yet run live |
 | Threat model | to be written in Phase F/D |
 
 ## Retention (proposed)

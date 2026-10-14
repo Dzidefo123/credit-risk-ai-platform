@@ -200,3 +200,16 @@ Plan [document_ai_copilot_plan_v1.md](document_ai_copilot_plan_v1.md), corpus ac
 held-out 20) were committed before the generator, extractor, retrieval index or copilot existed. Documents are fictional
 (SYNTHETIC). The default LLM is a deterministic mock, so results measure the pipeline, not LLM quality. Access filtering
 happens before retrieval; the copilot has read-only tools and no write path; unvalidated extractions cannot reach scoring.
+
+**D-039 · 2026-10-13 · Phases G/H v1 evaluated once on held-out (mocked LLM); failures recorded, not re-tuned.**
+The system was frozen at `3a473bb`.
+- **Documents:** precision 1.0 and seen-layout recall 1.0; every defect type was detected on seen layouts. The unseen
+  prose layout yielded no fields (recall 0/24), so cross-document recall (0.60) and the clean-packet false-flag rate
+  (0.33) failed. The failure is safe: all four such packets went to review, none was validated, and 0 passed the gate.
+- **Copilot:** every guarantee held (permissions, injection, verbatim citations, 0 unsupported claims), and hit@5 and
+  abstention recall were 1.0. The extractive mock answerer failed accuracy (0.27 vs dev 0.80), false abstention (0.45)
+  and the B0 comparison (−0.18).
+- **Conclusion:** the pipeline's controls generalise, but the mock's dev-tuned threshold does not. The next step is a
+  separately recorded real-LLM evaluation (needs the user's key and cost approval) and a v2 document set with a
+  fresh held-out split.
+
