@@ -34,6 +34,10 @@ ui = [
 llm = [
     "anthropic>=1.13",
 ]
+# Portfolio figures (scripts/make_figures.py) from aggregate results.
+docs = [
+    "matplotlib>=3.8",
+]
 
 [build-system]
 requires = ["hatchling>=1.24"]

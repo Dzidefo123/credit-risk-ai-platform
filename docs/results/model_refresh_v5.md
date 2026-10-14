@@ -44,7 +44,7 @@ narrower event (it was trained on the broader primary target).
 | 6–7% | 23,483 | 129 | 0.67 | 0.94 |
 | > 7% | 9,788 | 76 | **0.51** | **0.95** |
 
-The refit removes most of the credit-score gradient distortion (F-007) and the high-rate under-prediction (F-005)
+The refit removes most of the credit-score gradient distortion (F-007) and the high-rate over-prediction (F-005; O/E 0.51 means predicted PDs were about twice the observed rate)
 on these loans. Some residual remains: the extremes (≤ 660 and > 780, with 12 defaults) are still off.
 
 ## Why this is not yet evidence for promotion

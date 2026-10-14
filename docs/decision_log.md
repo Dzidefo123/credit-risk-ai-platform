@@ -235,6 +235,6 @@ See [evaluation_plan_v5.md](evaluation_plan_v5.md).
 **D-042 · 2026-10-14 · v5 selection: C2 (logistic, PMMS rate spread, no state, refit on full-volume 2022) selected by the pre-registered rule.**
 - **Selection set** (sample 2023, an already-examined period): AUC 0.815 vs C0 0.803 (ΔAUC CI includes 0);
   observed/expected 0.98 vs C0 0.66.
-- **Bands:** the credit-score O/E distortion (F-007) and the high-rate under-prediction (F-005) are mostly removed.
+- **Bands:** the credit-score O/E distortion (F-007) and the high-rate over-prediction (F-005) are mostly removed. (Wording corrected 2026-10-14: an earlier version said "under-prediction"; O/E below 1 means over-prediction.)
 - **Status:** not promotable until the confirmatory test on the Release 48 2025 vintage (once). The current
   champion is unchanged.
